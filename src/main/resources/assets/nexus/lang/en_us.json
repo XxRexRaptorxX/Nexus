@@ -1,0 +1,13 @@
+{
+    "itemGroup.nexus_tab": "Nexus",
+
+    "message.nexus.nexus.desc": "Can be used for team based tower defense games. That team whose nexus is destroyed loses!",
+    "message.nexus.nexus_level_1.desc": "Nexus to 30% destroyed!",
+    "message.nexus.nexus_level_2.desc": "Nexus to 60% destroyed!",
+    "message.nexus.nexus_level_3.desc": "Nexus is destroyed!",
+
+    "block.nexus.nexus_red": "§cNexus",
+    "block.nexus.nexus_blue": "§9Nexus",
+    "block.nexus.nexus_green": "§aNexus",
+    "block.nexus.nexus_yellow": "§eNexus"
+}

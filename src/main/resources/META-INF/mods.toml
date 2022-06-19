@@ -1,0 +1,32 @@
+modLoader="javafml"
+loaderVersion="[41,)"
+license="All rights reserved"
+issueTrackerURL="https://www.curseforge.com/minecraft/mc-mods/nexus/issues"
+
+[[mods]]
+modId="ageofweapons"
+version="0.3.3"
+displayName="Nexus"
+itemIcon="nexus:nexus_red"
+updateJSONURL="https://raw.githubusercontent.com/XxRexRaptorxX/Update-Checker/main/nexus.json"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/nexus"
+logoFile="logo.png"
+#credits=""
+authors="XxRexRaptorxX (RexRaptor)"
+description='''
+This mod adds a "Nexus" block which allows you to play a team based tower defense game mode!
+ '''
+
+[[dependencies.nexus]]
+    modId="forge"
+    mandatory=true
+    versionRange="[41,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.nexus]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.19,1.20)"
+    ordering="NONE"
+    side="BOTH"
