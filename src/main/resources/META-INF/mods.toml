@@ -4,11 +4,11 @@ license="All rights reserved"
 issueTrackerURL="https://www.curseforge.com/minecraft/mc-mods/nexus/issues"
 
 [[mods]]
-modId="ageofweapons"
+modId="nexus"
 version="0.3.3"
 displayName="Nexus"
 itemIcon="nexus:nexus_red"
-updateJSONURL="https://raw.githubusercontent.com/XxRexRaptorxX/Update-Checker/main/nexus.json"
+updateJSONURL="https://raw.githubusercontent.com/XxRexRaptorxX/Update-Checker/main/Nexus.json"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/nexus"
 logoFile="logo.png"
 #credits=""
