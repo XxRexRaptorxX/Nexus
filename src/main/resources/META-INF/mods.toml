@@ -5,7 +5,7 @@ issueTrackerURL="https://www.curseforge.com/minecraft/mc-mods/nexus/issues"
 
 [[mods]]
 modId="nexus"
-version="0.3.3"
+version="1.0.0"
 displayName="Nexus"
 itemIcon="nexus:nexus_red"
 updateJSONURL="https://raw.githubusercontent.com/XxRexRaptorxX/Update-Checker/main/Nexus.json"
