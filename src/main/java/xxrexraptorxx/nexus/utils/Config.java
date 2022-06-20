@@ -1,9 +1,15 @@
 package xxrexraptorxx.nexus.utils;
 
+import net.minecraft.world.item.Items;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Mod.EventBusSubscriber
 public class Config {
@@ -19,6 +25,7 @@ public class Config {
     public static ForgeConfigSpec.IntValue NEXUS_XP_AMOUNT;
     public static ForgeConfigSpec.IntValue NEXUS_XP_STAGE_AMOUNT;
     public static ForgeConfigSpec.IntValue NEXUS_HARDNESS;
+    public static ForgeConfigSpec.ConfigValue<List<String>> NEXUS_REWARDS;
 
 
     public static void init() {
@@ -49,6 +56,9 @@ public class Config {
         NEXUS_XP_AMOUNT = builder.comment("How many XP the Nexus drop").defineInRange("nexus_xp_amount", 500, 0, 1000);
         NEXUS_XP_STAGE_AMOUNT = builder.comment("How many XP the Nexus drop if it switches to another destruction level").defineInRange("nexus_xp_amount", 50, 0, 1000);
         NEXUS_HARDNESS = builder.comment("How hard the Nexus is").defineInRange("nexus_hardness", 100, 10, 1000);
+        NEXUS_REWARDS = builder.comment("A list with all the rewards that drop when a Nexus is destroyed [amount*modid:item]").define("nexus_rewards", new ArrayList<>(Arrays.asList(
+                "1*" + ForgeRegistries.ITEMS.getKey(Items.NETHER_STAR).toString()
+        )));
         builder.pop();
 
         SERVER_CONFIG = builder.build();

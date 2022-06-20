@@ -7,6 +7,7 @@ import net.minecraft.network.chat.ChatSender;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.PlayerChatMessage;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -35,6 +36,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 import xxrexraptorxx.nexus.utils.Config;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -71,6 +73,7 @@ public class Nexus extends Block {
 
 	@Override
 	public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
+		ArrayList<ItemStack> rewards = new ArrayList<>();
 		Random random = new Random();
 
 		if(!level.isClientSide && !player.isCreative()) {
@@ -92,8 +95,20 @@ public class Nexus extends Block {
 				level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 				level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENDER_DRAGON_DEATH, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 				popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_AMOUNT.get());
-				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_level_3.desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(19)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
+				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable(player.getDisplayName() + "message.nexus.nexus_level_3.desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(19)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
 
+				if (Config.NEXUS_REWARDS.get().size() > 0) {
+					for (String item : Config.NEXUS_REWARDS.get()) {
+						try {
+							rewards.add(new ItemStack(ForgeRegistries.ITEMS.getValue(
+									//                                          get the mod prefix              |        get the item registry name      |         get the item amount
+									new ResourceLocation(item.substring(item.indexOf('*') + 1, item.indexOf(':')), item.substring(item.indexOf(':') + 1))), Integer.parseInt(item.substring(0, item.indexOf('*')))));
+
+						} catch (Exception e) {
+							xxrexraptorxx.nexus.main.Nexus.LOGGER.error("Invalid item entry in the Nexus Mod 'nexus_rewards' config option!");
+						}
+					}
+				}
 			}
 		}
 		return false;
