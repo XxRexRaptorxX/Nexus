@@ -34,6 +34,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
+import xxrexraptorxx.nexus.main.Nexus;
 import xxrexraptorxx.nexus.utils.Config;
 
 import java.util.ArrayList;
@@ -41,13 +42,13 @@ import java.util.List;
 import java.util.Random;
 
 
-public class Nexus extends Block {
+public class NexusBlock extends Block {
 
 	public static final IntegerProperty DESTRUCTION_LEVEL = BlockStateProperties.LEVEL;
 	protected static final VoxelShape CUSTOM_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 32.0D, 16.0D);
 
 
-	public Nexus() {
+	public NexusBlock() {
 		super(Properties.of(Material.METAL)
 				.strength(Config.NEXUS_HARDNESS.get().floatValue(), 5000.0F)
 				.sound(SoundType.METAL)
@@ -105,7 +106,7 @@ public class Nexus extends Block {
 									new ResourceLocation(item.substring(item.indexOf('*') + 1, item.indexOf(':')), item.substring(item.indexOf(':') + 1))), Integer.parseInt(item.substring(0, item.indexOf('*')))));
 
 						} catch (Exception e) {
-							xxrexraptorxx.nexus.main.Nexus.LOGGER.error("Invalid item entry in the Nexus Mod 'nexus_rewards' config option!");
+							Nexus.LOGGER.error("Invalid item entry in the Nexus Mod 'nexus_rewards' config option!");
 						}
 					}
 				}

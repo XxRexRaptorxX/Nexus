@@ -7,7 +7,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import xxrexraptorxx.nexus.blocks.Nexus;
+import xxrexraptorxx.nexus.blocks.NexusBlock;
 import xxrexraptorxx.nexus.utils.CreativeTabs;
 
 public class ModBlocks {
@@ -22,16 +22,16 @@ public class ModBlocks {
     }
 
 
-    public static final RegistryObject<Nexus> NEXUS_RED = BLOCKS.register("nexus_red", Nexus::new);
+    public static final RegistryObject<NexusBlock> NEXUS_RED = BLOCKS.register("nexus_red", NexusBlock::new);
     public static final RegistryObject<Item> NEXUS_RED_BLOCKITEM = ITEMS.register("nexus_red", () -> new BlockItem(NEXUS_RED.get(), new Item.Properties().tab(CreativeTabs.BASE_TAB)));
 
-    public static final RegistryObject<Nexus> NEXUS_BLUE     = BLOCKS.register("nexus_blue", Nexus::new);
+    public static final RegistryObject<NexusBlock> NEXUS_BLUE     = BLOCKS.register("nexus_blue", NexusBlock::new);
     public static final RegistryObject<Item> NEXUS_BLUE_BLOCKITEM = ITEMS.register("nexus_blue", () -> new BlockItem(NEXUS_BLUE.get(), new Item.Properties().tab(CreativeTabs.BASE_TAB)));
 
-    public static final RegistryObject<Nexus> NEXUS_GREEN = BLOCKS.register("nexus_green", Nexus::new);
+    public static final RegistryObject<NexusBlock> NEXUS_GREEN = BLOCKS.register("nexus_green", NexusBlock::new);
     public static final RegistryObject<Item> NEXUS_GREEN_BLOCKITEM = ITEMS.register("nexus_green", () -> new BlockItem(NEXUS_GREEN.get(), new Item.Properties().tab(CreativeTabs.BASE_TAB)));
 
-    public static final RegistryObject<Nexus> NEXUS_YELLOW = BLOCKS.register("nexus_yellow", Nexus::new);
+    public static final RegistryObject<NexusBlock> NEXUS_YELLOW = BLOCKS.register("nexus_yellow", NexusBlock::new);
     public static final RegistryObject<Item> NEXUS_YELLOW_BLOCKITEM = ITEMS.register("nexus_yellow", () -> new BlockItem(NEXUS_YELLOW.get(), new Item.Properties().tab(CreativeTabs.BASE_TAB)));
 
 }
