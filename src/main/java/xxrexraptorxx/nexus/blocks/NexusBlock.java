@@ -50,7 +50,7 @@ public class NexusBlock extends Block {
 
 	public NexusBlock() {
 		super(Properties.of(Material.METAL)
-				.strength(Config.NEXUS_HARDNESS.get().floatValue(), 5000.0F)
+				.strength(100.0F, 5000.0F)
 				.sound(SoundType.METAL)
 				.color(MaterialColor.DIAMOND)
 				.lightLevel(value -> 10)

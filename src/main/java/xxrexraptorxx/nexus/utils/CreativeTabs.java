@@ -12,7 +12,6 @@ public class CreativeTabs {
         public ItemStack makeIcon() {
             return new ItemStack(ModBlocks.NEXUS_GREEN.get());
         }
-
     };
 
 }

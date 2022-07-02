@@ -63,5 +63,4 @@ public class Config {
 
         SERVER_CONFIG = builder.build();
     }
-
 }
