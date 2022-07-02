@@ -1,7 +1,7 @@
 modLoader="javafml"
 loaderVersion="[41,)"
 license="All rights reserved"
-issueTrackerURL="https://www.curseforge.com/minecraft/mc-mods/nexus/issues"
+issueTrackerURL="https://www.curseforge.com/minecraft/mc-mods/nexus-battle-mode/issues"
 
 [[mods]]
 modId="nexus"
@@ -9,7 +9,7 @@ version="1.0.0"
 displayName="Nexus"
 itemIcon="nexus:nexus_blue"
 updateJSONURL="https://raw.githubusercontent.com/XxRexRaptorxX/Update-Checker/main/Nexus.json"
-displayURL="https://www.curseforge.com/minecraft/mc-mods/nexus"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/nexus-battle-mode"
 logoFile="logo.png"
 #credits=""
 authors="XxRexRaptorxX (RexRaptor)"

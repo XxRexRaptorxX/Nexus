@@ -7,7 +7,7 @@ import xxrexraptorxx.nexus.utils.Config;
 
 /**
  * @author XxRexRaptorxX (RexRaptor)
- * @projectPage https://www.curseforge.com/minecraft/mc-mods/age-of-weapons
+ * @projectPage https://www.curseforge.com/minecraft/mc-mods/nexus-battle-mode
  **/
 @Mod(References.MODID)
 public class Nexus {
