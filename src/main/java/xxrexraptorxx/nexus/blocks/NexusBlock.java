@@ -1,6 +1,7 @@
 package xxrexraptorxx.nexus.blocks;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -68,11 +69,11 @@ public class NexusBlock extends Block {
 			list.add(Component.translatable("message.nexus.hold_shift.desc").withStyle(ChatFormatting.GREEN));
 		} else {
 			list.add(Component.translatable("message.nexus.gamemode_line_1.desc").withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.UNDERLINE));
-			list.add(Component.translatable("message.nexus.gamemode_line_2.desc").withStyle(ChatFormatting.GOLD));
-			list.add(Component.translatable("message.nexus.gamemode_line_3.desc").withStyle(ChatFormatting.GOLD));
-			list.add(Component.translatable("message.nexus.gamemode_line_4.desc").withStyle(ChatFormatting.GOLD));
-			list.add(Component.translatable("message.nexus.gamemode_line_5.desc").withStyle(ChatFormatting.GOLD));
-			list.add(Component.translatable("message.nexus.gamemode_line_6.desc").withStyle(ChatFormatting.GOLD));
+			list.add(Component.translatable("message.nexus.gamemode_line_2.desc").withStyle(ChatFormatting.GRAY));
+			list.add(Component.translatable("message.nexus.gamemode_line_3.desc").withStyle(ChatFormatting.GRAY));
+			list.add(Component.translatable("message.nexus.gamemode_line_4.desc").withStyle(ChatFormatting.GRAY));
+			list.add(Component.translatable("message.nexus.gamemode_line_5.desc").withStyle(ChatFormatting.GRAY));
+			list.add(Component.translatable("message.nexus.gamemode_line_6.desc").withStyle(ChatFormatting.GRAY));
 
 		}
 	}
