@@ -1,6 +1,7 @@
 package xxrexraptorxx.nexus.blocks;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.ChatSender;
@@ -62,7 +63,18 @@ public class NexusBlock extends Block {
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable BlockGetter level, List<Component> list, TooltipFlag flag) {
-		list.add(Component.translatable("message.nexus.nexus.desc").withStyle(ChatFormatting.GOLD));
+		if(!Screen.hasShiftDown()) {
+			list.add(Component.translatable("message.nexus.nexus.desc").withStyle(ChatFormatting.GOLD));
+			list.add(Component.translatable("message.nexus.hold_shift.desc").withStyle(ChatFormatting.GREEN));
+		} else {
+			list.add(Component.translatable("message.nexus.gamemode_line_1.desc").withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.UNDERLINE));
+			list.add(Component.translatable("message.nexus.gamemode_line_2.desc").withStyle(ChatFormatting.GOLD));
+			list.add(Component.translatable("message.nexus.gamemode_line_3.desc").withStyle(ChatFormatting.GOLD));
+			list.add(Component.translatable("message.nexus.gamemode_line_4.desc").withStyle(ChatFormatting.GOLD));
+			list.add(Component.translatable("message.nexus.gamemode_line_5.desc").withStyle(ChatFormatting.GOLD));
+			list.add(Component.translatable("message.nexus.gamemode_line_6.desc").withStyle(ChatFormatting.GOLD));
+
+		}
 	}
 
 

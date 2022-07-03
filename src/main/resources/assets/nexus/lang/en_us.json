@@ -2,6 +2,14 @@
     "itemGroup.nexus_tab": "Nexus",
 
     "message.nexus.nexus.desc": "Can be used for team based tower defense games. That team whose nexus is destroyed loses!",
+    "message.nexus.hold_shift.desc": "Hold [Shift] for more information.",
+    "message.nexus.gamemode_line_1.desc": "How to setup the gamemode:",
+    "message.nexus.gamemode_line_2.desc": "> Place one Nexus in each team base.",
+    "message.nexus.gamemode_line_3.desc": "> Create the teams: /team add <team> [displayName]",
+    "message.nexus.gamemode_line_4.desc": "> Assign a color to the team: /team modify <team> color [color]",
+    "message.nexus.gamemode_line_5.desc": "> Assign all players to the teams: /team join <team> [playerName]",
+    "message.nexus.gamemode_line_6.desc": "> Play! The goal of gamemode is to destroy the other teams's Nexus.",
+
     "message.nexus.nexus_level_1.desc": "Nexus to 30% destroyed!",
     "message.nexus.nexus_level_2.desc": "Nexus to 60% destroyed!",
     "message.nexus.nexus_level_3.desc": "Nexus is destroyed!",
