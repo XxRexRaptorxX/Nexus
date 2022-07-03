@@ -74,29 +74,28 @@ public class NexusBlock extends Block {
 
 	@Override
 	public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
-		ArrayList<ItemStack> rewards = new ArrayList<>();
 		Random random = new Random();
+		ArrayList<ItemStack> rewards = new ArrayList<>();
 
 		if(!level.isClientSide && !player.isCreative()) {
 			if (state.getValue(DESTRUCTION_LEVEL).equals(0)) {
 				level.setBlock(pos, this.defaultBlockState().setValue(DESTRUCTION_LEVEL, 1), 11);
 				level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_DESTROY, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 				popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_STAGE_AMOUNT.get());
-				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_level_1.desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(19)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
-
+				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.ageofweapons.nexus_level_1.desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(19)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
 
 			} else if (state.getValue(DESTRUCTION_LEVEL).equals(1)) {
 				level.setBlock(pos, this.defaultBlockState().setValue(DESTRUCTION_LEVEL, 2), 11);
 				level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_DESTROY, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 				popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_STAGE_AMOUNT.get());
-				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_level_2.desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(19)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
+				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.ageofweapons.nexus_level_2.desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(19)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
 
 			} else {
 				level.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);
 				level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 				level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENDER_DRAGON_DEATH, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 				popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_AMOUNT.get());
-				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable(player.getDisplayName() + "message.nexus.nexus_level_3.desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(19)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
+				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.ageofweapons.nexus_level_3.desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(19)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
 
 				if (Config.NEXUS_REWARDS.get().size() > 0) {
 					for (String item : Config.NEXUS_REWARDS.get()) {
@@ -106,7 +105,7 @@ public class NexusBlock extends Block {
 									new ResourceLocation(item.substring(item.indexOf('*') + 1, item.indexOf(':')), item.substring(item.indexOf(':') + 1))), Integer.parseInt(item.substring(0, item.indexOf('*')))));
 
 						} catch (Exception e) {
-							Nexus.LOGGER.error("Invalid item entry in the Nexus Mod 'nexus_rewards' config option!");
+							Nexus.LOGGER.error("Invalid item entry in the Age of Weapons Mod 'nexus_rewards' config option!");
 						}
 					}
 				}
