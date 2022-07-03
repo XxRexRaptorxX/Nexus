@@ -82,20 +82,20 @@ public class NexusBlock extends Block {
 				level.setBlock(pos, this.defaultBlockState().setValue(DESTRUCTION_LEVEL, 1), 11);
 				level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_DESTROY, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 				popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_STAGE_AMOUNT.get());
-				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.ageofweapons.nexus_level_1.desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(19)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
+				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_level_1.desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(12)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
 
 			} else if (state.getValue(DESTRUCTION_LEVEL).equals(1)) {
 				level.setBlock(pos, this.defaultBlockState().setValue(DESTRUCTION_LEVEL, 2), 11);
 				level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_DESTROY, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 				popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_STAGE_AMOUNT.get());
-				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.ageofweapons.nexus_level_2.desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(19)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
+				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_level_2.desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(12)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
 
 			} else {
 				level.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);
 				level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 				level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENDER_DRAGON_DEATH, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 				popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_AMOUNT.get());
-				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.ageofweapons.nexus_level_3.desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(19)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
+				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_level_3.desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(12)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
 
 				if (Config.NEXUS_REWARDS.get().size() > 0) {
 					for (String item : Config.NEXUS_REWARDS.get()) {
