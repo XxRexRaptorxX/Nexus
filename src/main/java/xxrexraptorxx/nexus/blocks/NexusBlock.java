@@ -123,6 +123,10 @@ public class NexusBlock extends Block {
 	}
 
 
+	/**
+	 * Blockstate change of the Nexus and other features.
+	 * @param positive = true means repairing & false means damaging
+	 */
 	private void nexusLevelChange(Boolean positive, Level level, BlockState state, BlockPos pos, Player player) {
 		Random random = new Random();
 
