@@ -1,7 +1,6 @@
 package xxrexraptorxx.nexus.blocks;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -47,6 +46,7 @@ import java.util.Random;
 public class NexusBlock extends Block {
 
 	public static final IntegerProperty DESTRUCTION_LEVEL = BlockStateProperties.LEVEL;
+	public static final Integer MAX_DESTRUCTION_LEVEL = 3; 		//one level higher destroys the block
 	protected static final VoxelShape CUSTOM_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 32.0D, 16.0D);
 
 
@@ -90,41 +90,59 @@ public class NexusBlock extends Block {
 		Random random = new Random();
 		ArrayList<ItemStack> rewards = new ArrayList<>();
 
-		if(!level.isClientSide && !player.isCreative()) {
-			if (state.getValue(DESTRUCTION_LEVEL).equals(0)) {
-				level.setBlock(pos, this.defaultBlockState().setValue(DESTRUCTION_LEVEL, 1), 11);
-				level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_DESTROY, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-				popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_STAGE_AMOUNT.get());
-				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_level_1.desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(12)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
+		if (!level.isClientSide) {
+			if (player.isCreative()) {
+				level.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);				//Ghost block fix for creative
 
-			} else if (state.getValue(DESTRUCTION_LEVEL).equals(1)) {
-				level.setBlock(pos, this.defaultBlockState().setValue(DESTRUCTION_LEVEL, 2), 11);
-				level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_DESTROY, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-				popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_STAGE_AMOUNT.get());
-				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_level_2.desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(12)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
+			} else { //Destruction level change
+				nexusLevelChange(false, level, state, pos, player);
 
-			} else {
-				level.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);
-				level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-				level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENDER_DRAGON_DEATH, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-				popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_AMOUNT.get());
-				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_level_3.desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(12)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
+				if (state.getValue(DESTRUCTION_LEVEL) == MAX_DESTRUCTION_LEVEL) {            //Nexus is finally destroyed
+					level.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);
+					level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+					level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENDER_DRAGON_DEATH, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+					popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_AMOUNT.get());
+					level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_destruction.desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(12)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
 
-				if (Config.NEXUS_REWARDS.get().size() > 0) {
-					for (String item : Config.NEXUS_REWARDS.get()) {
-						try {
-							rewards.add(new ItemStack(ForgeRegistries.ITEMS.getValue(
-									//                                          get the mod prefix              |        get the item registry name      |         get the item amount
-									new ResourceLocation(item.substring(item.indexOf('*') + 1, item.indexOf(':')), item.substring(item.indexOf(':') + 1))), Integer.parseInt(item.substring(0, item.indexOf('*')))));
+					if (Config.NEXUS_REWARDS.get().size() > 0) {            //Drops
+						for (String item : Config.NEXUS_REWARDS.get()) {
+							try {
+								rewards.add(new ItemStack(ForgeRegistries.ITEMS.getValue(
+										//                                          get the mod prefix              |        get the item registry name      |         get the item amount
+										new ResourceLocation(item.substring(item.indexOf('*') + 1, item.indexOf(':')), item.substring(item.indexOf(':') + 1))), Integer.parseInt(item.substring(0, item.indexOf('*')))));
 
-						} catch (Exception e) {
-							Nexus.LOGGER.error("Invalid item entry in the Age of Weapons Mod 'nexus_rewards' config option!");
+							} catch (Exception e) {
+								Nexus.LOGGER.error("Invalid item entry in the Age of Weapons Mod 'nexus_rewards' config option!");
+							}
 						}
 					}
 				}
 			}
 		}
 		return false;
+	}
+
+
+	private void nexusLevelChange(Boolean positive, Level level, BlockState state, BlockPos pos, Player player) {
+		Random random = new Random();
+
+		if(!positive) {			/** Damage Nexus **/
+			level.setBlock(pos, state.setValue(DESTRUCTION_LEVEL, state.getValue(DESTRUCTION_LEVEL) + 1), 11); //set blockstate to 1 level higher
+			level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_DESTROY, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+			popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_STAGE_AMOUNT.get());
+
+			if(state.getValue(DESTRUCTION_LEVEL) != MAX_DESTRUCTION_LEVEL) level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_level_" + (state.getValue(DESTRUCTION_LEVEL) + 1) + ".desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(12)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT); //if state is not max: send damage info text
+
+		} else {                /** Repair Nexus **/
+			if (!Config.NEXUS_REPAIRING.get() || state.getValue(DESTRUCTION_LEVEL) == 0) { //test if repairing is on or nexus is fully repaired
+				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.not_repair.desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(12)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
+
+			} else {
+				level.setBlock(pos, state.setValue(DESTRUCTION_LEVEL, state.getValue(DESTRUCTION_LEVEL) - 1), 11); //set blockstate to 1 level lower
+				level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_repair.desc").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(12)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
+			}
+		}
 	}
 
 
@@ -163,6 +181,20 @@ public class NexusBlock extends Block {
 				double d1 = (double)pos.getY() + random.nextDouble() * 0.5D + 0.5D;
 				double d2 = (double)pos.getZ() + random.nextDouble();
 				level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+			}
+			for(int i = 0; i < 3; ++i) {
+				double d0 = (double)pos.getX() + random.nextDouble();
+				double d1 = (double)pos.getY() + random.nextDouble() * 0.5D + 0.5D;
+				double d2 = (double)pos.getZ() + random.nextDouble();
+				level.addParticle(ParticleTypes.LARGE_SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+			}
+
+		} else if (state.getValue(DESTRUCTION_LEVEL).equals(3)) {
+			for(int i = 0; i < 3; ++i) {
+				double d0 = (double)pos.getX() + random.nextDouble();
+				double d1 = (double)pos.getY() + random.nextDouble() * 0.5D + 0.5D;
+				double d2 = (double)pos.getZ() + random.nextDouble();
+				level.addParticle(ParticleTypes.LARGE_SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
 			}
 			for(int i = 0; i < 3; ++i) {
 				double d0 = (double)pos.getX() + random.nextDouble();

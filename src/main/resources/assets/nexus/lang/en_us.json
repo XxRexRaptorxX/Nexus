@@ -9,10 +9,13 @@
     "message.nexus.gamemode_line_4.desc": "> Assign a color to the team: /team modify <team> color [color]",
     "message.nexus.gamemode_line_5.desc": "> Assign all players to the teams: /team join <team> [playerName]",
     "message.nexus.gamemode_line_6.desc": "> Play! The goal of gamemode is to destroy the other teams's Nexus.",
+    "message.nexus.nexus_repair.desc": "Nexus was repaired.",
+    "message.nexus.not_repair.desc": "Nexus cannot be repaired.",
 
-    "message.nexus.nexus_level_1.desc": "Nexus to 30% destroyed!",
-    "message.nexus.nexus_level_2.desc": "Nexus to 60% destroyed!",
-    "message.nexus.nexus_level_3.desc": "Nexus is destroyed!",
+    "message.nexus.nexus_level_1.desc": "Nexus to 25% destroyed!",
+    "message.nexus.nexus_level_2.desc": "Nexus to 50% destroyed!",
+    "message.nexus.nexus_level_3.desc": "Nexus to 75% destroyed!",
+    "message.nexus.nexus_destruction.desc": "Nexus is destroyed!",
 
     "block.nexus.nexus_red": "§cNexus",
     "block.nexus.nexus_blue": "§9Nexus",
