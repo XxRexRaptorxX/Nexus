@@ -4,6 +4,8 @@
     "nexus:nexus_blue",
     "nexus:nexus_red",
     "nexus:nexus_green",
-    "nexus:nexus_yellow"
+    "nexus:nexus_yellow",
+    "nexus:nexus_black",
+    "nexus:nexus_white"
   ]
 }

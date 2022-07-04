@@ -34,4 +34,10 @@ public class ModBlocks {
     public static final RegistryObject<NexusBlock> NEXUS_YELLOW = BLOCKS.register("nexus_yellow", NexusBlock::new);
     public static final RegistryObject<Item> NEXUS_YELLOW_BLOCKITEM = ITEMS.register("nexus_yellow", () -> new BlockItem(NEXUS_YELLOW.get(), new Item.Properties().tab(CreativeTabs.BASE_TAB)));
 
+    public static final RegistryObject<NexusBlock> NEXUS_WHITE = BLOCKS.register("nexus_white", NexusBlock::new);
+    public static final RegistryObject<Item> NEXUS_WHITE_BLOCKITEM = ITEMS.register("nexus_white", () -> new BlockItem(NEXUS_WHITE.get(), new Item.Properties().tab(CreativeTabs.BASE_TAB)));
+
+    public static final RegistryObject<NexusBlock> NEXUS_BLACK = BLOCKS.register("nexus_black", NexusBlock::new);
+    public static final RegistryObject<Item> NEXUS_BLACK_BLOCKITEM = ITEMS.register("nexus_black", () -> new BlockItem(NEXUS_BLACK.get(), new Item.Properties().tab(CreativeTabs.BASE_TAB)));
+
 }

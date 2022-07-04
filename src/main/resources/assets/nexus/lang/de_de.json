@@ -17,5 +17,7 @@
     "block.nexus.nexus_red": "§cNexus",
     "block.nexus.nexus_blue": "§9Nexus",
     "block.nexus.nexus_green": "§aNexus",
-    "block.nexus.nexus_yellow": "§eNexus"
+    "block.nexus.nexus_yellow": "§eNexus",
+    "block.nexus.nexus_white": "§fNexus",
+    "block.nexus.nexus_black": "§8Nexus"
 }
