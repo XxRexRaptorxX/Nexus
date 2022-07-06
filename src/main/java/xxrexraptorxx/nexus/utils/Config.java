@@ -54,7 +54,7 @@ public class Config {
 
         builder.comment("Nexus").push(CATEGORY_NEXUS);
         NEXUS_EFFECT_WHEN_RIGHT_CLICKED = builder.comment("Should the Nexus spawn a area effect cloud with damage boost when right clicked?").define("nexus_effect_when_right_clicked", true);
-        NEXUS_REPAIRING = builder.comment("should the nexus be repairable?").define("nexus_repairing", true);
+        //NEXUS_REPAIRING = builder.comment("should the nexus be repairable?").define("nexus_repairing", true);     TODO
         NEXUS_XP_AMOUNT = builder.comment("How many XP the Nexus drop").defineInRange("nexus_xp_amount", 500, 0, 1000);
         NEXUS_XP_STAGE_AMOUNT = builder.comment("How many XP the Nexus drop if it switches to another destruction level").defineInRange("nexus_stage_xp_amount", 50, 0, 1000);
         NEXUS_HARDNESS = builder.comment("How hard the Nexus is").defineInRange("nexus_hardness", 100, 10, 1000);
