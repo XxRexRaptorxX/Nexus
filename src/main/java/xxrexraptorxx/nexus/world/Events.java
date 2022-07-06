@@ -4,7 +4,10 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.ChatSender;
+import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.PlayerChatMessage;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -14,6 +17,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -23,6 +27,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import xxrexraptorxx.nexus.main.Nexus;
 import xxrexraptorxx.nexus.main.References;
 import xxrexraptorxx.nexus.utils.Config;
+
+import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = References.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class Events {
@@ -54,7 +60,7 @@ public class Events {
 
 
     @SubscribeEvent
-    public static void NexusEvent(PlayerInteractEvent.RightClickBlock event) {
+    public static void NexusEffectEvent(PlayerInteractEvent.RightClickBlock event) {
         BlockPos pos = event.getPos();
         Level world = event.getWorld();
         Block block = world.getBlockState(pos).getBlock();
@@ -79,5 +85,18 @@ public class Events {
         }
     }
 
+/**
+    @SubscribeEvent
+    public static void NexusHarvestEvent(PlayerEvent.HarvestCheck event) {
+        Block block = event.getTargetBlock().getBlock();
+        Player player = event.getPlayer();
+        Level level = player.getLevel();
 
+        if(!level.isClientSide) {
+            if (ForgeRegistries.BLOCKS.getKey(block).toString().contains(References.MODID + ":nexus")) {
+                level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_under_attack").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(block).toString().substring(12)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
+            }
+        }
+    }
+**/
 }
