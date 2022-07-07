@@ -15,7 +15,7 @@
     "message.nexus.nexus_level_1": "Nexus zu 25% zerstört!",
     "message.nexus.nexus_level_2": "Nexus zu 50% zerstört!",
     "message.nexus.nexus_level_3": "Nexus zu 75% zerstört!",
-    "message.nexus.nexus_destruction": "Nexus ist zerstört!",
+    "message.nexus.nexus_destruction": "hat den Nexus zerstrört!",
     "message.nexus.nexus_under_attack": "Nexus wird angegriffen!",
 
     "block.nexus.nexus_red": "§cNexus",
