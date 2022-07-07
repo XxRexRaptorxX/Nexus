@@ -1,7 +1,9 @@
 package xxrexraptorxx.nexus.blocks;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.ChatSender;
@@ -9,6 +11,9 @@ import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.PlayerChatMessage;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.commands.GameModeCommand;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerPlayerGameMode;
 import net.minecraft.server.players.PlayerList;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -20,6 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -106,16 +112,16 @@ public class NexusBlock extends Block {
 					popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_AMOUNT.get());
 					level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.literal(player.getDisplayName().getString() + " ").withStyle(player.getTeam().getColor()).append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor)))), new ChatSender(UUID.randomUUID(), Component.literal("!")), ChatType.CHAT);
 
-					/**	TODO Kick/Ban when lost
-					ArrayList<Player> players = new ArrayList<>();
-					for (Player eachplayer : players) {
-						System.err.println("test");
+					//Gamemode change when lost
+					if(Config.SPECTATOR_MODE_AFTER_LOST_NEXUS.get()) {
+						List<ServerPlayer> players = level.getServer().getPlayerList().getPlayers();
+						for (ServerPlayer serverPlayer : players) {
 
-						if(eachplayer.getTeam().getColor() == ChatFormatting.RED) {
-							System.err.println("!!!!!!!!!");
+							if (serverPlayer.getTeam().getColor() == ChatFormatting.getByName(nexusColor)) {
+								serverPlayer.setGameMode(GameType.SPECTATOR);
+							}
 						}
 					}
-					**/
 
 					if (Config.NEXUS_REWARDS.get().size() > 0) {            //Drops
 						for (String item : Config.NEXUS_REWARDS.get()) {
@@ -149,7 +155,7 @@ public class NexusBlock extends Block {
 			level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_DESTROY, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 			popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_STAGE_AMOUNT.get());
 
-			if(state.getValue(DESTRUCTION_LEVEL) != MAX_DESTRUCTION_LEVEL) level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_level_" + (state.getValue(DESTRUCTION_LEVEL) + 1)).withStyle(ChatFormatting.getByName(nexusColor))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT); //if state is not max: send damage info text
+			if(state.getValue(DESTRUCTION_LEVEL) != MAX_DESTRUCTION_LEVEL) level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_level_" + (state.getValue(DESTRUCTION_LEVEL) + 1)).withStyle(ChatFormatting.getByName(nexusColor))), new ChatSender(UUID.randomUUID(), Component.literal("!")), ChatType.CHAT); //if state is not max: send damage info text
 
 		} else {                /** Repair Nexus **/
 			if (!Config.NEXUS_REPAIRING.get() || state.getValue(DESTRUCTION_LEVEL) == 0) { //test if repairing is on or nexus is fully repaired
