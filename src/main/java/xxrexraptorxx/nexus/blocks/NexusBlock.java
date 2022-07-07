@@ -76,7 +76,6 @@ public class NexusBlock extends Block {
 			list.add(Component.translatable("message.nexus.gamemode_line_4").withStyle(ChatFormatting.GRAY));
 			list.add(Component.translatable("message.nexus.gamemode_line_5").withStyle(ChatFormatting.GRAY));
 			list.add(Component.translatable("message.nexus.gamemode_line_6").withStyle(ChatFormatting.GRAY));
-
 		}
 	}
 
@@ -91,6 +90,7 @@ public class NexusBlock extends Block {
 	public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
 		Random random = new Random();
 		ArrayList<ItemStack> rewards = new ArrayList<>();
+		String nexusColor = ForgeRegistries.BLOCKS.getKey(this).toString().substring(12);
 
 		if (!level.isClientSide) {
 			if (player.isCreative()) {
@@ -104,7 +104,18 @@ public class NexusBlock extends Block {
 					level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 					level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENDER_DRAGON_DEATH, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 					popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_AMOUNT.get());
-					level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.literal(player.getDisplayName().getString() + " ").append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(12))))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
+					level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.literal(player.getDisplayName().getString() + " ").withStyle(player.getTeam().getColor()).append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor)))), new ChatSender(UUID.randomUUID(), Component.literal("!")), ChatType.CHAT);
+
+					/**	TODO Kick/Ban when lost
+					ArrayList<Player> players = new ArrayList<>();
+					for (Player eachplayer : players) {
+						System.err.println("test");
+
+						if(eachplayer.getTeam().getColor() == ChatFormatting.RED) {
+							System.err.println("!!!!!!!!!");
+						}
+					}
+					**/
 
 					if (Config.NEXUS_REWARDS.get().size() > 0) {            //Drops
 						for (String item : Config.NEXUS_REWARDS.get()) {
@@ -130,6 +141,7 @@ public class NexusBlock extends Block {
 	 * @param positive = true means repairing & false means damaging
 	 */
 	private void nexusLevelChange(Boolean positive, Level level, BlockState state, BlockPos pos, Player player) {
+		String nexusColor = ForgeRegistries.BLOCKS.getKey(this).toString().substring(12);
 		Random random = new Random();
 
 		if(!positive) {			/** Damage Nexus **/
@@ -137,16 +149,16 @@ public class NexusBlock extends Block {
 			level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_DESTROY, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 			popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_STAGE_AMOUNT.get());
 
-			if(state.getValue(DESTRUCTION_LEVEL) != MAX_DESTRUCTION_LEVEL) level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_level_" + (state.getValue(DESTRUCTION_LEVEL) + 1)).withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(12)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT); //if state is not max: send damage info text
+			if(state.getValue(DESTRUCTION_LEVEL) != MAX_DESTRUCTION_LEVEL) level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_level_" + (state.getValue(DESTRUCTION_LEVEL) + 1)).withStyle(ChatFormatting.getByName(nexusColor))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT); //if state is not max: send damage info text
 
 		} else {                /** Repair Nexus **/
 			if (!Config.NEXUS_REPAIRING.get() || state.getValue(DESTRUCTION_LEVEL) == 0) { //test if repairing is on or nexus is fully repaired
-				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.not_repair").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(12)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
+				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.not_repair").withStyle(ChatFormatting.getByName(nexusColor))), new ChatSender(UUID.randomUUID(), Component.literal("!")), ChatType.CHAT);
 
 			} else {
 				level.setBlock(pos, state.setValue(DESTRUCTION_LEVEL, state.getValue(DESTRUCTION_LEVEL) - 1), 11); //set blockstate to 1 level lower
 				level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_repair").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(this).toString().substring(12)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
+				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_repair").withStyle(ChatFormatting.getByName(nexusColor))), new ChatSender(UUID.randomUUID(), Component.literal("!")), ChatType.CHAT);
 			}
 		}
 	}
