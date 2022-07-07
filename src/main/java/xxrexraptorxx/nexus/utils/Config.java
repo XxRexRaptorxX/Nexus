@@ -22,6 +22,7 @@ public class Config {
 
     public static ForgeConfigSpec.BooleanValue UPDATE_CHECKER;
     public static ForgeConfigSpec.BooleanValue NEXUS_EFFECT_WHEN_RIGHT_CLICKED;
+    public static ForgeConfigSpec.BooleanValue GLOWING_EFFECT_FROM_NEXUS;
     public static ForgeConfigSpec.BooleanValue NEXUS_REPAIRING;
     public static ForgeConfigSpec.IntValue NEXUS_XP_AMOUNT;
     public static ForgeConfigSpec.IntValue NEXUS_XP_STAGE_AMOUNT;
@@ -54,6 +55,7 @@ public class Config {
 
         builder.comment("Nexus").push(CATEGORY_NEXUS);
         NEXUS_EFFECT_WHEN_RIGHT_CLICKED = builder.comment("Should the Nexus spawn a area effect cloud with damage boost when right clicked?").define("nexus_effect_when_right_clicked", true);
+        GLOWING_EFFECT_FROM_NEXUS = builder.comment("Should the Nexus spread a glowing effect when attacked?").define("glowing_effect_from_nexus", true);
         //NEXUS_REPAIRING = builder.comment("should the nexus be repairable?").define("nexus_repairing", true);     TODO
         NEXUS_XP_AMOUNT = builder.comment("How many XP the Nexus drop").defineInRange("nexus_xp_amount", 500, 0, 1000);
         NEXUS_XP_STAGE_AMOUNT = builder.comment("How many XP the Nexus drop if it switches to another destruction level").defineInRange("nexus_stage_xp_amount", 50, 0, 1000);

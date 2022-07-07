@@ -65,7 +65,7 @@ public class Events {
         Level world = event.getWorld();
         Block block = world.getBlockState(pos).getBlock();
 
-        if (!world.isClientSide) {
+        if (!world.isClientSide && Config.GLOWING_EFFECT_FROM_NEXUS.get()) {
             if (ForgeRegistries.BLOCKS.getKey(block).toString().contains(References.MODID + ":nexus")) {
                 world.playSound((Player) null, pos, SoundEvents.ILLUSIONER_MIRROR_MOVE, SoundSource.BLOCKS, 0.5F, world.random.nextFloat() * 0.15F + 0.8F);
 
