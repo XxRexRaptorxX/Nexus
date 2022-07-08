@@ -5,6 +5,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -18,6 +19,7 @@ public class RepairKit extends Item {
     public RepairKit() {
         super(new Properties()
                 .tab(CreativeTabs.BASE_TAB)
+                .rarity(Rarity.UNCOMMON)
         );
     }
 
@@ -25,5 +27,11 @@ public class RepairKit extends Item {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
             list.add(Component.translatable("message.nexus.repair_kit.desc").withStyle(ChatFormatting.GOLD));
+    }
+
+
+    @Override
+    public boolean isFoil(ItemStack pStack) {
+        return true;
     }
 }

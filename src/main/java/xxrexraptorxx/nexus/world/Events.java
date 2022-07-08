@@ -15,8 +15,10 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -24,6 +26,7 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.VersionChecker;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
+import xxrexraptorxx.nexus.blocks.NexusBlock;
 import xxrexraptorxx.nexus.main.ModItems;
 import xxrexraptorxx.nexus.main.Nexus;
 import xxrexraptorxx.nexus.main.References;
@@ -65,23 +68,33 @@ public class Events {
     public static void NexusEffectEvent(PlayerInteractEvent.RightClickBlock event) {
         BlockPos pos = event.getPos();
         Level world = event.getWorld();
-        Block block = world.getBlockState(pos).getBlock();
-        Item item = event.getItemStack().getItem();
+        BlockState state = world.getBlockState(pos);
+        Block block = state.getBlock();
+        ItemStack stack = event.getItemStack();
+        Item item = stack.getItem();
+        Player player = event.getPlayer();
 
-        if (!world.isClientSide && Config.GLOWING_EFFECT_FROM_NEXUS.get() && item != ModItems.REPAIR_KIT.get()) {
+        if (!world.isClientSide) {
             if (ForgeRegistries.BLOCKS.getKey(block).toString().contains(References.MODID + ":nexus")) {
-                world.playSound((Player) null, pos, SoundEvents.ILLUSIONER_MIRROR_MOVE, SoundSource.BLOCKS, 0.5F, world.random.nextFloat() * 0.15F + 0.8F);
 
-                //Area effect
-                if (Config.NEXUS_EFFECT_WHEN_RIGHT_CLICKED.get()) {
-                    AreaEffectCloud cloud = new AreaEffectCloud(world, pos.getX(), pos.getY() + 0.2F, pos.getZ());
-                    cloud.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 500));
-                    cloud.setDuration(100);
-                    cloud.setRadius(8);
-                    cloud.setFixedColor(0x616161);
-                    cloud.setWaitTime(10);
-                    cloud.setParticle(ParticleTypes.GLOW);
-                    world.addFreshEntity(cloud);
+                if (item == ModItems.REPAIR_KIT.get()) {
+                    NexusBlock.nexusLevelChange(true, world, state, pos, stack, player);
+
+                } else {
+
+                    //Area effect
+                    if (Config.NEXUS_EFFECT_WHEN_RIGHT_CLICKED.get()) {
+                        world.playSound((Player) null, pos, SoundEvents.ILLUSIONER_MIRROR_MOVE, SoundSource.BLOCKS, 0.5F, world.random.nextFloat() * 0.15F + 0.8F);
+
+                        AreaEffectCloud cloud = new AreaEffectCloud(world, pos.getX(), pos.getY() + 0.2F, pos.getZ());
+                        cloud.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 500));
+                        cloud.setDuration(100);
+                        cloud.setRadius(8);
+                        cloud.setFixedColor(0x616161);
+                        cloud.setWaitTime(10);
+                        cloud.setParticle(ParticleTypes.GLOW);
+                        world.addFreshEntity(cloud);
+                    }
                 }
             }
         }
@@ -93,11 +106,14 @@ public class Events {
     public static void NexusHarvestEvent(PlayerInteractEvent.LeftClickBlock event) {
         BlockPos pos = event.getPos();
         Level level = event.getWorld();
+        Player player = event.getPlayer();
         Block block = event.getWorld().getBlockState(pos).getBlock();
+        String nexusColor = ForgeRegistries.BLOCKS.getKey(block).toString().substring(12);
 
-        if(!level.isClientSide && Config.NEXUS_UNDER_ATTACK_MESSAGE.get()) {
+        if(!level.isClientSide && Config.NEXUS_UNDER_ATTACK_MESSAGE.get() && !player.isCreative()) {
+
             if (ForgeRegistries.BLOCKS.getKey(block).toString().contains(References.MODID + ":nexus")) {
-                level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_under_attack").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(block).toString().substring(12)))), new ChatSender(UUID.randomUUID(), Component.literal("!")), ChatType.CHAT);
+                level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_under_attack").withStyle(ChatFormatting.getByName(nexusColor))), new ChatSender(UUID.randomUUID(), Component.literal("!")), ChatType.CHAT);
             }
         }
     }
