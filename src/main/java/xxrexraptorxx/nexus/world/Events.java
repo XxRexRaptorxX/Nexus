@@ -17,7 +17,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -71,7 +70,6 @@ public class Events {
 
                 //Area effect
                 if (Config.NEXUS_EFFECT_WHEN_RIGHT_CLICKED.get()) {
-
                     AreaEffectCloud cloud = new AreaEffectCloud(world, pos.getX(), pos.getY() + 0.2F, pos.getZ());
                     cloud.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 500));
                     cloud.setDuration(100);
@@ -85,18 +83,19 @@ public class Events {
         }
     }
 
-/**
+
     @SubscribeEvent
-    public static void NexusHarvestEvent(PlayerEvent.HarvestCheck event) {
-        Block block = event.getTargetBlock().getBlock();
+    public static void NexusHarvestEvent(PlayerInteractEvent.LeftClickBlock event) {
+        BlockPos pos = event.getPos();
         Player player = event.getPlayer();
         Level level = player.getLevel();
+        Block block = event.getWorld().getBlockState(pos).getBlock();
 
-        if(!level.isClientSide) {
+        if(!level.isClientSide && Config.NEXUS_UNDER_ATTACK_MESSAGE.get()) {
             if (ForgeRegistries.BLOCKS.getKey(block).toString().contains(References.MODID + ":nexus")) {
-                level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_under_attack").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(block).toString().substring(12)))), new ChatSender(player.getUUID(), Component.literal("!")), ChatType.CHAT);
+                level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_under_attack").withStyle(ChatFormatting.getByName(ForgeRegistries.BLOCKS.getKey(block).toString().substring(12)))), new ChatSender(UUID.randomUUID(), Component.literal("!")), ChatType.CHAT);
             }
         }
     }
-**/
+
 }
