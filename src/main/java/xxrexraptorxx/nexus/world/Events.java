@@ -14,6 +14,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.TickEvent;
@@ -23,6 +24,7 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.VersionChecker;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
+import xxrexraptorxx.nexus.main.ModItems;
 import xxrexraptorxx.nexus.main.Nexus;
 import xxrexraptorxx.nexus.main.References;
 import xxrexraptorxx.nexus.utils.Config;
@@ -64,8 +66,9 @@ public class Events {
         BlockPos pos = event.getPos();
         Level world = event.getWorld();
         Block block = world.getBlockState(pos).getBlock();
+        Item item = event.getItemStack().getItem();
 
-        if (!world.isClientSide && Config.GLOWING_EFFECT_FROM_NEXUS.get()) {
+        if (!world.isClientSide && Config.GLOWING_EFFECT_FROM_NEXUS.get() && item != ModItems.REPAIR_KIT.get()) {
             if (ForgeRegistries.BLOCKS.getKey(block).toString().contains(References.MODID + ":nexus")) {
                 world.playSound((Player) null, pos, SoundEvents.ILLUSIONER_MIRROR_MOVE, SoundSource.BLOCKS, 0.5F, world.random.nextFloat() * 0.15F + 0.8F);
 

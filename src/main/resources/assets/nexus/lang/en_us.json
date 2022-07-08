@@ -2,6 +2,7 @@
     "itemGroup.nexus_tab": "Nexus",
 
     "message.nexus.nexus.desc": "Can be used for team based tower defense games. That team whose nexus is destroyed loses!",
+    "message.nexus.repair_kit.desc": "Can be used to repair a Nexus.",
     "message.nexus.hold_shift.desc": "Hold [Shift] for more information.",
     "message.nexus.gamemode_line_1": "How to setup the gamemode:",
     "message.nexus.gamemode_line_2": "> Place one Nexus in each team base.",
