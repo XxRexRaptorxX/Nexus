@@ -58,6 +58,7 @@ public class Events {
     }
 
 
+    /** Distributes effects when activated **/
     @SubscribeEvent
     public static void NexusEffectEvent(PlayerInteractEvent.RightClickBlock event) {
         BlockPos pos = event.getPos();
@@ -84,11 +85,11 @@ public class Events {
     }
 
 
+    /** Under attack message **/
     @SubscribeEvent
     public static void NexusHarvestEvent(PlayerInteractEvent.LeftClickBlock event) {
         BlockPos pos = event.getPos();
-        Player player = event.getPlayer();
-        Level level = player.getLevel();
+        Level level = event.getWorld();
         Block block = event.getWorld().getBlockState(pos).getBlock();
 
         if(!level.isClientSide && Config.NEXUS_UNDER_ATTACK_MESSAGE.get()) {

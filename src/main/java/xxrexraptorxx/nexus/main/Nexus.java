@@ -17,6 +17,7 @@ public class Nexus {
     public Nexus() {
         Config.init();
         ModBlocks.init();
+        ModItems.init();
     }
 
 }

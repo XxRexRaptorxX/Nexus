@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+  
+    "X#X",
+    "#O#",
+    "X#X" 
+  ],
+    
+  "key": {
+    "X": {
+      "tag": "forge:ingots/iron"
+    },
+    "O": {
+      "item": "minecraft:nether_star"
+    },
+    "#": {
+      "tag": "forge:gems/diamond"
+    }
+  },
+  
+  "result": {
+    "item": "nexus:repair_kit"
+  }
+}

@@ -23,5 +23,7 @@
     "block.nexus.nexus_green": "§aNexus",
     "block.nexus.nexus_yellow": "§eNexus",
     "block.nexus.nexus_white": "§fNexus",
-    "block.nexus.nexus_black": "§8Nexus"
+    "block.nexus.nexus_black": "§8Nexus",
+
+    "item.nexus.repair_kit": "Repair Kit"
 }
