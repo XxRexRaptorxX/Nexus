@@ -57,8 +57,8 @@ import java.util.UUID;
 
 public class NexusBlock extends Block {
 
-	public static final IntegerProperty DESTRUCTION_LEVEL = BlockStateProperties.LEVEL;
 	public static final Integer MAX_DESTRUCTION_LEVEL = 3; 		//one level higher destroys the block
+	public static final IntegerProperty DESTRUCTION_LEVEL = IntegerProperty.create("level", 0, MAX_DESTRUCTION_LEVEL) ;
 	protected static final VoxelShape CUSTOM_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 32.0D, 16.0D);
 
 
