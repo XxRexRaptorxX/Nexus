@@ -3,9 +3,9 @@
 	"textures": {
 		"particle": "minecraft:block/cobblestone",
 		"base": "minecraft:block/polished_diorite",
-		"color": "minecraft:block/yellow_wool",
+		"color": "minecraft:block/green_wool",
 		"nexus_shield": "minecraft:block/iron_block",
-		"nexus": "nexus:block/nexus_core"
+		"nexus": "nexus:block/nexus_core_1"
 	},
 	"elements": [
 		{

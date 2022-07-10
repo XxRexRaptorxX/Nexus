@@ -5,7 +5,7 @@
 		"base": "minecraft:block/polished_diorite",
 		"color": "minecraft:block/red_wool",
 		"nexus_shield": "minecraft:block/iron_block",
-		"nexus": "minecraft:block/diamond_block"
+		"nexus": "nexus:block/nexus_core"
 	},
 	"elements": [
 		{

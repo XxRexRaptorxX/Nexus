@@ -1,5 +1,8 @@
 {
     "variants": {
-        "": { "model": "nexus:block/nexus_blue" }
+        "level=0": { "model": "nexus:block/nexus_blue" },
+        "level=1": { "model": "nexus:block/nexus_blue_1" },
+        "level=2": { "model": "nexus:block/nexus_blue_2" },
+        "level=3": { "model": "nexus:block/nexus_blue_3" }
     }
 }
