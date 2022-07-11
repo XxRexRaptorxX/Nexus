@@ -3,7 +3,7 @@
 "frames": [
 		{
 			"index": 0,
-			"time": 40
+			"time": 10
 		},
 		{
 			"index": 1,
@@ -15,7 +15,7 @@
         },
         {
             "index": 3,
-            "time": 20
+            "time": 5
         },
 		{
 			"index": 2,
