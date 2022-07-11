@@ -4,10 +4,9 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.ChatSender;
 import net.minecraft.network.chat.ChatType;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.PlayerChatMessage;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -48,8 +47,8 @@ public class Events {
                 if (VersionChecker.getResult(ModList.get().getModContainerById(References.MODID).get().getModInfo()).status() == VersionChecker.Status.OUTDATED ||
                         VersionChecker.getResult(ModList.get().getModContainerById(References.MODID).get().getModInfo()).status() == VersionChecker.Status.BETA_OUTDATED ) {
 
-                    Minecraft.getInstance().player.sendSystemMessage(Component.literal(ChatFormatting.BLUE + "A newer version of " + ChatFormatting.YELLOW + References.NAME + ChatFormatting.BLUE + " is available!"));
-                    Minecraft.getInstance().player.sendSystemMessage(Component.literal(ChatFormatting.GRAY + References.URL));
+                    Minecraft.getInstance().player.displayClientMessage(new TextComponent(ChatFormatting.BLUE + "A newer version of " + ChatFormatting.YELLOW + References.NAME + ChatFormatting.BLUE + " is available!"), false);
+                    Minecraft.getInstance().player.displayClientMessage(new TextComponent(ChatFormatting.GRAY + References.URL), false);
 
                     hasShownUp = true;
 
@@ -113,7 +112,7 @@ public class Events {
         if(!level.isClientSide && Config.NEXUS_UNDER_ATTACK_MESSAGE.get() && !player.isCreative()) {
 
             if (ForgeRegistries.BLOCKS.getKey(block).toString().contains(References.MODID + ":nexus")) {
-                level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.translatable("message.nexus.nexus_under_attack").withStyle(ChatFormatting.getByName(nexusColor))), new ChatSender(UUID.randomUUID(), Component.literal("!")), ChatType.CHAT);
+                level.getServer().getPlayerList().broadcastMessage(new TranslatableComponent("message.nexus.nexus_under_attack").withStyle(ChatFormatting.getByName(nexusColor)), ChatType.CHAT, UUID.randomUUID());
             }
         }
     }
