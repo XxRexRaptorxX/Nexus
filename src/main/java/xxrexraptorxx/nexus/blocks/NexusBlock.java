@@ -125,7 +125,7 @@ public class NexusBlock extends Block {
 										new ResourceLocation(item.substring(item.indexOf('*') + 1, item.indexOf(':')), item.substring(item.indexOf(':') + 1))), Integer.parseInt(item.substring(0, item.indexOf('*')))));
 
 							} catch (Exception e) {
-								Nexus.LOGGER.error("Invalid item entry in the Age of Weapons Mod 'nexus_rewards' config option!");
+								Nexus.LOGGER.error("Invalid item entry in the Nexus Mod 'nexus_rewards' config option!");
 							}
 						}
 					}

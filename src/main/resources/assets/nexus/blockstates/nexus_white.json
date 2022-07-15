@@ -3,6 +3,7 @@
         "level=0": { "model": "nexus:block/nexus_white" },
         "level=1": { "model": "nexus:block/nexus_white_1" },
         "level=2": { "model": "nexus:block/nexus_white_2" },
-        "level=3": { "model": "nexus:block/nexus_white_3" }
+        "level=3": { "model": "nexus:block/nexus_white_3" },
+        "level=4": { "model": "nexus:block/nexus_white_3" }
     }
 }
