@@ -21,6 +21,8 @@ public class Config {
     public static ForgeConfigSpec CLIENT_CONFIG;
 
     public static ForgeConfigSpec.BooleanValue UPDATE_CHECKER;
+    public static ForgeConfigSpec.BooleanValue PATREON_REWARDS;
+
     public static ForgeConfigSpec.BooleanValue NEXUS_EFFECT_WHEN_RIGHT_CLICKED;
     public static ForgeConfigSpec.BooleanValue GLOWING_EFFECT_FROM_NEXUS;
     public static ForgeConfigSpec.BooleanValue NEXUS_UNDER_ATTACK_MESSAGE;
@@ -31,7 +33,6 @@ public class Config {
     public static ForgeConfigSpec.IntValue NEXUS_XP_STAGE_AMOUNT;
     public static ForgeConfigSpec.IntValue NEXUS_HARDNESS;
     public static ForgeConfigSpec.ConfigValue<List<String>> NEXUS_REWARDS;
-
 
     public static void init() {
         initServer();
@@ -55,6 +56,10 @@ public class Config {
 
     public static void initServer() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+
+        builder.comment("General").push(CATEGORY_GENERAL);
+        PATREON_REWARDS = builder.comment("Enables ingame rewards on first spawn for Patreons").define("patreon_rewards", true);
+        builder.pop();
 
         builder.comment("Nexus").push(CATEGORY_NEXUS);
         NEXUS_EFFECT_WHEN_RIGHT_CLICKED = builder.comment("Should the Nexus spawn a area effect cloud with damage boost when right clicked?").define("nexus_effect_when_right_clicked", false);
