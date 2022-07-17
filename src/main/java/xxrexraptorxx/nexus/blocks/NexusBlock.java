@@ -104,11 +104,12 @@ public class NexusBlock extends Block {
 					level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 					level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENDER_DRAGON_DEATH, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 					popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_AMOUNT.get());
-					level.getServer().getPlayerList().broadcastMessage(new TextComponent(player.getDisplayName().getString() + " ").withStyle(player.getTeam().getColor()).append(new TranslatableComponent("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))), ChatType.CHAT, UUID.randomUUID());
+					level.getServer().getPlayerList().broadcastMessage(new TextComponent(player.getDisplayName().getString() + " ").withStyle(getTeamColor(player)).append(new TranslatableComponent("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))), ChatType.CHAT, UUID.randomUUID());
 
 					//Gamemode change when lost
-					if(Config.SPECTATOR_MODE_AFTER_LOST_NEXUS.get()) {
+					if(Config.SPECTATOR_MODE_AFTER_LOST_NEXUS.get() && player.getTeam() != null) {
 						List<ServerPlayer> players = level.getServer().getPlayerList().getPlayers();
+
 						for (ServerPlayer serverPlayer : players) {
 
 							if (serverPlayer.getTeam().getColor() == ChatFormatting.getByName(nexusColor)) {
@@ -117,7 +118,8 @@ public class NexusBlock extends Block {
 						}
 					}
 
-					if (Config.NEXUS_REWARDS.get().size() > 0) {            //Drops
+					//Drops
+					if (Config.NEXUS_REWARDS.get().size() > 0) {
 						for (String item : Config.NEXUS_REWARDS.get()) {
 							try {
 								rewards.add(new ItemStack(ForgeRegistries.ITEMS.getValue(
@@ -166,6 +168,21 @@ public class NexusBlock extends Block {
 				player.getCooldowns().addCooldown(stack.getItem(), Config.REPAIR_COOLDOWN.get());
 				stack.shrink(1);
 			}
+		}
+	}
+
+	/**
+	 * Tests if the player is in a team and returns the color of his team.
+	 * With fallback, if the player has no team.
+	 *
+	 * @return ChatFormatting Color
+	 */
+	private static ChatFormatting getTeamColor(Player player) {
+		if(player.getTeam() != null) {
+			return player.getTeam().getColor();
+
+		} else {
+			return ChatFormatting.WHITE;
 		}
 	}
 
