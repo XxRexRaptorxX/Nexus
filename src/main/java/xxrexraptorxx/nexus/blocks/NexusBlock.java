@@ -106,7 +106,7 @@ public class NexusBlock extends Block {
 					level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 					level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENDER_DRAGON_DEATH, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 					popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_AMOUNT.get());
-					level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.literal(player.getDisplayName().getString() + " ").withStyle(player.getTeam().getColor()).append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor)))), new ChatSender(UUID.randomUUID(), Component.literal("!")), ChatType.CHAT);
+					level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.unsigned(Component.literal(player.getDisplayName().getString() + " ").withStyle(getTeamColor(player)).append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor)))), new ChatSender(UUID.randomUUID(), Component.literal("!")), ChatType.CHAT);
 
 					//Gamemode change when lost
 					if(Config.SPECTATOR_MODE_AFTER_LOST_NEXUS.get()) {
@@ -168,6 +168,22 @@ public class NexusBlock extends Block {
 				player.getCooldowns().addCooldown(stack.getItem(), Config.REPAIR_COOLDOWN.get());
 				stack.shrink(1);
 			}
+		}
+	}
+
+
+	/**
+	 * Tests if the player is in a team and returns the color of his team.
+	 * With fallback, if the player has no team.
+	 *
+	 * @return ChatFormatting Color
+	 */
+	private static ChatFormatting getTeamColor(Player player) {
+		if(player.getTeam() != null) {
+			return player.getTeam().getColor();
+
+		} else {
+			return ChatFormatting.WHITE;
 		}
 	}
 
