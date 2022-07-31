@@ -1,11 +1,11 @@
 modLoader="javafml"
-loaderVersion="[41,)"
+loaderVersion="[42,)"
 license="All rights reserved"
 issueTrackerURL="https://www.curseforge.com/minecraft/mc-mods/nexus-battle-mode/issues"
 
 [[mods]]
 modId="nexus"
-version="1.2.3"
+version="1.2.4"
 displayName="Nexus"
 itemIcon="nexus:nexus_blue"
 updateJSONURL="https://raw.githubusercontent.com/XxRexRaptorxX/Update-Checker/main/Nexus.json"
@@ -20,13 +20,13 @@ This mod adds a "Nexus" block which allows you to play a team based tower defens
 [[dependencies.nexus]]
     modId="forge"
     mandatory=true
-    versionRange="[41.0.98,)"
+    versionRange="[42,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.nexus]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19,1.20)"
+    versionRange="[1.19.1,1.20)"
     ordering="NONE"
     side="BOTH"
