@@ -1,0 +1,32 @@
+{
+	"_comment": "translated by PasteKBrain",
+
+    "itemGroup.nexus_tab": "Nexus",
+
+    "message.nexus.nexus.desc": "Peut être utilisé pour des modes de jeu de défense de base. L'équipe dont le Nexus est détruit perd la partie!",
+    "message.nexus.repair_kit.desc": "Peut être utilisé pour réparer un Nexus.",
+    "message.nexus.hold_shift.desc": "Appuyez sur [Shift] pour plus d'informations.",
+    "message.nexus.gamemode_line_1": "Comment mettre en place le mode de jeu:",
+    "message.nexus.gamemode_line_2": "> Mettez un Nexus dans la base de chaque équipe.",
+    "message.nexus.gamemode_line_3": "> Créez les équipes: /team add <team> [displayName]",
+    "message.nexus.gamemode_line_4": "> Désignez une couleur pour chaque équipe: /team modify <team> color [color]",
+    "message.nexus.gamemode_line_5": "> Assignez chaque joueur aux différentes équipes: /team join <team> [playerName]",
+    "message.nexus.gamemode_line_6": "> Jouez! Le but de ce mode de jeu est de détruire les Nexus des équipes adverses.",
+    "message.nexus.nexus_repair": "Le Nexus a été réparé.",
+    "message.nexus.not_repair": "Le Nexus ne peut pas être réparé.",
+
+    "message.nexus.nexus_level_1": "Nexus détruit à 25%!",
+    "message.nexus.nexus_level_2": "Nexus détruit à 50%!",
+    "message.nexus.nexus_level_3": "Nexus détruit à 75%!",
+    "message.nexus.nexus_destruction": "a détruit le Nexus!",
+    "message.nexus.nexus_under_attack": "Le Nexus est attaqué!",
+
+    "block.nexus.nexus_red": "§cNexus",
+    "block.nexus.nexus_blue": "§9Nexus",
+    "block.nexus.nexus_green": "§aNexus",
+    "block.nexus.nexus_yellow": "§eNexus",
+    "block.nexus.nexus_white": "§fNexus",
+    "block.nexus.nexus_black": "§8Nexus",
+
+    "item.nexus.repair_kit": "Kit de réparation"
+}
