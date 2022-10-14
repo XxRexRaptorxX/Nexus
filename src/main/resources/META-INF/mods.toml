@@ -5,7 +5,7 @@ issueTrackerURL="https://www.curseforge.com/minecraft/mc-mods/nexus-battle-mode/
 
 [[mods]]
 modId="nexus"
-version="1.2.1b"
+version="1.2.1c"
 displayName="Nexus"
 itemIcon="nexus:nexus_blue"
 updateJSONURL="https://raw.githubusercontent.com/XxRexRaptorxX/Update-Checker/main/Nexus.json"
