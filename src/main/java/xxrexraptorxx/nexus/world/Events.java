@@ -119,11 +119,12 @@ public class Events {
         Level level = event.getLevel();
         Player player = event.getEntity();
         Block block = level.getBlockState(pos).getBlock();
-        String nexusColor = ForgeRegistries.BLOCKS.getKey(block).toString().substring(12);
 
         if(!level.isClientSide && Config.NEXUS_UNDER_ATTACK_MESSAGE.get() && !player.isCreative()) {
 
             if (ForgeRegistries.BLOCKS.getKey(block).toString().contains(References.MODID + ":nexus")) {
+
+                String nexusColor = ForgeRegistries.BLOCKS.getKey(block).toString().substring(12);
                 level.getServer().getPlayerList().broadcastSystemMessage(Component.translatable("message.nexus.nexus_under_attack").withStyle(ChatFormatting.getByName(nexusColor)), true);
             }
         }
