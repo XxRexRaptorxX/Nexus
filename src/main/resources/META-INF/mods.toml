@@ -14,8 +14,7 @@ logoFile="logo.png"
 #credits=""
 authors="XxRexRaptorxX (RexRaptor)"
 description='''
-This mod adds a "Nexus" block which allows you to play a team based tower defense game mode!
- '''
+This mod adds a "Nexus" block which allows you to play a team based tower defense game mode!'''
 
 [[dependencies.nexus]]
     modId="forge"
