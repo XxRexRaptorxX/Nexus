@@ -14,6 +14,7 @@
     "message.nexus.gamemode_line_6": "> A jugar! La meta del modo de juego es destuir los Nexus de los otros equipos.",
     "message.nexus.nexus_repair": "El Nexus fue reparado.",
     "message.nexus.not_repair": "El Nexus no puede ser reparado.",
+    "message.nexus.blocked_position": "The Nexus is blocking you from placing blocks here...",
 
     "message.nexus.nexus_level_1": "¡El Nexus esta 25% destruido!",
     "message.nexus.nexus_level_2": "¡El Nexus esta 50% destruido!",
