@@ -1,9 +1,15 @@
 {
     "variants": {
-        "level=0": { "model": "nexus:block/nexus_black" },
-        "level=1": { "model": "nexus:block/nexus_black_1" },
-        "level=2": { "model": "nexus:block/nexus_black_2" },
-        "level=3": { "model": "nexus:block/nexus_black_3" },
-        "level=4": { "model": "nexus:block/nexus_black_3" }
+        "level=0,half=lower": { "model": "nexus:block/nexus_black_base" },
+        "level=1,half=lower": { "model": "nexus:block/nexus_black_base" },
+        "level=2,half=lower": { "model": "nexus:block/nexus_black_base" },
+        "level=3,half=lower": { "model": "nexus:block/nexus_black_base" },
+        "level=4,half=lower": { "model": "nexus:block/nexus_black_base" },
+
+        "level=0,half=upper": { "model": "nexus:block/nexus_beam_0" },
+        "level=1,half=upper": { "model": "nexus:block/nexus_beam_1" },
+        "level=2,half=upper": { "model": "nexus:block/nexus_beam_2" },
+        "level=3,half=upper": { "model": "nexus:block/nexus_beam_3" },
+        "level=4,half=upper": { "model": "nexus:block/nexus_beam_3" }
     }
 }
