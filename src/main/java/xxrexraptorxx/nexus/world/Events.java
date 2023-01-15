@@ -173,8 +173,6 @@ public class Events {
     }
 
 
-    //ItemEntity item = new ItemEntity(world, (double)pos.getX() + 0.5D, (double)pos.getY() + 1.5D, (double)pos.getZ() + 0.5D, new ItemStack(harvestblock, 1));
-    //world.addFreshEntity(item);
     /**
      * Distributes the supporter rewards on first join.
      */
