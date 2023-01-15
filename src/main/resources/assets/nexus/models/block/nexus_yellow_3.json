@@ -1,7 +1,7 @@
 {
 	"__comment": "Designed by RexRaptor with Cubik Studio - https://cubik.studio",
 	"textures": {
-		"particle": "minecraft:block/cobblestone",
+		"particle": "minecraft:block/iron_block",
 		"base": "minecraft:block/polished_diorite",
 		"color": "minecraft:block/yellow_wool",
 		"nexus_shield": "minecraft:block/iron_block",
