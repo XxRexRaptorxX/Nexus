@@ -15,6 +15,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -40,7 +41,6 @@ import org.jetbrains.annotations.Nullable;
 import xxrexraptorxx.nexus.main.Nexus;
 import xxrexraptorxx.nexus.utils.Config;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -96,7 +96,6 @@ public class NexusBlock extends Block {
 	@Override
 	public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
 		Random random = new Random();
-		ArrayList<ItemStack> rewards = new ArrayList<>();
 		String nexusColor = ForgeRegistries.BLOCKS.getKey(this).toString().substring(12);
 		ItemStack stack = player.getUseItem();
 
@@ -112,26 +111,38 @@ public class NexusBlock extends Block {
 					level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 					level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENDER_DRAGON_DEATH, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 					popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_AMOUNT.get());
-					level.getServer().getPlayerList().broadcastSystemMessage(Component.literal(player.getDisplayName().getString() + " ").withStyle(player.getTeam().getColor()).append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))), false);
+
+
+					if (player.getTeam() != null && player.getTeam().getColor() != null) { //fallback if the player has no team or team color
+						level.getServer().getPlayerList().broadcastSystemMessage(Component.literal(player.getDisplayName().getString() + " ").withStyle(player.getTeam().getColor()).append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))), false);
+					} else {
+						level.getServer().getPlayerList().broadcastSystemMessage(Component.literal(player.getDisplayName().getString() + " ").append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))), false);
+					}
 
 					//Gamemode change when lost
 					if(Config.SPECTATOR_MODE_AFTER_LOST_NEXUS.get()) {
-						List<ServerPlayer> players = level.getServer().getPlayerList().getPlayers();
-						for (ServerPlayer serverPlayer : players) {
+						try {
+							List<ServerPlayer> players = level.getServer().getPlayerList().getPlayers();
+							for (ServerPlayer serverPlayer : players) {
 
-							if (serverPlayer.getTeam().getColor() == ChatFormatting.getByName(nexusColor)) {
-								serverPlayer.setGameMode(GameType.SPECTATOR);
+								if (serverPlayer.getTeam().getColor() == ChatFormatting.getByName(nexusColor)) {
+									serverPlayer.setGameMode(GameType.SPECTATOR);
+								}
 							}
+						} catch (Exception e) {
+							Nexus.LOGGER.error(e);
+							Nexus.LOGGER.error("To avoid this error, please add all players to a team and assign compatible colors to the teams!");
 						}
 					}
 
 					if (Config.NEXUS_REWARDS.get().size() > 0) {            //Drops
 						for (String item : Config.NEXUS_REWARDS.get()) {
 							try {
-								rewards.add(new ItemStack(ForgeRegistries.ITEMS.getValue(
-										//                                          get the mod prefix              |        get the item registry name      |         get the item amount
-										new ResourceLocation(item.substring(item.indexOf('*') + 1, item.indexOf(':')), item.substring(item.indexOf(':') + 1))), Integer.parseInt(item.substring(0, item.indexOf('*')))));
-
+								ItemEntity drop = new ItemEntity(level, (double)pos.getX() + 0.5D, (double)pos.getY() + 1.5D, (double)pos.getZ() + 0.5D,
+										new ItemStack(ForgeRegistries.ITEMS.getValue(
+												//                                          get the mod prefix              |        get the item registry name      |         get the item amount
+												new ResourceLocation(item.substring(item.indexOf('*') + 1, item.indexOf(':')), item.substring(item.indexOf(':') + 1))), Integer.parseInt(item.substring(0, item.indexOf('*')))));
+								level.addFreshEntity(drop);
 							} catch (Exception e) {
 								Nexus.LOGGER.error("Invalid item entry in the Nexus Mod 'nexus_rewards' config option!");
 							}
@@ -294,7 +305,7 @@ public class NexusBlock extends Block {
 	@Override
 	public float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
 		if(Config.GLOWING_EFFECT_FROM_NEXUS.get()) {
-			player.addEffect(new MobEffectInstance(MobEffects.GLOWING, 30, 0, false, false));
+			player.addEffect(new MobEffectInstance(MobEffects.GLOWING, 30, 0, false, false, true));
 		}
 			return super.getDestroyProgress(state, player, level, pos);
 	}
