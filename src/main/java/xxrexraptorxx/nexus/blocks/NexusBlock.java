@@ -3,6 +3,7 @@ package xxrexraptorxx.nexus.blocks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -13,6 +14,8 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -23,13 +26,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -46,6 +52,7 @@ public class NexusBlock extends Block {
 
 	public static final Integer MAX_DESTRUCTION_LEVEL = 3; 		//one level higher destroys the block
 	public static final IntegerProperty DESTRUCTION_LEVEL = IntegerProperty.create("level", 0, MAX_DESTRUCTION_LEVEL + 1) ;
+	public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 	protected static final VoxelShape CUSTOM_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 32.0D, 16.0D);
 
 
@@ -84,6 +91,12 @@ public class NexusBlock extends Block {
 
 
 	@Override
+	public PushReaction getPistonPushReaction(BlockState pState) {
+		return PushReaction.BLOCK;
+	}
+
+
+	@Override
 	public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
 		Random random = new Random();
 		ArrayList<ItemStack> rewards = new ArrayList<>();
@@ -92,13 +105,13 @@ public class NexusBlock extends Block {
 
 		if (!level.isClientSide) {
 			if (player.isCreative()) {
-				level.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);				//Ghost block fix for creative
+				changeNexusBlockstates(level, pos, state, null, true); //Ghost block fix for creative
 
 			} else { //Destruction level change
 				nexusLevelChange(false, level, state, pos, stack, player);
 
 				if (state.getValue(DESTRUCTION_LEVEL) == MAX_DESTRUCTION_LEVEL) {            //Nexus is finally destroyed
-					level.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);
+					changeNexusBlockstates(level, pos, state, null, true);
 					level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 					level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENDER_DRAGON_DEATH, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 					popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_AMOUNT.get());
@@ -135,7 +148,8 @@ public class NexusBlock extends Block {
 
 
 	/**
-	 * Blockstate change of the Nexus and other features.
+	 * Changes of the Nexus and other features depending on its damage state.
+	 * @param state = the nexus block
 	 * @param positive = true means repairing & false means damaging
 	 */
 	public static void nexusLevelChange(Boolean positive, Level level, BlockState state, BlockPos pos, ItemStack stack, Player player) {
@@ -143,7 +157,7 @@ public class NexusBlock extends Block {
 		Random random = new Random();
 
 		if(!positive) {			/** Damage Nexus **/
-			level.setBlock(pos, state.setValue(DESTRUCTION_LEVEL, state.getValue(DESTRUCTION_LEVEL) + 1), 11); //set blockstate to 1 level higher
+			changeNexusBlockstates(level, pos, state, false, false);
 			level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_DESTROY, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 			state.getBlock().popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_STAGE_AMOUNT.get());
 			player.awardStat(Stats.BLOCK_MINED.get(state.getBlock()));
@@ -156,13 +170,49 @@ public class NexusBlock extends Block {
 				level.getServer().getPlayerList().broadcastSystemMessage(Component.translatable("message.nexus.not_repair").withStyle(ChatFormatting.getByName(nexusColor)), true);
 
 			} else {
-				level.setBlock(pos, state.setValue(DESTRUCTION_LEVEL, state.getValue(DESTRUCTION_LEVEL) - 1), 11); //set blockstate to 1 level lower
+				changeNexusBlockstates(level, pos, state, true, false);
 				level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 				level.getServer().getPlayerList().broadcastSystemMessage(Component.translatable("message.nexus.nexus_repair").withStyle(ChatFormatting.getByName(nexusColor)), true);
 
 				player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
 				player.getCooldowns().addCooldown(stack.getItem(), Config.REPAIR_COOLDOWN.get());
 				stack.shrink(1);
+			}
+		}
+	}
+
+	/**
+	 * Blockstate change of the Nexus.
+	 * @param state = the nexus block
+	 * @param positive = true means repairing & false means damaging
+	 * @param destroyed = if the nexus should be destroyed
+	 */
+	private static void changeNexusBlockstates(Level level, BlockPos pos, BlockState state, @Nullable Boolean positive, Boolean destroyed) {
+		if (destroyed) {
+			if(state.getValue(HALF) == DoubleBlockHalf.LOWER) {
+				level.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);
+				level.setBlock(pos.above(), Blocks.AIR.defaultBlockState(), 11);
+			} else {
+				level.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);
+				level.setBlock(pos.below(), Blocks.AIR.defaultBlockState(), 11);
+			}
+		} else {
+			if (positive) {
+				if (state.getValue(HALF) == DoubleBlockHalf.LOWER) {
+					level.setBlock(pos, state.setValue(DESTRUCTION_LEVEL, state.getValue(DESTRUCTION_LEVEL) - 1).setValue(HALF, DoubleBlockHalf.LOWER), 11); //set blockstate to 1 level lower
+					level.setBlock(pos.above(), state.setValue(DESTRUCTION_LEVEL, state.getValue(DESTRUCTION_LEVEL) - 1).setValue(HALF, DoubleBlockHalf.UPPER), 11); //set blockstate to 1 level lower
+				} else {
+					level.setBlock(pos, state.setValue(DESTRUCTION_LEVEL, state.getValue(DESTRUCTION_LEVEL) - 1).setValue(HALF, DoubleBlockHalf.UPPER), 11); //set blockstate to 1 level lower
+					level.setBlock(pos.below(), state.setValue(DESTRUCTION_LEVEL, state.getValue(DESTRUCTION_LEVEL) - 1).setValue(HALF, DoubleBlockHalf.LOWER), 11); //set blockstate to 1 level lower
+				}
+			} else {
+				if (state.getValue(HALF) == DoubleBlockHalf.LOWER) {
+					level.setBlock(pos, state.setValue(DESTRUCTION_LEVEL, state.getValue(DESTRUCTION_LEVEL) + 1).setValue(HALF, DoubleBlockHalf.LOWER), 11); //set blockstate to 1 level lower
+					level.setBlock(pos.above(), state.setValue(DESTRUCTION_LEVEL, state.getValue(DESTRUCTION_LEVEL) + 1).setValue(HALF, DoubleBlockHalf.UPPER), 11); //set blockstate to 1 level lower
+				} else {
+					level.setBlock(pos, state.setValue(DESTRUCTION_LEVEL, state.getValue(DESTRUCTION_LEVEL) + 1).setValue(HALF, DoubleBlockHalf.UPPER), 11); //set blockstate to 1 level lower
+					level.setBlock(pos.below(), state.setValue(DESTRUCTION_LEVEL, state.getValue(DESTRUCTION_LEVEL) + 1).setValue(HALF, DoubleBlockHalf.LOWER), 11); //set blockstate to 1 level lower
+				}
 			}
 		}
 	}
@@ -190,10 +240,10 @@ public class NexusBlock extends Block {
 	}
 
 
-	@Override
-	public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-		return CUSTOM_SHAPE;
-	}
+	//@Override
+	//public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+	//	return CUSTOM_SHAPE;
+	//}
 
 
 	@Override
@@ -247,25 +297,63 @@ public class NexusBlock extends Block {
 	@Override
 	public float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
 		if(Config.GLOWING_EFFECT_FROM_NEXUS.get()) {
-			player.addEffect(new MobEffectInstance(MobEffects.GLOWING, 30, 0, false, true));
+			player.addEffect(new MobEffectInstance(MobEffects.GLOWING, 30, 0, false, false));
 		}
 			return super.getDestroyProgress(state, player, level, pos);
 	}
 
 
+	/** Blockstate stuff **/
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(DESTRUCTION_LEVEL);
+		builder.add(DESTRUCTION_LEVEL).add(HALF);
 	}
 
 
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		return this.defaultBlockState().setValue(DESTRUCTION_LEVEL, 0);
+		return this.defaultBlockState().setValue(DESTRUCTION_LEVEL, 0).setValue(HALF, DoubleBlockHalf.LOWER);
+	}
+
+	/** Double Block stuff **/
+
+	@Override
+	public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
+		if (!pLevel.isClientSide && pPlayer.isCreative()) {
+			preventCreativeDropFromBottomPart(pLevel, pPos, pState, pPlayer);
+		}
+
+		super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
 	}
 
 
+	// => from DoublePlantBlock
+	protected static void preventCreativeDropFromBottomPart(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
+		DoubleBlockHalf doubleblockhalf = pState.getValue(HALF);
+		if (doubleblockhalf == DoubleBlockHalf.UPPER) {
+			BlockPos blockpos = pPos.below();
+			BlockState blockstate = pLevel.getBlockState(blockpos);
+			if (blockstate.is(pState.getBlock()) && blockstate.getValue(HALF) == DoubleBlockHalf.LOWER) {
+				BlockState blockstate1 = blockstate.getFluidState().is(Fluids.WATER) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+				pLevel.setBlock(blockpos, blockstate1, 35);
+				pLevel.levelEvent(pPlayer, 2001, blockpos, Block.getId(blockstate));
+			}
+		}
+	}
 
+
+	@Override
+	public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
+		BlockPos blockpos = pPos.below();
+		BlockState blockstate = pLevel.getBlockState(blockpos);
+		return pState.getValue(HALF) == DoubleBlockHalf.LOWER ? blockstate.isFaceSturdy(pLevel, blockpos, Direction.UP) : blockstate.is(this);
+	}
+
+
+	@Override
+	public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+		level.setBlock(pos.above(), state.setValue(HALF, DoubleBlockHalf.UPPER), 3);
+	}
 }
