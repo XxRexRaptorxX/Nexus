@@ -29,10 +29,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -40,6 +37,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 import xxrexraptorxx.nexus.main.Nexus;
 import xxrexraptorxx.nexus.utils.Config;
+import xxrexraptorxx.nexus.utils.NexusColors;
 
 import java.util.List;
 import java.util.Random;
@@ -48,8 +46,10 @@ import java.util.Random;
 public class NexusBlock extends Block {
 
 	public static final Integer MAX_DESTRUCTION_LEVEL = 3; 		//one level higher destroys the block
-	public static final IntegerProperty DESTRUCTION_LEVEL = IntegerProperty.create("level", 0, MAX_DESTRUCTION_LEVEL + 1) ;
+	public static final IntegerProperty DESTRUCTION_LEVEL = IntegerProperty.create("level", 0, MAX_DESTRUCTION_LEVEL + 1);
+	public static final EnumProperty<NexusColors> COLOR = EnumProperty.create("color", NexusColors.class);
 	public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+
 	protected static final VoxelShape CUSTOM_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 32.0D, 16.0D);
 
 
@@ -315,14 +315,17 @@ public class NexusBlock extends Block {
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(DESTRUCTION_LEVEL).add(HALF);
+		builder.add(DESTRUCTION_LEVEL).add(HALF).add(COLOR);
 	}
 
 
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		return this.defaultBlockState().setValue(DESTRUCTION_LEVEL, 0).setValue(HALF, DoubleBlockHalf.LOWER);
+		return this.defaultBlockState()
+				.setValue(DESTRUCTION_LEVEL, 0)
+				.setValue(HALF, DoubleBlockHalf.LOWER)
+				.setValue(COLOR, NexusColors.valueOf(ForgeRegistries.BLOCKS.getKey(this).toString().substring(12).toUpperCase()));
 	}
 
 	/** Double Block stuff **/
