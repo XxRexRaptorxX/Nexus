@@ -13,6 +13,7 @@
     "message.nexus.nexus_repair": "Nexus wurde repariert.",
     "message.nexus.not_repair": "Der Nexus kann nicht repariert werden.",
     "message.nexus.blocked_position": "Der Nexus blockiert dich hier Blöcke zu platzieren...",
+    "message.nexus.function_disabled": "Diese Funktion wurde deaktiviert.",
 
     "message.nexus.nexus_level_1": "Nexus zu 25% zerstört!",
     "message.nexus.nexus_level_2": "Nexus zu 50% zerstört!",
