@@ -14,6 +14,7 @@
     "message.nexus.not_repair": "Der Nexus kann nicht repariert werden.",
     "message.nexus.blocked_position": "Der Nexus blockiert dich hier Blöcke zu platzieren...",
     "message.nexus.function_disabled": "Diese Funktion wurde deaktiviert.",
+    "message.nexus.tracker.desc": "Rechtsklick um einen Nexus zu orten.",
 
     "message.nexus.nexus_level_1": "Nexus zu 25% zerstört!",
     "message.nexus.nexus_level_2": "Nexus zu 50% zerstört!",
@@ -28,5 +29,7 @@
     "block.nexus.nexus_white": "§fNexus",
     "block.nexus.nexus_black": "§8Nexus",
 
-    "item.nexus.repair_kit": "Reparatur Kit"
+    "item.nexus.repair_kit": "Reparatur Kit",
+    "item.nexus.nexus_tracker": "Nexus Tracker",
+    "item.nexus.transmitter": "Transmitter"
 }
