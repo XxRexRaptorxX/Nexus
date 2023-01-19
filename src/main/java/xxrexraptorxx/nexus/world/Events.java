@@ -15,7 +15,6 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AreaEffectCloud;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -23,8 +22,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.scores.criteria.ObjectiveCriteria;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -34,7 +33,6 @@ import net.minecraftforge.fml.VersionChecker;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import xxrexraptorxx.nexus.blocks.NexusBlock;
-import xxrexraptorxx.nexus.main.ModBlocks;
 import xxrexraptorxx.nexus.main.ModItems;
 import xxrexraptorxx.nexus.main.Nexus;
 import xxrexraptorxx.nexus.main.References;
@@ -169,6 +167,32 @@ public class Events {
                     }
                 }
             }
+        }
+    }
+
+
+    //private static int counter = 0;
+
+    /** Stores the coordinates of a Nexus in the world as scoreboard objectives **/
+    @SubscribeEvent
+    public static void NexusPlaceEvent(PlayerInteractEvent.RightClickBlock event) {
+        Level world = event.getLevel();
+        BlockPos pos = event.getPos();
+        Item item = event.getItemStack().getItem();
+
+        if (Config.NEXUS_TRACKING.get() && ForgeRegistries.ITEMS.getKey(item).toString().contains(References.MODID + ":nexus")) {  //test if placed block is a nexus
+
+            String nexusColor = (item).toString().substring(6).toUpperCase();
+            String scoreboardName = nexusColor + "_NEXUS";
+
+            //counter++;        > unused
+            //String scoreboardName = counter + "_NEXUS_" + nexusColor; //dynamicaly generates a unique scoreboard name
+
+            if (world.getScoreboard().getObjectiveNames().contains(scoreboardName)) { //remove the scoreboard of the nexus color that already exists to avoid errors
+                world.getScoreboard().removeObjective(world.getScoreboard().getObjective(scoreboardName));
+            }
+
+            world.getScoreboard().addObjective(scoreboardName, ObjectiveCriteria.DUMMY, Component.literal(pos.toShortString()), ObjectiveCriteria.RenderType.INTEGER); //add the coords in an objective
         }
     }
 

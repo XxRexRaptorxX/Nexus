@@ -26,6 +26,7 @@ public class Config {
     public static ForgeConfigSpec.BooleanValue NEXUS_UNDER_ATTACK_MESSAGE;
     public static ForgeConfigSpec.BooleanValue SPECTATOR_MODE_AFTER_LOST_NEXUS;
     public static ForgeConfigSpec.BooleanValue NEXUS_REPAIRING;
+    public static ForgeConfigSpec.BooleanValue NEXUS_TRACKING;
     public static ForgeConfigSpec.IntValue NEXUS_XP_AMOUNT;
     public static ForgeConfigSpec.IntValue REPAIR_COOLDOWN;
     public static ForgeConfigSpec.IntValue NEXUS_XP_STAGE_AMOUNT;
@@ -68,6 +69,7 @@ public class Config {
         NEXUS_UNDER_ATTACK_MESSAGE = builder.comment("Should a message be sent when a Nexus is attacked?").define("nexus_under_attack_message", true);
         SPECTATOR_MODE_AFTER_LOST_NEXUS = builder.comment("Should the players of a lost team put into spectator mode?").define("spectator_mode_after_lost_nexus", true);
         NEXUS_REPAIRING = builder.comment("Should the nexus be repairable?").define("nexus_repairing", true);
+        NEXUS_TRACKING = builder.comment("Should the nexus be trackable?").define("nexus_tracking", true);
         REPAIR_COOLDOWN = builder.comment("How long should the Cooldown be after repair?").defineInRange("repair_cooldown", 1500, 0, 100000);
         NEXUS_XP_AMOUNT = builder.comment("How many XP the Nexus drop").defineInRange("nexus_xp_amount", 500, 0, 1000);
         NEXUS_XP_STAGE_AMOUNT = builder.comment("How many XP the Nexus drop if it switches to another destruction level").defineInRange("nexus_stage_xp_amount", 50, 0, 1000);
