@@ -28,6 +28,7 @@ public class Config {
     public static ForgeConfigSpec.BooleanValue SPECTATOR_MODE_AFTER_LOST_NEXUS;
     public static ForgeConfigSpec.BooleanValue NEXUS_REPAIRING;
     public static ForgeConfigSpec.BooleanValue NEXUS_TRACKING;
+    public static ForgeConfigSpec.IntValue TRACKING_COOLDOWN;
     public static ForgeConfigSpec.IntValue NEXUS_XP_AMOUNT;
     public static ForgeConfigSpec.IntValue REPAIR_COOLDOWN;
     public static ForgeConfigSpec.IntValue NEXUS_XP_STAGE_AMOUNT;
@@ -75,6 +76,7 @@ public class Config {
         NEXUS_REPAIRING = builder.comment("Should the nexus be repairable?").define("nexus_repairing", true);
         REPAIR_COOLDOWN = builder.comment("How long should the Cooldown be after repair?").defineInRange("repair_cooldown", 1500, 0, 100000);
         NEXUS_TRACKING = builder.comment("Should the nexus be trackable?").define("nexus_tracking", true);
+        TRACKING_COOLDOWN = builder.comment("How long should the Cooldown be after using a Nexus-Tracker?").defineInRange("tracking_cooldown", 1500, 0, 100000);
         builder.pop();
 
         builder.comment("Nexus Features").push(CATEGORY_NEXUS_FEATURES);

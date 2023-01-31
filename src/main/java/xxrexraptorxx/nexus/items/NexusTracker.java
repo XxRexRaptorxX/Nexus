@@ -65,7 +65,11 @@ public class NexusTracker extends Item {
         BlockPos playerPos = player.getOnPos();
         Random random = new Random();
 
+        level.playSound((Player) null, player.position().x, player.position().y, player.position().z, SoundEvents.COMPARATOR_CLICK, SoundSource.PLAYERS, 1.0F, 2.0F / (random.nextFloat() * 0.4F + 0.8F));
+
         if (!level.isClientSide) {
+            Minecraft.getInstance().player.displayClientMessage(Component.translatable("message.nexus.tracking"), false);
+
             if (level.getScoreboard().getObjectiveNames().contains("RED_NEXUS")) {
                 Minecraft.getInstance().player.displayClientMessage(Component.literal(String.valueOf(
                                 distance(playerPos, level.getScoreboard().getOrCreateObjective("RED_NEXUS").getFormattedDisplayName().getString())))
@@ -96,19 +100,20 @@ public class NexusTracker extends Item {
                                 distance(playerPos, level.getScoreboard().getOrCreateObjective("WHITE_NEXUS").getFormattedDisplayName().getString())))
                         .append(Component.translatable("message.nexus.tracker_distance")).withStyle(ChatFormatting.WHITE), false);
             }
+
+            player.awardStat(Stats.ITEM_USED.get(this));
         }
 
-        player.awardStat(Stats.ITEM_USED.get(this));
-        stack.setDamageValue(stack.getDamageValue() + 1);
 
         if (player instanceof Player) {
-            ((Player) player).getCooldowns().addCooldown(this, 20);
+            ((Player) player).getCooldowns().addCooldown(this, Config.TRACKING_COOLDOWN.get());
         }
 
-        if (stack.getDamageValue() == stack.getMaxDamage()) {
-            level.playSound((Player) null, player.position().x, player.position().y, player.position().z, SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-            stack.shrink(1);
-        }
+        //stack.setDamageValue(stack.getDamageValue() + 1); TODO: shrink is not working...
+        //if (stack.getDamageValue() >= stack.getMaxDamage()) {
+        //    level.playSound((Player) null, player.position().x, player.position().y, player.position().z, SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+        //    stack.shrink(0);
+        //}
 
         return InteractionResult.SUCCESS;
     }

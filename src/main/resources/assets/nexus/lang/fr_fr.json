@@ -17,6 +17,7 @@
     "message.nexus.blocked_position": "The Nexus is blocking you from placing blocks here...",
     "message.nexus.function_disabled": "This function is disabled.",
     "message.nexus.tracker.desc": "Right-click to track a Nexus.",
+    "message.nexus.tracking": "Nexus in range:",
     "message.nexus.tracker_distance": " blocks away",
 
     "message.nexus.nexus_level_1": "Nexus détruit à 25%!",
