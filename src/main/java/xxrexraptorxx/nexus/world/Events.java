@@ -192,7 +192,10 @@ public class Events {
                 world.getScoreboard().removeObjective(world.getScoreboard().getObjective(scoreboardName));
             }
 
-            world.getScoreboard().addObjective(scoreboardName, ObjectiveCriteria.DUMMY, Component.literal(pos.toShortString()), ObjectiveCriteria.RenderType.INTEGER); //add the coords in an objective
+            //add the coords in an objective
+            world.getScoreboard().addObjective(scoreboardName, ObjectiveCriteria.DUMMY, Component.literal(
+                    pos.toShortString().replace("[", "").replace("]", "")),
+                    ObjectiveCriteria.RenderType.INTEGER);
         }
     }
 
