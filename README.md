@@ -1,6 +1,6 @@
-[![CurseForge Downloads](https://cf.way2muchnoise.eu/615275.svg?badge_style=for_the_badge)][cf_mod] [![CurseForge Game Versions](https://cf.way2muchnoise.eu/versions/615275.svg?badge_style=for_the_badge)][cf_mod]
+[![CurseForge Downloads](https://cf.way2muchnoise.eu/639182.svg?badge_style=for_the_badge)][cf_mod] [![CurseForge Game Versions](https://cf.way2muchnoise.eu/versions/639182.svg?badge_style=for_the_badge)][cf_mod]
 
-[![Modrinth Downloads](https://img.shields.io/modrinth/dt/7RSp3ivG?label=Modrinth&logo=modrinth&style=for-the-badge)][mr_mod] [![Modrinth Game Versions](https://img.shields.io/modrinth/game-versions/7RSp3ivG?label=Available%20for&logo=modrinth&style=for-the-badge)][mr_mod]
+[![Modrinth Downloads](https://img.shields.io/modrinth/dt/6E5G1X6S?label=Modrinth&logo=modrinth&style=for-the-badge)][mr_mod] [![Modrinth Game Versions](https://img.shields.io/modrinth/game-versions/6E5G1X6S?label=Available%20for&logo=modrinth&style=for-the-badge)][mr_mod]
 
 # Nexus for Minecraft
 
