@@ -41,7 +41,9 @@ public class Nexus {
                     output.accept(ModBlocks.NEXUS_YELLOW.get());
                     output.accept(ModBlocks.NEXUS_WHITE.get());
                     output.accept(ModBlocks.NEXUS_BLACK.get());
+                    output.accept(ModItems.NEXUS_TRACKER.get());
                     output.accept(ModItems.REPAIR_KIT.get());
+                    output.accept(ModItems.TRANSMITTER.get());
                 })
         );
     }

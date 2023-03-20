@@ -17,6 +17,10 @@
     "message.nexus.blocked_position": "The Nexus is blocking you from placing blocks here...",
     "message.nexus.function_disabled": "This function is disabled.",
 
+    "message.nexus.tracker.desc": "Right-click to track a Nexus.",
+    "message.nexus.tracking": "Nexus in range:",
+    "message.nexus.tracker_distance": " blocks away",
+
     "message.nexus.nexus_level_1": "¡El Nexus esta 25% destruido!",
     "message.nexus.nexus_level_2": "¡El Nexus esta 50% destruido!",
     "message.nexus.nexus_level_3": "¡El Nexus esta 75% destruido!",
@@ -30,5 +34,7 @@
     "block.nexus.nexus_white": "§fNexus",
     "block.nexus.nexus_black": "§8Nexus",
 
-    "item.nexus.repair_kit": "Kit de reparacion"
+    "item.nexus.repair_kit": "Kit de reparacion",
+    "item.nexus.nexus_tracker": "Nexus Tracker",
+    "item.nexus.transmitter": "Transmitter"
 }

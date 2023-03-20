@@ -15,7 +15,6 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AreaEffectCloud;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -23,8 +22,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.scores.criteria.ObjectiveCriteria;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -34,7 +33,6 @@ import net.minecraftforge.fml.VersionChecker;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import xxrexraptorxx.nexus.blocks.NexusBlock;
-import xxrexraptorxx.nexus.main.ModBlocks;
 import xxrexraptorxx.nexus.main.ModItems;
 import xxrexraptorxx.nexus.main.Nexus;
 import xxrexraptorxx.nexus.main.References;
@@ -144,31 +142,65 @@ public class Events {
         //safety tests
         if (!world.isClientSide) {
             if (event.getItemStack().getItem() != Items.AIR && Config.NEXUS_SAFE_ZONE.get() != 0) {
+                for (Block blocks : ForgeRegistries.BLOCKS) {                               //test if the held item is a block
+                    if (ForgeRegistries.ITEMS.getKey(event.getItemStack().getItem()) == ForgeRegistries.BLOCKS.getKey(blocks)) {
 
-                //sets the start position
-                int posX = pos.getX();
-                int posY = pos.getY();
-                int posZ = pos.getZ();
 
-                //changes the tested position
-                for (int x = - Config.NEXUS_SAFE_ZONE.get(); x <= Config.NEXUS_SAFE_ZONE.get(); x++) {
+                        //sets the start position
+                        int posX = pos.getX();
+                        int posY = pos.getY();
+                        int posZ = pos.getZ();
 
-                    for (int y = - Config.NEXUS_SAFE_ZONE.get(); y <= Config.NEXUS_SAFE_ZONE.get(); y++) {
+                        //changes the tested position
+                        for (int x = -Config.NEXUS_SAFE_ZONE.get(); x <= Config.NEXUS_SAFE_ZONE.get(); x++) {
 
-                        for (int z = - Config.NEXUS_SAFE_ZONE.get(); z <= Config.NEXUS_SAFE_ZONE.get(); z++) {
-                            BlockPos block = new BlockPos(posX + x, posY + y, posZ + z);
+                            for (int y = -Config.NEXUS_SAFE_ZONE.get(); y <= Config.NEXUS_SAFE_ZONE.get(); y++) {
 
-                            //tests if current block is a nexus
-                            if (ForgeRegistries.BLOCKS.getKey(world.getBlockState(block).getBlock()).toString().contains(References.MODID + ":nexus") && block.getY() < pos.getY() + 2) {
-                                world.playSound(player, pos, SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 0.5F, world.random.nextFloat() * 0.15F + 0.F);
-                                Minecraft.getInstance().player.displayClientMessage(Component.translatable("message.nexus.blocked_position").withStyle(ChatFormatting.RED), true);
+                                for (int z = -Config.NEXUS_SAFE_ZONE.get(); z <= Config.NEXUS_SAFE_ZONE.get(); z++) {
+                                    BlockPos block = new BlockPos(posX + x, posY + y, posZ + z);
 
-                                event.setCanceled(true);
+                                    //tests if current block is a nexus
+                                    if (ForgeRegistries.BLOCKS.getKey(world.getBlockState(block).getBlock()).toString().contains(References.MODID + ":nexus") && block.getY() < pos.getY() + 2) {
+                                        world.playSound(player, pos, SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 0.5F, world.random.nextFloat() * 0.15F + 0.F);
+                                        Minecraft.getInstance().player.displayClientMessage(Component.translatable("message.nexus.blocked_position").withStyle(ChatFormatting.RED), true);
+
+                                        event.setCanceled(true);
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
+        }
+    }
+
+
+    //private static int counter = 0;
+
+    /** Stores the coordinates of a Nexus in the world as scoreboard objectives **/
+    @SubscribeEvent
+    public static void NexusPlaceEvent(PlayerInteractEvent.RightClickBlock event) {
+        Level world = event.getLevel();
+        BlockPos pos = event.getPos();
+        Item item = event.getItemStack().getItem();
+
+        if (Config.NEXUS_TRACKING.get() && ForgeRegistries.ITEMS.getKey(item).toString().contains(References.MODID + ":nexus")) {  //test if placed block is a nexus
+
+            String nexusColor = (item).toString().substring(6).toUpperCase();
+            String scoreboardName = nexusColor + "_NEXUS";
+
+            //counter++;        > unused
+            //String scoreboardName = counter + "_NEXUS_" + nexusColor; //dynamicaly generates a unique scoreboard name
+
+            if (world.getScoreboard().getObjectiveNames().contains(scoreboardName)) { //remove the scoreboard of the nexus color that already exists to avoid errors
+                world.getScoreboard().removeObjective(world.getScoreboard().getObjective(scoreboardName));
+            }
+
+            //add the coords in an objective
+            world.getScoreboard().addObjective(scoreboardName, ObjectiveCriteria.DUMMY, Component.literal(
+                    pos.toShortString().replace("[", "").replace("]", "")),
+                    ObjectiveCriteria.RenderType.INTEGER);
         }
     }
 

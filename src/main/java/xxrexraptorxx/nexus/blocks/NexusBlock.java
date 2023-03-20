@@ -29,7 +29,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -100,8 +103,13 @@ public class NexusBlock extends Block {
 		ItemStack stack = player.getUseItem();
 
 		if (!level.isClientSide) {
-			if (player.isCreative()) {
+			if (player.isCreative()) { //creative mode part
 				changeNexusBlockstates(level, pos, state, null, true); //Ghost block fix for creative
+
+				//remove the scoreboard objective with the coords of the nexus
+				if (level.getScoreboard().getObjectiveNames().contains(nexusColor.toUpperCase() + "_NEXUS")) {
+					level.getScoreboard().removeObjective(level.getScoreboard().getObjective(nexusColor.toUpperCase() + "_NEXUS"));
+				}
 
 			} else { //Destruction level change
 				nexusLevelChange(false, level, state, pos, stack, player);
@@ -135,7 +143,8 @@ public class NexusBlock extends Block {
 						}
 					}
 
-					if (Config.NEXUS_REWARDS.get().size() > 0) {            //Drops
+					//Drops
+					if (Config.NEXUS_REWARDS.get().size() > 0) {
 						for (String item : Config.NEXUS_REWARDS.get()) {
 							try {
 								ItemEntity drop = new ItemEntity(level, (double)pos.getX() + 0.5D, (double)pos.getY() + 1.5D, (double)pos.getZ() + 0.5D,
@@ -147,6 +156,11 @@ public class NexusBlock extends Block {
 								Nexus.LOGGER.error("Invalid item entry in the Nexus Mod 'nexus_rewards' config option!");
 							}
 						}
+					}
+
+					//remove the scoreboard objective with the coords of the nexus
+					if (level.getScoreboard().getObjectiveNames().contains(nexusColor.toUpperCase() + "_NEXUS")) {
+						level.getScoreboard().removeObjective(level.getScoreboard().getObjective(nexusColor.toUpperCase() + "_NEXUS"));
 					}
 				}
 			}
