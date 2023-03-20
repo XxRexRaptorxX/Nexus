@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+  
+    "#I#",
+    "XOX",
+    "XXX"
+  ],
+    
+  "key": {
+    "X": {
+      "tag": "forge:ingots/iron"
+    },
+    "#": {
+      "tag": "forge:ingots/copper"
+    },
+    "O": {
+      "item": "nexus:transmitter"
+    },
+    "I": {
+      "item": "minecraft:lightning_rod"
+    }
+  },
+  
+  "result": {
+    "item": "nexus:nexus_tracker"
+  }
+}
