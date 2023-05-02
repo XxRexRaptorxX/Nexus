@@ -31,6 +31,7 @@
     "block.nexus.nexus_yellow": "§eNexus",
     "block.nexus.nexus_white": "§fNexus",
     "block.nexus.nexus_black": "§8Nexus",
+    "block.nexus.supply_crate": "Supply Crate",
 
     "item.nexus.repair_kit": "Repair Kit",
     "item.nexus.nexus_tracker": "Nexus Tracker",

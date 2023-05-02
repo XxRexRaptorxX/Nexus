@@ -33,6 +33,6 @@ This mod adds a "Nexus" block which allows you to play a team based tower defens
 [[dependencies.nexus]]
     modId="multimine"
     mandatory=false
-    versionRange="[1.19.3,1.20)"
+    versionRange="[1.19.4,1.20)"
     ordering="NONE"
     side="BOTH"

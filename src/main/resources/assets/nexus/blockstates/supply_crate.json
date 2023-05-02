@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "nexus:block/supply_crate"
+    }
+  }
+}

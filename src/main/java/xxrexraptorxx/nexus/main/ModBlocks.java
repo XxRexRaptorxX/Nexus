@@ -8,6 +8,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import xxrexraptorxx.nexus.blocks.NexusBlock;
+import xxrexraptorxx.nexus.blocks.SupplyCrateBlock;
 
 public class ModBlocks {
 
@@ -38,5 +39,8 @@ public class ModBlocks {
 
     public static final RegistryObject<NexusBlock> NEXUS_BLACK = BLOCKS.register("nexus_black", NexusBlock::new);
     public static final RegistryObject<Item> NEXUS_BLACK_BLOCKITEM = ITEMS.register("nexus_black", () -> new BlockItem(NEXUS_BLACK.get(), new Item.Properties()));
+
+    public static final RegistryObject<SupplyCrateBlock> SUPPLY_CRATE = BLOCKS.register("supply_crate", SupplyCrateBlock::new);
+    public static final RegistryObject<Item> SUPPLY_CRATE_BLOCKITEM = ITEMS.register("supply_crate", () -> new BlockItem(SUPPLY_CRATE.get(), new Item.Properties()));
 
 }

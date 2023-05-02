@@ -31,6 +31,7 @@
     "block.nexus.nexus_yellow": "§e枢纽水晶",
     "block.nexus.nexus_white": "§f枢纽水晶",
     "block.nexus.nexus_black": "§8枢纽水晶",
+    "block.nexus.supply_crate": "Supply Crate",
 
     "item.nexus.repair_kit": "维修包",
     "item.nexus.nexus_tracker": "枢纽水晶追踪器",

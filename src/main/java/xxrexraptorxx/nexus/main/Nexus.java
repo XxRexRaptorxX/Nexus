@@ -34,13 +34,14 @@ public class Nexus {
     @SubscribeEvent
     public static void registerTabs(final CreativeModeTabEvent.Register event) {
         event.registerCreativeModeTab(CREATIVE_TAB, (cf) -> cf.icon(() -> new ItemStack(ModBlocks.NEXUS_GREEN.get()))
-                .title(Component.translatable("itemGroup." + References.MODID + "_tab")).displayItems((p_270258_, output) -> {
+                .title(Component.translatable("itemGroup." + References.MODID + "_tab")).displayItems((params, output) -> {
                     output.accept(ModBlocks.NEXUS_RED.get());
                     output.accept(ModBlocks.NEXUS_BLUE.get());
                     output.accept(ModBlocks.NEXUS_GREEN.get());
                     output.accept(ModBlocks.NEXUS_YELLOW.get());
                     output.accept(ModBlocks.NEXUS_WHITE.get());
                     output.accept(ModBlocks.NEXUS_BLACK.get());
+                    output.accept(ModBlocks.SUPPLY_CRATE.get());
                     output.accept(ModItems.NEXUS_TRACKER.get());
                     output.accept(ModItems.REPAIR_KIT.get());
                     output.accept(ModItems.TRANSMITTER.get());
