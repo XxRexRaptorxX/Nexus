@@ -38,6 +38,7 @@ public class Config {
     public static ForgeConfigSpec.ConfigValue<List<String>> NEXUS_REWARDS;
     public static ForgeConfigSpec.ConfigValue<List<String>> SUPPLY_CRATE_LOOT;
     public static ForgeConfigSpec.IntValue SUPPLY_CRATE_LOOT_AMOUNT;
+    public static ForgeConfigSpec.IntValue SUPPLY_CRATE_XP_AMOUNT;
     public static ForgeConfigSpec.BooleanValue PATREON_REWARDS;
 
 
@@ -120,9 +121,8 @@ public class Config {
 
         )));
         SUPPLY_CRATE_LOOT_AMOUNT = builder.comment("How many different items should be dropped from the list? [0 = no drops]").defineInRange("supply_crate_loot_amount", 3, 0, 10);
+        SUPPLY_CRATE_XP_AMOUNT = builder.comment("How many XP a Supply Crate drop").defineInRange("supply_crate_xp_amount", 10, 0, 1000);
         builder.pop();
-
-
 
         SERVER_CONFIG = builder.build();
     }

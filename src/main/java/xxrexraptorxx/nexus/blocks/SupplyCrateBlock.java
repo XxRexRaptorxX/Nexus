@@ -40,6 +40,8 @@ public class SupplyCrateBlock extends FallingBlock {
 		ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
 		Random random = new Random();
 
+		popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.SUPPLY_CRATE_XP_AMOUNT.get());
+
 		//test if config list is not empty & loot amount is not deactivated
 		if (Config.SUPPLY_CRATE_LOOT.get().size() > 0 && Config.SUPPLY_CRATE_LOOT_AMOUNT.get() > 0) {
 
