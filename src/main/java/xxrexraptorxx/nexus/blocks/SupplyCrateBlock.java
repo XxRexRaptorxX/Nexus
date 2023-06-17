@@ -13,8 +13,8 @@ import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.registries.ForgeRegistries;
 import xxrexraptorxx.nexus.main.Nexus;
 import xxrexraptorxx.nexus.utils.Config;
@@ -27,11 +27,12 @@ import java.util.Random;
 public class SupplyCrateBlock extends FallingBlock {
 
 	public SupplyCrateBlock() {
-		super(Properties.of(Material.WOOD)
+		super(Properties.of()
 				.strength(0.1F, 0.0F)
 				.sound(SoundType.WOOD)
 				.lightLevel(value -> 6)
-				.color(MaterialColor.WOOD)
+				.mapColor(MapColor.WOOD)
+				.instrument(NoteBlockInstrument.BASS)
 		);
 	}
 
@@ -40,7 +41,7 @@ public class SupplyCrateBlock extends FallingBlock {
 		ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
 		Random random = new Random();
 
-		popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.SUPPLY_CRATE_XP_AMOUNT.get());
+		popExperience(level.getServer().getLevel(player.level().dimension()), pos, Config.SUPPLY_CRATE_XP_AMOUNT.get());
 
 		//test if config list is not empty & loot amount is not deactivated
 		if (Config.SUPPLY_CRATE_LOOT.get().size() > 0 && Config.SUPPLY_CRATE_LOOT_AMOUNT.get() > 0) {

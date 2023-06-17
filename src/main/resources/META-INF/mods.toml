@@ -1,38 +1,33 @@
 modLoader="javafml"
-loaderVersion="[45,)"
-license="All rights reserved"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
 issueTrackerURL="https://www.curseforge.com/minecraft/mc-mods/nexus-battle-mode/issues"
 
 [[mods]]
-modId="nexus"
-version="1.5.1"
-displayName="Nexus"
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
 itemIcon="nexus:nexus_blue"
 updateJSONURL="https://raw.githubusercontent.com/XxRexRaptorxX/Update-Checker/main/Nexus.json"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/nexus-battle-mode"
 logoFile="logo.png"
 #credits=""
-authors="XxRexRaptorxX (RexRaptor)"
-description='''
-This mod adds a "Nexus" block which allows you to play a team based tower defense game mode!'''
+authors="${mod_authors}"
+description='''This mod adds a "Nexus" block which allows you to play a team based tower defense game mode!'''
 
-[[dependencies.nexus]]
-    modId="forge"
-    mandatory=true
-    versionRange="[45,)"
-    ordering="NONE"
-    side="BOTH"
 
-[[dependencies.nexus]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.19.4,1.20)"
-    ordering="NONE"
-    side="BOTH"
 
-[[dependencies.nexus]]
-    modId="multimine"
-    mandatory=false
-    versionRange="[1.19.4,1.20)"
-    ordering="NONE"
-    side="BOTH"
+[[dependencies.${mod_id}]]
+modId="forge"
+mandatory=true
+versionRange="${forge_version_range}"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="minecraft"
+mandatory=true
+versionRange="${mc_version_range}"
+ordering="NONE"
+side="BOTH"
+

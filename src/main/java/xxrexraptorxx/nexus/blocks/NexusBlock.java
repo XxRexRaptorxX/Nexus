@@ -29,11 +29,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -57,13 +57,15 @@ public class NexusBlock extends Block {
 
 
 	public NexusBlock() {
-		super(Properties.of(Material.METAL)
+		super(Properties.of()
 				.strength(100.0F, 5000.0F)
 				.sound(SoundType.METAL)
-				.color(MaterialColor.DIAMOND)
+				.mapColor(MapColor.DIAMOND)
 				.lightLevel(value -> 10)
 				.noOcclusion()
 				.requiresCorrectToolForDrops()
+				.instrument(NoteBlockInstrument.DRAGON)
+				.pushReaction(PushReaction.BLOCK)
 		);
 	}
 
@@ -91,12 +93,6 @@ public class NexusBlock extends Block {
 
 
 	@Override
-	public PushReaction getPistonPushReaction(BlockState pState) {
-		return PushReaction.BLOCK;
-	}
-
-
-	@Override
 	public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
 		Random random = new Random();
 		String nexusColor = ForgeRegistries.BLOCKS.getKey(this).toString().substring(12);
@@ -118,7 +114,7 @@ public class NexusBlock extends Block {
 					changeNexusBlockstates(level, pos, state, null, true);
 					level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 					level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENDER_DRAGON_DEATH, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-					popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_AMOUNT.get());
+					popExperience(level.getServer().getLevel(player.level().dimension()), pos, Config.NEXUS_XP_AMOUNT.get());
 
 
 					if (player.getTeam() != null && player.getTeam().getColor() != null) { //fallback if the player has no team or team color
@@ -181,7 +177,7 @@ public class NexusBlock extends Block {
 		if(!positive) {			/** Damage Nexus **/
 			changeNexusBlockstates(level, pos, state, false, false);
 			level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_DESTROY, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-			state.getBlock().popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_STAGE_AMOUNT.get());
+			state.getBlock().popExperience(level.getServer().getLevel(player.level().dimension()), pos, Config.NEXUS_XP_STAGE_AMOUNT.get());
 			player.awardStat(Stats.BLOCK_MINED.get(state.getBlock()));
 
 			if(state.getValue(DESTRUCTION_LEVEL) != MAX_DESTRUCTION_LEVEL) level.getServer().getPlayerList().broadcastSystemMessage(Component.translatable("message.nexus.nexus_level_" + (state.getValue(DESTRUCTION_LEVEL) + 1)).withStyle(ChatFormatting.getByName(nexusColor)), true); //if state is not max: send damage info text
