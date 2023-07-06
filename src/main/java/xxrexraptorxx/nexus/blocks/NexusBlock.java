@@ -115,6 +115,7 @@ public class NexusBlock extends Block {
 					level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 					level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENDER_DRAGON_DEATH, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 					popExperience(level.getServer().getLevel(player.level().dimension()), pos, Config.NEXUS_XP_AMOUNT.get());
+					player.awardStat(Stats.BLOCK_MINED.get(state.getBlock()));
 
 
 					if (player.getTeam() != null && player.getTeam().getColor() != null) { //fallback if the player has no team or team color
@@ -178,7 +179,7 @@ public class NexusBlock extends Block {
 			changeNexusBlockstates(level, pos, state, false, false);
 			level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_DESTROY, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 			state.getBlock().popExperience(level.getServer().getLevel(player.level().dimension()), pos, Config.NEXUS_XP_STAGE_AMOUNT.get());
-			player.awardStat(Stats.BLOCK_MINED.get(state.getBlock()));
+			player.awardStat(Stats.ITEM_BROKEN.get(state.getBlock().asItem()));
 
 			if(state.getValue(DESTRUCTION_LEVEL) != MAX_DESTRUCTION_LEVEL) level.getServer().getPlayerList().broadcastSystemMessage(Component.translatable("message.nexus.nexus_level_" + (state.getValue(DESTRUCTION_LEVEL) + 1)).withStyle(ChatFormatting.getByName(nexusColor)), true); //if state is not max: send damage info text
 
