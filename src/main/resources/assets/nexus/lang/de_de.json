@@ -15,7 +15,8 @@
     "message.nexus.blocked_position": "Der Nexus blockiert dich hier Blöcke zu platzieren...",
     "message.nexus.function_disabled": "Diese Funktion wurde deaktiviert.",
     "message.nexus.tracker.desc": "Rechtsklick um einen Nexus zu orten.",
-    "message.nexus.tracking": "Nexus in Reichweite:",
+    "message.nexus.tracking": "Nexus Blöcke in Reichweite:",
+    "message.nexus.tracking_failed": "Keine Nexus Blöcke in Reichweite",
     "message.nexus.tracker_distance": " Blöcke weit weg",
 
     "message.nexus.nexus_level_1": "Nexus zu 25% zerstört!",
@@ -23,6 +24,9 @@
     "message.nexus.nexus_level_3": "Nexus zu 75% zerstört!",
     "message.nexus.nexus_destruction": "hat den Nexus zerstrört!",
     "message.nexus.nexus_under_attack": "Nexus wird angegriffen!",
+
+    "patchouli.nexus_manual.title": "Nexus Anleitung",
+    "patchouli.nexus_manual.intro": "Diese Anleitung zeigt dir alles was du mit der Nexus Mod machen und einstellen kannst!",
 
     "block.nexus.nexus_red": "§cNexus",
     "block.nexus.nexus_blue": "§9Nexus",

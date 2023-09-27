@@ -17,7 +17,8 @@
     "message.nexus.blocked_position": "The Nexus is blocking you from placing blocks here...",
     "message.nexus.function_disabled": "This function is disabled.",
     "message.nexus.tracker.desc": "Right-click to track a Nexus.",
-    "message.nexus.tracking": "Nexus in range:",
+    "message.nexus.tracking": "Nexus blocks in range:",
+    "message.nexus.tracking_failed": "No Nexus blocks in range",
     "message.nexus.tracker_distance": " blocks away",
 
     "message.nexus.nexus_level_1": "¡El Nexus esta 25% destruido!",
@@ -25,6 +26,9 @@
     "message.nexus.nexus_level_3": "¡El Nexus esta 75% destruido!",
     "message.nexus.nexus_destruction": "¡Nexus destruido!",
     "message.nexus.nexus_under_attack": "¡El Nexus esta bajo ataque!",
+
+    "patchouli.nexus_manual.title": "Nexus Manual",
+    "patchouli.nexus_manual.intro": "This manual shows you everything you can do and set with the Nexus mod!",
 
     "block.nexus.nexus_red": "§cNexus",
     "block.nexus.nexus_blue": "§9Nexus",

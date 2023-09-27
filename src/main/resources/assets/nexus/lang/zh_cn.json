@@ -17,6 +17,7 @@
     "message.nexus.function_disabled": "该功能已被禁用。",
     "message.nexus.tracker.desc": "右击以追踪枢纽水晶。",
     "message.nexus.tracking": "枢纽水晶在：",
+    "message.nexus.tracking_failed": "No Nexus blocks in range",
     "message.nexus.tracker_distance": " 格距离以外",
 
     "message.nexus.nexus_level_1": "已摧毁枢纽水晶25%生命值！",
@@ -24,6 +25,9 @@
     "message.nexus.nexus_level_3": "已摧毁枢纽水晶75%生命值！",
     "message.nexus.nexus_destruction": "枢纽水晶已被摧毁！",
     "message.nexus.nexus_under_attack": "枢纽水晶正遭受攻击！",
+
+    "patchouli.nexus_manual.title": "Nexus Manual",
+    "patchouli.nexus_manual.intro": "This manual shows you everything you can do and set with the Nexus mod!",
 
     "block.nexus.nexus_red": "§c枢纽水晶",
     "block.nexus.nexus_blue": "§9枢纽水晶",

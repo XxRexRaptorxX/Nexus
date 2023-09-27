@@ -185,7 +185,8 @@ public class Events {
         BlockPos pos = event.getPos();
         Item item = event.getItemStack().getItem();
 
-        if (Config.NEXUS_TRACKING.get() && ForgeRegistries.ITEMS.getKey(item).toString().contains(References.MODID + ":nexus")) {  //test if placed block is a nexus
+        if (Config.NEXUS_TRACKING.get() && ForgeRegistries.ITEMS.getKey(item).toString().contains(References.MODID + ":nexus") &&
+                !ForgeRegistries.ITEMS.getKey(item).toString().contains(References.MODID + ":nexus_tracker")) {  //test if placed block is a nexus
 
             String nexusColor = (item).toString().substring(6).toUpperCase();
             String scoreboardName = nexusColor + "_NEXUS";

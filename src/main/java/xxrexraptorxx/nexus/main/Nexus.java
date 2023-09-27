@@ -3,9 +3,11 @@ package xxrexraptorxx.nexus.main;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import xxrexraptorxx.nexus.network.ModPackets;
 import xxrexraptorxx.nexus.utils.Config;
 import xxrexraptorxx.nexus.utils.CreativeModeTabs;
 
@@ -27,7 +29,15 @@ public class Nexus {
         ModBlocks.init();
         ModItems.init();
         CreativeModeTabs.init();
+
+        modBus.addListener(this::commonSetup);
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
 
+    private void commonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            ModPackets.register();
+        });
+    }
 }
