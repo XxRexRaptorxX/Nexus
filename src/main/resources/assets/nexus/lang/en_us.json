@@ -18,6 +18,7 @@
     "message.nexus.tracking": "Nexus blocks in range:",
     "message.nexus.tracking_failed": "No Nexus blocks in range",
     "message.nexus.tracker_distance": " blocks away",
+    "message.nexus.unbreakable": "unbreakable",
 
     "message.nexus.nexus_level_1": "Nexus to 25% destroyed!",
     "message.nexus.nexus_level_2": "Nexus to 50% destroyed!",
@@ -35,6 +36,7 @@
     "block.nexus.nexus_white": "§fNexus",
     "block.nexus.nexus_black": "§8Nexus",
     "block.nexus.supply_crate": "Supply Crate",
+    "block.nexus.security_wall": "Security Wall",
 
     "item.nexus.repair_kit": "Repair Kit",
     "item.nexus.nexus_tracker": "Nexus Tracker",

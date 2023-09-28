@@ -6,6 +6,7 @@
     "nexus:nexus_green",
     "nexus:nexus_yellow",
     "nexus:nexus_black",
-    "nexus:nexus_white"
+    "nexus:nexus_white",
+    "nexus:security_wall"
   ]
 }

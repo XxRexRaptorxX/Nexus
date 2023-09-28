@@ -19,6 +19,7 @@
     "message.nexus.tracking": "枢纽水晶在：",
     "message.nexus.tracking_failed": "No Nexus blocks in range",
     "message.nexus.tracker_distance": " 格距离以外",
+    "message.nexus.unbreakable": "unbreakable",
 
     "message.nexus.nexus_level_1": "已摧毁枢纽水晶25%生命值！",
     "message.nexus.nexus_level_2": "已摧毁枢纽水晶50%生命值！",
@@ -36,6 +37,7 @@
     "block.nexus.nexus_white": "§f枢纽水晶",
     "block.nexus.nexus_black": "§8枢纽水晶",
     "block.nexus.supply_crate": "Supply Crate",
+    "block.nexus.security_wall": "Security Wall",
 
     "item.nexus.repair_kit": "维修包",
     "item.nexus.nexus_tracker": "枢纽水晶追踪器",

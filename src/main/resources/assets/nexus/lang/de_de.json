@@ -18,6 +18,7 @@
     "message.nexus.tracking": "Nexus Blöcke in Reichweite:",
     "message.nexus.tracking_failed": "Keine Nexus Blöcke in Reichweite",
     "message.nexus.tracker_distance": " Blöcke weit weg",
+    "message.nexus.unbreakable": "unzerstörbar",
 
     "message.nexus.nexus_level_1": "Nexus zu 25% zerstört!",
     "message.nexus.nexus_level_2": "Nexus zu 50% zerstört!",
@@ -35,6 +36,7 @@
     "block.nexus.nexus_white": "§fNexus",
     "block.nexus.nexus_black": "§8Nexus",
     "block.nexus.supply_crate": "Versorgungskiste",
+    "block.nexus.security_wall": "Sicherheitsmauer",
 
     "item.nexus.repair_kit": "Reparatur Kit",
     "item.nexus.nexus_tracker": "Nexus Tracker",

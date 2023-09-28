@@ -1,4 +1,4 @@
-package xxrexraptorxx.nexus.utils;
+package xxrexraptorxx.nexus.registries;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -6,8 +6,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
-import xxrexraptorxx.nexus.main.ModBlocks;
-import xxrexraptorxx.nexus.main.ModItems;
 import xxrexraptorxx.nexus.main.References;
 
 public class CreativeModeTabs {
@@ -28,6 +26,7 @@ public class CreativeModeTabs {
                 output.accept(ModBlocks.NEXUS_WHITE.get());
                 output.accept(ModBlocks.NEXUS_BLACK.get());
                 output.accept(ModBlocks.SUPPLY_CRATE.get());
+                output.accept(ModBlocks.SECURTIY_WALL.get());
                 output.accept(ModItems.NEXUS_TRACKER.get());
                 output.accept(ModItems.REPAIR_KIT.get());
                 output.accept(ModItems.TRANSMITTER.get());
