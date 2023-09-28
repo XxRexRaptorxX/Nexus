@@ -33,7 +33,7 @@ import net.minecraftforge.fml.VersionChecker;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import xxrexraptorxx.nexus.blocks.NexusBlock;
-import xxrexraptorxx.nexus.main.ModItems;
+import xxrexraptorxx.nexus.registries.ModItems;
 import xxrexraptorxx.nexus.main.Nexus;
 import xxrexraptorxx.nexus.main.References;
 import xxrexraptorxx.nexus.utils.Config;
@@ -99,7 +99,7 @@ public class Events {
                         world.playSound((Player) null, pos, SoundEvents.ILLUSIONER_MIRROR_MOVE, SoundSource.BLOCKS, 0.5F, world.random.nextFloat() * 0.15F + 0.8F);
 
                         AreaEffectCloud cloud = new AreaEffectCloud(world, pos.getX(), pos.getY() + 0.2F, pos.getZ());
-                        cloud.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 500));
+                        cloud.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 500));
                         cloud.setDuration(100);
                         cloud.setRadius(8);
                         cloud.setFixedColor(0x616161);
