@@ -7,7 +7,7 @@
     "message.nexus.gamemode_line_1": "How to setup the gamemode:",
     "message.nexus.gamemode_line_2": "> Place one Nexus in each team base.",
     "message.nexus.gamemode_line_3": "> Create the teams: /team add <team> [displayName]",
-    "message.nexus.gamemode_line_4": "> Assign a color to the team: /team modify <team> color [color]",
+    "message.nexus.gamemode_line_4": "> Assign a color to the teams: /team modify <team> color [color]",
     "message.nexus.gamemode_line_5": "> Assign all players to the teams: /team join <team> [playerName]",
     "message.nexus.gamemode_line_6": "> Play! The goal of gamemode is to destroy the other teams's Nexus.",
     "message.nexus.nexus_repair": "Nexus was repaired.",
