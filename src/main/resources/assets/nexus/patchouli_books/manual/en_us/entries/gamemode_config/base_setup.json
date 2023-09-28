@@ -1,0 +1,12 @@
+{
+  "name": "Base Setup",
+  "icon": "minecraft:crafting_table",
+  "category": "nexus:gamemode_configuration",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The least you need to do to use game mode is the basic configuration. $(br)I'll describe how you do that in this chapter. $(br2)First you have to meet these requirements: $(br)$(li)A Minecraft Server (Either you create one yourself, play over LAN or $(l:bugs_feedback/server)get one hosted$() $(li)Operator rights on the server"
+    }
+  ]
+}

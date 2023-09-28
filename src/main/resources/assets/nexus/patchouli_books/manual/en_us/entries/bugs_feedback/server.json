@@ -1,0 +1,19 @@
+{
+  "name": "Server hosting",
+  "icon": "nexus:nexus_tracker",
+  "sortnum": 3,
+  "category": "nexus:bugs_feedback",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "In order to be able to play the game mode properly you need a server, which you can also have hosted, giving you easy setup and management. $(br2)I recommend $(l:https://www.bisecthosting.com/selector?plan=minecraft&game_version=java)BisectHosting$(), but you can also use any other provider. $(br2)But with my code “$(l)REXRAPTOR$()” you get a $(n)25% discount$() on your first month at $(l:https://www.bisecthosting.com/selector?plan=minecraft&game_version=java)BisectHosting$()!"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "nexus:textures/pictures/server_ad.png"
+      ],
+      "border": false
+    }
+  ]
+}

@@ -26,7 +26,7 @@
     "message.nexus.nexus_under_attack": "Nexus wird angegriffen!",
 
     "patchouli.nexus_manual.title": "Nexus Anleitung",
-    "patchouli.nexus_manual.intro": "Diese Anleitung zeigt dir alles was du mit der Nexus Mod machen und einstellen kannst!",
+    "patchouli.nexus_manual.intro": "Diese Anleitung zeigt dir alles was du mit der $(l)Nexus$() Mod machen und einstellen kannst! $(br2)$(br2)$(7)von XxRexRaptorxX$()",
 
     "block.nexus.nexus_red": "§cNexus",
     "block.nexus.nexus_blue": "§9Nexus",

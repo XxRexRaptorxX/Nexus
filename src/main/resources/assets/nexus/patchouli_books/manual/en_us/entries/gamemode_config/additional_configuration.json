@@ -1,0 +1,12 @@
+{
+  "name": "Additional Configuration",
+  "icon": "minecraft:crafting_table",
+  "category": "nexus:gamemode_configuration",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}
