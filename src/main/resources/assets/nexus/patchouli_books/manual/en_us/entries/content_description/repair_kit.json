@@ -1,0 +1,18 @@
+{
+  "name": "Repair Kit",
+  "icon": "nexus:repair_kit",
+  "category": "nexus:content_description",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "nexus:repair_kit",
+      "text": "As the name suggests, this item can be crafted to repair the $(item)Nexus$() by one level. $(br2)The function can be switched off in the $(l:gamemode_configuration/server_config_options)config file$() and the crafting recipe can be changed via datapack."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "nexus:repair_kit",
+      "title": ""
+    }
+  ]
+}

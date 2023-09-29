@@ -1,0 +1,20 @@
+{
+  "name": "Security Wall",
+  "icon": "nexus:security_wall",
+  "category": "nexus:content_description",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "nexus:security_wall",
+      "text": "This block is non-breakable and non-blastable, it can be used to reinforce the ground beneath the $(item)Nexus$() or the walls of the bases to prevent players from simply digging their way to the $(item)Nexus$(). $(br2)The block has no crafting recipe, so it must be set by the operators before the game begins."
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "nexus:textures/pictures/destruction_phase_1.png"
+      ],
+      "border": true
+    }
+  ]
+}
