@@ -24,9 +24,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-public class SupplyCrateBlock extends FallingBlock {
+public class SupplyCrate extends FallingBlock {
 
-	public SupplyCrateBlock() {
+	public SupplyCrate() {
 		super(Properties.of()
 				.strength(0.1F, 0.0F)
 				.sound(SoundType.WOOD)
@@ -38,37 +38,32 @@ public class SupplyCrateBlock extends FallingBlock {
 
 	@Override
 	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
-		ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
 		Random random = new Random();
 
+		if (!level.isClientSide) {
 		popExperience(level.getServer().getLevel(player.level().dimension()), pos, Config.SUPPLY_CRATE_XP_AMOUNT.get());
 
-		//test if config list is not empty & loot amount is not deactivated
-		if (Config.SUPPLY_CRATE_LOOT.get().size() > 0 && Config.SUPPLY_CRATE_LOOT_AMOUNT.get() > 0) {
+			//test if config list is not empty & loot amount is not deactivated
+			if (Config.SUPPLY_CRATE_LOOT.get().size() > 0 && Config.SUPPLY_CRATE_LOOT_AMOUNT.get() > 0) {
 
-			try {
-				//itemstack amount
-				for (int i = 0; i < Config.SUPPLY_CRATE_LOOT_AMOUNT.get(); i++) {
-					//get random loot entry from config list
-					String item = Config.SUPPLY_CRATE_LOOT.get().get(random.nextInt(Config.SUPPLY_CRATE_LOOT.get().size()));
+				try {
+					//itemstack amount
+					for (int i = 0; i < Config.SUPPLY_CRATE_LOOT_AMOUNT.get(); i++) {
+						//get random loot entry from config list
+						String item = Config.SUPPLY_CRATE_LOOT.get().get(random.nextInt(Config.SUPPLY_CRATE_LOOT.get().size()));
 
-					//process the entry and drop the item
-					ItemEntity drop = new ItemEntity(level, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D,
-							new ItemStack(ForgeRegistries.ITEMS.getValue(
-									//                                          get the mod prefix              |        get the item registry name      |         get the item amount
-									new ResourceLocation(item.substring(item.indexOf('*') + 1, item.indexOf(':')), item.substring(item.indexOf(':') + 1))), Integer.parseInt(item.substring(0, item.indexOf('*')))));
-					level.addFreshEntity(drop);
+						//process the entry and drop the item
+						ItemEntity drop = new ItemEntity(level, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D,
+								new ItemStack(ForgeRegistries.ITEMS.getValue(
+										//                                          get the mod prefix              |        get the item registry name      |         get the item amount
+										new ResourceLocation(item.substring(item.indexOf('*') + 1, item.indexOf(':')), item.substring(item.indexOf(':') + 1))), Integer.parseInt(item.substring(0, item.indexOf('*')))));
+						level.addFreshEntity(drop);
+					}
+				} catch (Exception e) {
+					Nexus.LOGGER.error("Invalid item entry in the Nexus Mod 'supply_crate_loot' config option!");
 				}
-			} catch(Exception e){
-				Nexus.LOGGER.error("Invalid item entry in the Nexus Mod 'supply_crate_loot' config option!");
+
 			}
-
-
-		}
-
-		if (!level.isClientSide) {
-			ItemEntity drop = new ItemEntity(level, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, drops.get(random.nextInt(drops.size())));
-			level.addFreshEntity(drop);
 		}
 
 		level.playSound((Player) null, player.getX(), player.getY(), player.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 0.2F, 0.5F / (random.nextFloat() * 0.4F));
