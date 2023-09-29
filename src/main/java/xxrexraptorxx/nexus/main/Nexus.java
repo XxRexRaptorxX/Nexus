@@ -8,8 +8,10 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import xxrexraptorxx.nexus.network.ModPackets;
+import xxrexraptorxx.nexus.registries.ModBlocks;
+import xxrexraptorxx.nexus.registries.ModItems;
 import xxrexraptorxx.nexus.utils.Config;
-import xxrexraptorxx.nexus.utils.CreativeModeTabs;
+import xxrexraptorxx.nexus.registries.CreativeModeTabs;
 
 /**
  * @author XxRexRaptorxX (RexRaptor)

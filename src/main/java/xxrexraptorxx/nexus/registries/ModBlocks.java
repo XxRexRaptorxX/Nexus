@@ -9,7 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import xxrexraptorxx.nexus.blocks.NexusBlock;
 import xxrexraptorxx.nexus.blocks.SecurityWall;
-import xxrexraptorxx.nexus.blocks.SupplyCrateBlock;
+import xxrexraptorxx.nexus.blocks.SupplyCrate;
 import xxrexraptorxx.nexus.main.References;
 
 public class ModBlocks {
@@ -42,7 +42,7 @@ public class ModBlocks {
     public static final RegistryObject<NexusBlock> NEXUS_BLACK = BLOCKS.register("nexus_black", NexusBlock::new);
     public static final RegistryObject<Item> NEXUS_BLACK_BLOCKITEM = ITEMS.register("nexus_black", () -> new BlockItem(NEXUS_BLACK.get(), new Item.Properties()));
 
-    public static final RegistryObject<SupplyCrateBlock> SUPPLY_CRATE = BLOCKS.register("supply_crate", SupplyCrateBlock::new);
+    public static final RegistryObject<SupplyCrate> SUPPLY_CRATE = BLOCKS.register("supply_crate", SupplyCrate::new);
     public static final RegistryObject<Item> SUPPLY_CRATE_BLOCKITEM = ITEMS.register("supply_crate", () -> new BlockItem(SUPPLY_CRATE.get(), new Item.Properties()));
 
     public static final RegistryObject<SecurityWall> SECURTIY_WALL = BLOCKS.register("security_wall", SecurityWall::new);
