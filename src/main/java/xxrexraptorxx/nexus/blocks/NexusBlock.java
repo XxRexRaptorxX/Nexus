@@ -2,11 +2,16 @@ package xxrexraptorxx.nexus.blocks;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.commands.CommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.PlayerChatMessage;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -34,6 +39,8 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.Vec2;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -117,11 +124,16 @@ public class NexusBlock extends Block {
 					popExperience(level.getServer().getLevel(player.level().dimension()), pos, Config.NEXUS_XP_AMOUNT.get());
 					player.awardStat(Stats.BLOCK_MINED.get(state.getBlock()));
 
+					CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, Vec3.atCenterOf(pos), Vec2.ZERO, (ServerLevel) level, 2, "nexus", Component.literal("Nexus").withStyle(ChatFormatting.getByName(nexusColor)), level.getServer(), player);
 
 					if (player.getTeam() != null && player.getTeam().getColor() != null) { //fallback if the player has no team or team color
-						level.getServer().getPlayerList().broadcastSystemMessage(Component.literal(player.getDisplayName().getString() + " ").withStyle(player.getTeam().getColor()).append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))), false);
+						level.getServer().getPlayerList().broadcastSystemMessage(Component.literal(player.getDisplayName().getString() + " ").withStyle(player.getTeam().getColor()).append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))), true);
+						level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.system(Component.literal(player.getDisplayName().getString() + " ").withStyle(player.getTeam().getColor()).append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))).getString()), source, ChatType.bind(ChatType.CHAT, source));
+
 					} else {
-						level.getServer().getPlayerList().broadcastSystemMessage(Component.literal(player.getDisplayName().getString() + " ").append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))), false);
+						level.getServer().getPlayerList().broadcastSystemMessage(Component.literal(player.getDisplayName().getString() + " ").append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))), true);
+						level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.system(Component.literal(player.getDisplayName().getString() + " ").append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))).getString()), source, ChatType.bind(ChatType.CHAT, source));
+
 					}
 
 					//Gamemode change when lost
@@ -181,12 +193,16 @@ public class NexusBlock extends Block {
 			state.getBlock().popExperience(level.getServer().getLevel(player.level().dimension()), pos, Config.NEXUS_XP_STAGE_AMOUNT.get());
 			player.awardStat(Stats.ITEM_BROKEN.get(state.getBlock().asItem()));
 
-			if(state.getValue(DESTRUCTION_LEVEL) != MAX_DESTRUCTION_LEVEL) level.getServer().getPlayerList().broadcastSystemMessage(Component.translatable("message.nexus.nexus_level_" + (state.getValue(DESTRUCTION_LEVEL) + 1)).withStyle(ChatFormatting.getByName(nexusColor)), true); //if state is not max: send damage info text
+			if(state.getValue(DESTRUCTION_LEVEL) != MAX_DESTRUCTION_LEVEL) {
+				CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, Vec3.atCenterOf(pos), Vec2.ZERO, (ServerLevel) level, 2, "nexus", Component.literal("Nexus").withStyle(ChatFormatting.getByName(nexusColor)), level.getServer(), player);
 
+				level.getServer().getPlayerList().broadcastSystemMessage(Component.translatable("message.nexus.nexus_level_" + (state.getValue(DESTRUCTION_LEVEL) + 1)).withStyle(ChatFormatting.getByName(nexusColor)), true); //if state is not max: send damage info text
+				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.system(Component.translatable("message.nexus.nexus_level_" + (state.getValue(DESTRUCTION_LEVEL) + 1)).withStyle(ChatFormatting.getByName(nexusColor)).getString()), source, ChatType.bind(ChatType.CHAT, source));
+			}
 
 		} else {                /** Repair Nexus **/
 			if (!Config.NEXUS_REPAIRING.get() || state.getValue(DESTRUCTION_LEVEL) == 0) { //test if repairing is on or nexus is fully repaired
-				level.getServer().getPlayerList().broadcastSystemMessage(Component.translatable("message.nexus.not_repair").withStyle(ChatFormatting.getByName(nexusColor)), true);
+				player.sendSystemMessage(Component.translatable("message.nexus.not_repair").withStyle(ChatFormatting.getByName(nexusColor)));
 
 			} else {
 				changeNexusBlockstates(level, pos, state, true, false);
