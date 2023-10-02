@@ -282,50 +282,32 @@ public class NexusBlock extends Block {
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-		for(int i = 0; i < 3; ++i) {
-			double d0 = (double)pos.getX() + random.nextDouble();
-			double d1 = (double)pos.getY() + random.nextDouble() * 0.5D + 1.8D;
-			double d2 = (double)pos.getZ() + random.nextDouble();
-			level.addParticle(ParticleTypes.CRIT, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+		for (int i = 0; i < 3; ++i) {
+			double x0 = (double) pos.getX() + random.nextDouble();
+			double x1 = (double) pos.getY() + random.nextDouble() * 0.5D + 1.8D;
+			double x2 = (double) pos.getZ() + random.nextDouble();
+			double d0 = (double) pos.getX() + random.nextDouble();
+			double d1 = (double) pos.getY() + random.nextDouble() * 0.5D + 0.5D;
+			double d2 = (double) pos.getZ() + random.nextDouble();
+
+			if (state.getValue(DESTRUCTION_LEVEL).equals(1)) {
+				level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+			} else if (state.getValue(DESTRUCTION_LEVEL).equals(2)) {
+				level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+				level.addParticle(ParticleTypes.LARGE_SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+			} else if (state.getValue(DESTRUCTION_LEVEL).equals(3)) {
+				level.addParticle(ParticleTypes.LARGE_SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+			}
+			level.addParticle(ParticleTypes.CRIT, x0, x1, x2, 0.0D, 0.0D, 0.0D);
 		}
 
-		if (state.getValue(DESTRUCTION_LEVEL).equals(1)) {
-			for(int i = 0; i < 3; ++i) {
-				double d0 = (double)pos.getX() + random.nextDouble();
-				double d1 = (double)pos.getY() + random.nextDouble() * 0.5D + 0.5D;
-				double d2 = (double)pos.getZ() + random.nextDouble();
-				level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-			}
-
-		} else if (state.getValue(DESTRUCTION_LEVEL).equals(2)) {
-			for(int i = 0; i < 3; ++i) {
-				double d0 = (double)pos.getX() + random.nextDouble();
-				double d1 = (double)pos.getY() + random.nextDouble() * 0.5D + 0.5D;
-				double d2 = (double)pos.getZ() + random.nextDouble();
-				level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-			}
-			for(int i = 0; i < 3; ++i) {
-				double d0 = (double)pos.getX() + random.nextDouble();
-				double d1 = (double)pos.getY() + random.nextDouble() * 0.5D + 0.5D;
-				double d2 = (double)pos.getZ() + random.nextDouble();
-				level.addParticle(ParticleTypes.LARGE_SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-			}
-
-		} else if (state.getValue(DESTRUCTION_LEVEL).equals(3)) {
-			for(int i = 0; i < 3; ++i) {
-				double d0 = (double)pos.getX() + random.nextDouble();
-				double d1 = (double)pos.getY() + random.nextDouble() * 0.5D + 0.5D;
-				double d2 = (double)pos.getZ() + random.nextDouble();
-				level.addParticle(ParticleTypes.LARGE_SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-			}
-			for(int i = 0; i < 3; ++i) {
-				double d0 = (double)pos.getX() + random.nextDouble();
-				double d1 = (double)pos.getY() + random.nextDouble() * 0.5D + 0.5D;
-				double d2 = (double)pos.getZ() + random.nextDouble();
-				level.addParticle(ParticleTypes.LARGE_SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-			}
-		}
+		double d0 = (double) pos.getX() - 4 + random.nextInt(8);
+		double d1 = (double) pos.getY() + random.nextInt(5);
+		double d2 = (double) pos.getZ() - 4 + random.nextInt(8);
+		level.addParticle(ParticleTypes.GLOW, d0, d1, d2, 0.0D, 0.0D, 0.0D);
 	}
+
+
 
 
 	@Override
