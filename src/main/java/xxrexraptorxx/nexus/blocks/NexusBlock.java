@@ -133,7 +133,6 @@ public class NexusBlock extends Block {
 					} else {
 						level.getServer().getPlayerList().broadcastSystemMessage(Component.literal(player.getDisplayName().getString() + " ").append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))), true);
 						level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.system(Component.literal(player.getDisplayName().getString() + " ").append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))).getString()), source, ChatType.bind(ChatType.CHAT, source));
-
 					}
 
 					//Gamemode change when lost

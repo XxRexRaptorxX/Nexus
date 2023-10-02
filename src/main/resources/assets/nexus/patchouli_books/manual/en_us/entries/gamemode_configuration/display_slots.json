@@ -1,0 +1,28 @@
+{
+  "name": "Display Slots",
+  "icon": "minecraft:name_tag",
+  "category": "nexus:gamemode_configuration",
+  "sortnum": 5,
+  "secret": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Via the $(o)$(3)/scoreboard objectives setdisplay$() command, players' scores in specific objectives can be displayed in certain 'slots' in-game. $(br2)Each 'display slot' can show one objective at a time, and multiple 'display slots' may be used for the same or different objectives."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(br)$(li)$(l)list$() $(br)Displays a yellow number or some hearts ($(o)$(3)/scoreboard objectives modify <objective> rendertype (hearts|integer)$()) without a heading on the tab menu, where online players are shown. $(br)$(li)$(l)sidebar$() $(br)Shows on the right hand side of the screen of every player."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(li)$(l)sidebar.team.<color>$() $(br)There are team-specific sidebar display slots. These operate the same as the standard sidebar slot, but only display to players who are on teams which use the specified color (for example, \"$(o)sidebar.team.green$()\" displays to players on \"green\" teams) $(br)$(li)$(l)belowName$() $(br)Shows the $(o)<Score>$() followed by the objective's $(o)<DisplayName>$() below the player's nametag above their head."
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "nexus:textures/pictures/nexus.png"
+      ],
+      "border": false
+    }
+  ]
+}

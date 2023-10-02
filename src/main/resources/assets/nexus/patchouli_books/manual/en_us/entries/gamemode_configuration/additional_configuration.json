@@ -6,7 +6,21 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": ""
+      "text": "You can customize the game mode even further with $(l:https://minecraft.wiki/w/Scoreboard)/scoreboard commands$(), $(br)I'll show you some examples on the next pages. $(br2)If there are blue tags in the commands, you can click on them and see the possible choices you can use."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Kill/Death tracker",
+      "text": "$(l)$(n)Death tracker:$() $(br)$(li)$(o)/scoreboard objectives add Deaths deathCount$() $(br)$(li)$(o)/scoreboard objectives setdisplay $(l:gamemode_configuration/display_slots)[displaySlot]$() $(o)Deaths$()  $(br)$(l)$(n)Kill tracker:$() $(br)$(li)$(o)/scoreboard objectives add Kills playerKillCount$() $(br)$(li)$(o)/scoreboard objectives setdisplay $(l:gamemode_configuration/display_slots)[displaySlot]$() $(o)Kills$()"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Track Nexus breaking",
+      "text": "You can track when a $(item)Nexus$() of a certain color is destroyed or enters a different destruction phase: $(br2)$(n)For destruction:$() $(br)$(li)$(o)/scoreboard objectives add GreenNexusDestruction minecraft.mined:nexus.nexus_green$() $(br)$(li)Now all you have to do is test for a value that you need and do certain things that you want"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(n)For switching to another phase:$() $(br)$(li)$(o)/scoreboard objectives add RedNexusPhases minecraft.broken:nexus.nexus_red$() $(br)$(li)Now all you have to do is test for a value that you need and do certain things that you want"
     }
   ]
 }
