@@ -8,6 +8,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import xxrexraptorxx.nexus.blocks.NexusBlock;
+import xxrexraptorxx.nexus.blocks.SecurityBarrier;
 import xxrexraptorxx.nexus.blocks.SecurityWall;
 import xxrexraptorxx.nexus.blocks.SupplyCrate;
 import xxrexraptorxx.nexus.main.References;
@@ -47,5 +48,8 @@ public class ModBlocks {
 
     public static final RegistryObject<SecurityWall> SECURTIY_WALL = BLOCKS.register("security_wall", SecurityWall::new);
     public static final RegistryObject<Item> SECURITY_WALL_BLOCKITEM = ITEMS.register("security_wall", () -> new BlockItem(SECURTIY_WALL.get(), new Item.Properties()));
+
+    public static final RegistryObject<SecurityBarrier> SECURTIY_BARRIER = BLOCKS.register("security_barrier", SecurityBarrier::new);
+    public static final RegistryObject<Item> SECURITY_BARRIER_BLOCKITEM = ITEMS.register("security_barrier", () -> new BlockItem(SECURTIY_BARRIER.get(), new Item.Properties()));
 
 }

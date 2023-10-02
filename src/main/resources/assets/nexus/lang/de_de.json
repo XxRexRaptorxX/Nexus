@@ -37,6 +37,7 @@
     "block.nexus.nexus_black": "§8Nexus",
     "block.nexus.supply_crate": "Versorgungskiste",
     "block.nexus.security_wall": "Sicherheitsmauer",
+    "block.nexus.security_wall": "Sicherheitsbarriere",
 
     "item.nexus.repair_kit": "Reparatur Kit",
     "item.nexus.nexus_tracker": "Nexus Tracker",

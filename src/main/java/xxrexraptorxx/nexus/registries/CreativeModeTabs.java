@@ -27,6 +27,7 @@ public class CreativeModeTabs {
                 output.accept(ModBlocks.NEXUS_BLACK.get());
                 output.accept(ModBlocks.SUPPLY_CRATE.get());
                 output.accept(ModBlocks.SECURTIY_WALL.get());
+                output.accept(ModBlocks.SECURTIY_BARRIER.get());
                 output.accept(ModItems.NEXUS_TRACKER.get());
                 output.accept(ModItems.REPAIR_KIT.get());
                 output.accept(ModItems.TRANSMITTER.get());

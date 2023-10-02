@@ -18,11 +18,13 @@ public class Config {
     public static final String CATEGORY_NEXUS_PROPERTIES = "nexus_properties";
     public static final String CATEGORY_NEXUS_FEATURES = "nexus_features";
     public static final String CATEGORY_SUPPLY_CRATE_PROPERTIES = "supply_crate_properties";
+    public static final String CATEGORY_BARRIER_PROPERTIES = "barrier_properties";
 
     public static ForgeConfigSpec SERVER_CONFIG;
     public static ForgeConfigSpec CLIENT_CONFIG;
 
     public static ForgeConfigSpec.BooleanValue UPDATE_CHECKER;
+    public static ForgeConfigSpec.BooleanValue BARRIER_DAMAGE;
     public static ForgeConfigSpec.BooleanValue NEXUS_EFFECT_WHEN_RIGHT_CLICKED;
     public static ForgeConfigSpec.BooleanValue GLOWING_EFFECT_FROM_NEXUS;
     public static ForgeConfigSpec.BooleanValue NEXUS_UNDER_ATTACK_MESSAGE;
@@ -88,6 +90,10 @@ public class Config {
         NEXUS_EFFECT_WHEN_RIGHT_CLICKED = builder.comment("Should the Nexus spawn a area effect cloud with damage boost when right clicked?").define("nexus_effect_when_right_clicked", false);
         GLOWING_EFFECT_FROM_NEXUS = builder.comment("Should the Nexus spread a glowing effect when attacked?").define("glowing_effect_from_nexus", true);
         SPECTATOR_MODE_AFTER_LOST_NEXUS = builder.comment("Should the players of a lost team put into spectator mode?").define("spectator_mode_after_lost_nexus", true);
+        builder.pop();
+
+        builder.comment("Barrier Features").push(CATEGORY_BARRIER_PROPERTIES);
+        BARRIER_DAMAGE = builder.comment("Should the security barrier cause damage when touched?").define("barrier_damage", true);
         builder.pop();
 
         builder.comment("Supply Crate Properties").push(CATEGORY_SUPPLY_CRATE_PROPERTIES);

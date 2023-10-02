@@ -38,6 +38,7 @@
     "block.nexus.nexus_black": "§8枢纽水晶",
     "block.nexus.supply_crate": "Supply Crate",
     "block.nexus.security_wall": "Security Wall",
+    "block.nexus.security_barrier": "Security Barrier",
 
     "item.nexus.repair_kit": "维修包",
     "item.nexus.nexus_tracker": "枢纽水晶追踪器",

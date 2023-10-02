@@ -8,6 +8,7 @@
     "nexus:nexus_black",
     "nexus:nexus_white",
     "nexus:supply_crate",
-    "nexus:security_wall"
+    "nexus:security_wall",
+    "nexus:security_barrier"
   ]
 }

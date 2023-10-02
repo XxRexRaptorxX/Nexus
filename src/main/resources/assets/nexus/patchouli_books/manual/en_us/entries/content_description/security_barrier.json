@@ -1,0 +1,20 @@
+{
+  "name": "Security Barrier",
+  "icon": "nexus:security_barrier",
+  "category": "nexus:content_description",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "nexus:security_barrier",
+      "text": "Similar to the $(item)Security Wall$(), this block is non-breakable, non-blastable, has no crafting recipe and is only there to be used by the admins. $(br2)e.g. to be set using command blocks and opened later."
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "nexus:textures/pictures/barrier.png"
+      ],
+      "border": true
+    }
+  ]
+}
