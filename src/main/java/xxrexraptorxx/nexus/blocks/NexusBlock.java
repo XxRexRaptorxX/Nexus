@@ -282,6 +282,10 @@ public class NexusBlock extends Block {
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+		if (random.nextDouble() < 0.15D) {
+			level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ILLUSIONER_CAST_SPELL, SoundSource.BLOCKS, 0.8F, 1.0F, false);
+		}
+
 		for (int i = 0; i < 3; ++i) {
 			double x0 = (double) pos.getX() + random.nextDouble();
 			double x1 = (double) pos.getY() + random.nextDouble() * 0.5D + 1.8D;
@@ -339,12 +343,12 @@ public class NexusBlock extends Block {
 	/** Double Block stuff **/
 
 	@Override
-	public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
-		if (!pLevel.isClientSide && pPlayer.isCreative()) {
-			preventCreativeDropFromBottomPart(pLevel, pPos, pState, pPlayer);
+	public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+		if (!level.isClientSide && player.isCreative()) {
+			preventCreativeDropFromBottomPart(level, pos, state, player);
 		}
 
-		super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
+		super.playerWillDestroy(level, pos, state, player);
 	}
 
 
