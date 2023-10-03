@@ -18,23 +18,30 @@ description='''This mod adds a "Nexus" block which allows you to play a team bas
 
 
 [[dependencies.${mod_id}]]
-modId="forge"
-mandatory=true
-versionRange="${forge_version_range}"
-ordering="NONE"
-side="BOTH"
+    modId="forge"
+    mandatory=true
+    versionRange="${forge_version_range}"
+    ordering="NONE"
+    side="BOTH"
 
 [[dependencies.${mod_id}]]
-modId="minecraft"
-mandatory=true
-versionRange="${mc_version_range}"
-ordering="NONE"
-side="BOTH"
+    modId="minecraft"
+    mandatory=true
+    versionRange="${mc_version_range}"
+    ordering="NONE"
+    side="BOTH"
 
 [[dependencies.${mod_id}]]
-modId="patchouli"
-mandatory=false
-versionRange="[1.20,)"
-ordering="NONE"
-side="BOTH"
+    modId="multimine"
+    mandatory=false
+    versionRange="[1.20,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="patchouli"
+    mandatory=false
+    versionRange="[1.20,)"
+    ordering="NONE"
+    side="BOTH"
 
