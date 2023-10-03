@@ -2,11 +2,16 @@ package xxrexraptorxx.nexus.blocks;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.commands.CommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.PlayerChatMessage;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -34,6 +39,8 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.*;
+import net.minecraft.world.phys.Vec2;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -118,13 +125,18 @@ public class NexusBlock extends Block {
 					changeNexusBlockstates(level, pos, state, null, true);
 					level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 					level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENDER_DRAGON_DEATH, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-					popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_AMOUNT.get());
+					popExperience(level.getServer().getLevel(player.level.dimension()), pos, Config.NEXUS_XP_AMOUNT.get());
+					player.awardStat(Stats.BLOCK_MINED.get(state.getBlock()));
 
+					CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, Vec3.atCenterOf(pos), Vec2.ZERO, (ServerLevel) level, 2, "nexus", Component.literal("Nexus").withStyle(ChatFormatting.getByName(nexusColor)), level.getServer(), player);
 
 					if (player.getTeam() != null && player.getTeam().getColor() != null) { //fallback if the player has no team or team color
-						level.getServer().getPlayerList().broadcastSystemMessage(Component.literal(player.getDisplayName().getString() + " ").withStyle(player.getTeam().getColor()).append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))), false);
+						level.getServer().getPlayerList().broadcastSystemMessage(Component.literal(player.getDisplayName().getString() + " ").withStyle(player.getTeam().getColor()).append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))), true);
+						level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.system(Component.literal(player.getDisplayName().getString() + " ").withStyle(player.getTeam().getColor()).append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))).getString()), source, ChatType.bind(ChatType.CHAT, source));
+
 					} else {
-						level.getServer().getPlayerList().broadcastSystemMessage(Component.literal(player.getDisplayName().getString() + " ").append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))), false);
+						level.getServer().getPlayerList().broadcastSystemMessage(Component.literal(player.getDisplayName().getString() + " ").append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))), true);
+						level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.system(Component.literal(player.getDisplayName().getString() + " ").append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))).getString()), source, ChatType.bind(ChatType.CHAT, source));
 					}
 
 					//Gamemode change when lost
@@ -181,15 +193,19 @@ public class NexusBlock extends Block {
 		if(!positive) {			/** Damage Nexus **/
 			changeNexusBlockstates(level, pos, state, false, false);
 			level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_DESTROY, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-			state.getBlock().popExperience(level.getServer().getLevel(player.getLevel().dimension()), pos, Config.NEXUS_XP_STAGE_AMOUNT.get());
-			player.awardStat(Stats.BLOCK_MINED.get(state.getBlock()));
+			state.getBlock().popExperience(level.getServer().getLevel(player.level.dimension()), pos, Config.NEXUS_XP_STAGE_AMOUNT.get());
+			player.awardStat(Stats.ITEM_BROKEN.get(state.getBlock().asItem()));
 
-			if(state.getValue(DESTRUCTION_LEVEL) != MAX_DESTRUCTION_LEVEL) level.getServer().getPlayerList().broadcastSystemMessage(Component.translatable("message.nexus.nexus_level_" + (state.getValue(DESTRUCTION_LEVEL) + 1)).withStyle(ChatFormatting.getByName(nexusColor)), true); //if state is not max: send damage info text
+			if(state.getValue(DESTRUCTION_LEVEL) != MAX_DESTRUCTION_LEVEL) {
+				CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, Vec3.atCenterOf(pos), Vec2.ZERO, (ServerLevel) level, 2, "nexus", Component.literal("Nexus").withStyle(ChatFormatting.getByName(nexusColor)), level.getServer(), player);
 
+				level.getServer().getPlayerList().broadcastSystemMessage(Component.translatable("message.nexus.nexus_level_" + (state.getValue(DESTRUCTION_LEVEL) + 1)).withStyle(ChatFormatting.getByName(nexusColor)), true); //if state is not max: send damage info text
+				level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.system(Component.translatable("message.nexus.nexus_level_" + (state.getValue(DESTRUCTION_LEVEL) + 1)).withStyle(ChatFormatting.getByName(nexusColor)).getString()), source, ChatType.bind(ChatType.CHAT, source));
+			}
 
 		} else {                /** Repair Nexus **/
 			if (!Config.NEXUS_REPAIRING.get() || state.getValue(DESTRUCTION_LEVEL) == 0) { //test if repairing is on or nexus is fully repaired
-				level.getServer().getPlayerList().broadcastSystemMessage(Component.translatable("message.nexus.not_repair").withStyle(ChatFormatting.getByName(nexusColor)), true);
+				player.sendSystemMessage(Component.translatable("message.nexus.not_repair").withStyle(ChatFormatting.getByName(nexusColor)));
 
 			} else {
 				changeNexusBlockstates(level, pos, state, true, false);
@@ -270,50 +286,36 @@ public class NexusBlock extends Block {
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-		for(int i = 0; i < 3; ++i) {
-			double d0 = (double)pos.getX() + random.nextDouble();
-			double d1 = (double)pos.getY() + random.nextDouble() * 0.5D + 1.8D;
-			double d2 = (double)pos.getZ() + random.nextDouble();
-			level.addParticle(ParticleTypes.CRIT, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+		if (random.nextDouble() < 0.15D) {
+			level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ILLUSIONER_CAST_SPELL, SoundSource.BLOCKS, 0.8F, 1.0F, false);
 		}
 
-		if (state.getValue(DESTRUCTION_LEVEL).equals(1)) {
-			for(int i = 0; i < 3; ++i) {
-				double d0 = (double)pos.getX() + random.nextDouble();
-				double d1 = (double)pos.getY() + random.nextDouble() * 0.5D + 0.5D;
-				double d2 = (double)pos.getZ() + random.nextDouble();
-				level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-			}
+		for (int i = 0; i < 3; ++i) {
+			double x0 = (double) pos.getX() + random.nextDouble();
+			double x1 = (double) pos.getY() + random.nextDouble() * 0.5D + 1.8D;
+			double x2 = (double) pos.getZ() + random.nextDouble();
+			double d0 = (double) pos.getX() + random.nextDouble();
+			double d1 = (double) pos.getY() + random.nextDouble() * 0.5D + 0.5D;
+			double d2 = (double) pos.getZ() + random.nextDouble();
 
-		} else if (state.getValue(DESTRUCTION_LEVEL).equals(2)) {
-			for(int i = 0; i < 3; ++i) {
-				double d0 = (double)pos.getX() + random.nextDouble();
-				double d1 = (double)pos.getY() + random.nextDouble() * 0.5D + 0.5D;
-				double d2 = (double)pos.getZ() + random.nextDouble();
+			if (state.getValue(DESTRUCTION_LEVEL).equals(1)) {
 				level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-			}
-			for(int i = 0; i < 3; ++i) {
-				double d0 = (double)pos.getX() + random.nextDouble();
-				double d1 = (double)pos.getY() + random.nextDouble() * 0.5D + 0.5D;
-				double d2 = (double)pos.getZ() + random.nextDouble();
+			} else if (state.getValue(DESTRUCTION_LEVEL).equals(2)) {
+				level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+				level.addParticle(ParticleTypes.LARGE_SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+			} else if (state.getValue(DESTRUCTION_LEVEL).equals(3)) {
 				level.addParticle(ParticleTypes.LARGE_SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
 			}
-
-		} else if (state.getValue(DESTRUCTION_LEVEL).equals(3)) {
-			for(int i = 0; i < 3; ++i) {
-				double d0 = (double)pos.getX() + random.nextDouble();
-				double d1 = (double)pos.getY() + random.nextDouble() * 0.5D + 0.5D;
-				double d2 = (double)pos.getZ() + random.nextDouble();
-				level.addParticle(ParticleTypes.LARGE_SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-			}
-			for(int i = 0; i < 3; ++i) {
-				double d0 = (double)pos.getX() + random.nextDouble();
-				double d1 = (double)pos.getY() + random.nextDouble() * 0.5D + 0.5D;
-				double d2 = (double)pos.getZ() + random.nextDouble();
-				level.addParticle(ParticleTypes.LARGE_SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-			}
+			level.addParticle(ParticleTypes.CRIT, x0, x1, x2, 0.0D, 0.0D, 0.0D);
 		}
+
+		double d0 = (double) pos.getX() - 4 + random.nextInt(8);
+		double d1 = (double) pos.getY() + random.nextInt(5);
+		double d2 = (double) pos.getZ() - 4 + random.nextInt(8);
+		level.addParticle(ParticleTypes.GLOW, d0, d1, d2, 0.0D, 0.0D, 0.0D);
 	}
+
+
 
 
 	@Override
@@ -321,7 +323,7 @@ public class NexusBlock extends Block {
 		if(Config.GLOWING_EFFECT_FROM_NEXUS.get()) {
 			player.addEffect(new MobEffectInstance(MobEffects.GLOWING, 30, 0, false, false, true));
 		}
-			return super.getDestroyProgress(state, player, level, pos);
+		return super.getDestroyProgress(state, player, level, pos);
 	}
 
 
@@ -345,12 +347,12 @@ public class NexusBlock extends Block {
 	/** Double Block stuff **/
 
 	@Override
-	public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
-		if (!pLevel.isClientSide && pPlayer.isCreative()) {
-			preventCreativeDropFromBottomPart(pLevel, pPos, pState, pPlayer);
+	public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+		if (!level.isClientSide && player.isCreative()) {
+			preventCreativeDropFromBottomPart(level, pos, state, player);
 		}
 
-		super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
+		super.playerWillDestroy(level, pos, state, player);
 	}
 
 

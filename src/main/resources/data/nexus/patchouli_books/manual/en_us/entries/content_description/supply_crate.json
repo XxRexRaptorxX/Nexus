@@ -1,0 +1,21 @@
+{
+  "name": "Supply Crate",
+  "icon": "nexus:supply_crate",
+  "category": "nexus:content_description",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "nexus:supply_crate",
+      "text": "These blocks can be distributed on the map by the operators before the game begins and drop xp and random loot when destroyed. $(br2)The loot and the amount of XP can be set in the $(l:gamemode_configuration/server_config_options)config file$()."
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "nexus:textures/pictures/supply_crate.png",
+        "nexus:textures/pictures/supply_crate_drops.png"
+      ],
+      "border": true
+    }
+  ]
+}

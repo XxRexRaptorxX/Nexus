@@ -1,0 +1,38 @@
+{
+  "name": "Base Setup",
+  "icon": "minecraft:crafting_table",
+  "category": "nexus:gamemode_configuration",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The least you need to do to use game mode is the basic configuration. $(br)I'll describe how you do that in this chapter. $(br2)First you have to meet these requirements: $(br)$(li)A Minecraft Server (either you create one yourself, play over LAN or $(l:bugs_feedback/server)get one hosted$() $(li)Operator rights on the server"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The next steps are the basic configuration in-game: $(br2)1. Place one Nexus in each team base $(br)2. Create the teams: $(o)$(3)/team add <team> [displayName]$() $(br)3. Assign a color to the teams: $(o)$(3)/team modify <team> color [color] $()$(br)(use only red, blue, yellow, green, white or black depending on the nexus color!) $() $(br)4. Assign all players to the teams: $(o)$(3)/team join <team> [playerName]$() $(br)5. Further configuration is possible with the $(l:gamemode_configuration/server_config_options)server config$() and $(l:gamemode_configuration/additional_configuration)additional commands$()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The basic configuration is now complete, each player should now go to their base and things can start from there. $(br2)The game mode is called $(n)Tower Defense Battle Mode$() and the goal of the game is to find the enemy bases and destroy the Nexus there before your own is destroyed!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": ""
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "nexus:textures/pictures/nexus_defense.png"
+      ],
+      "border": false
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "nexus:textures/pictures/nexus_attack.png"
+      ],
+      "border": false
+    }
+  ]
+}

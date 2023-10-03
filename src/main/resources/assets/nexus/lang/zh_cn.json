@@ -17,13 +17,18 @@
     "message.nexus.function_disabled": "该功能已被禁用。",
     "message.nexus.tracker.desc": "右击以追踪枢纽水晶。",
     "message.nexus.tracking": "枢纽水晶在：",
+    "message.nexus.tracking_failed": "No Nexus blocks in range",
     "message.nexus.tracker_distance": " 格距离以外",
+    "message.nexus.unbreakable": "unbreakable",
 
     "message.nexus.nexus_level_1": "已摧毁枢纽水晶25%生命值！",
     "message.nexus.nexus_level_2": "已摧毁枢纽水晶50%生命值！",
     "message.nexus.nexus_level_3": "已摧毁枢纽水晶75%生命值！",
     "message.nexus.nexus_destruction": "枢纽水晶已被摧毁！",
     "message.nexus.nexus_under_attack": "枢纽水晶正遭受攻击！",
+
+    "patchouli.nexus_manual.title": "Nexus Manual",
+    "patchouli.nexus_manual.intro": "This manual shows you everything you can do and set with the $(l)Nexus$() mod! $(br2)$(br2)$(7)by XxRexRaptorxX$()",
 
     "block.nexus.nexus_red": "§c枢纽水晶",
     "block.nexus.nexus_blue": "§9枢纽水晶",
@@ -32,6 +37,8 @@
     "block.nexus.nexus_white": "§f枢纽水晶",
     "block.nexus.nexus_black": "§8枢纽水晶",
     "block.nexus.supply_crate": "Supply Crate",
+    "block.nexus.security_wall": "Security Wall",
+    "block.nexus.security_barrier": "Security Barrier",
 
     "item.nexus.repair_kit": "维修包",
     "item.nexus.nexus_tracker": "枢纽水晶追踪器",

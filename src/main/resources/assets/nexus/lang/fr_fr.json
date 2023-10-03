@@ -17,14 +17,19 @@
     "message.nexus.blocked_position": "The Nexus is blocking you from placing blocks here...",
     "message.nexus.function_disabled": "This function is disabled.",
     "message.nexus.tracker.desc": "Right-click to track a Nexus.",
-    "message.nexus.tracking": "Nexus in range:",
+    "message.nexus.tracking": "Nexus blocks in range:",
+    "message.nexus.tracking_failed": "No Nexus blocks in range",
     "message.nexus.tracker_distance": " blocks away",
+    "message.nexus.unbreakable": "unbreakable",
 
     "message.nexus.nexus_level_1": "Nexus détruit à 25%!",
     "message.nexus.nexus_level_2": "Nexus détruit à 50%!",
     "message.nexus.nexus_level_3": "Nexus détruit à 75%!",
     "message.nexus.nexus_destruction": "a détruit le Nexus!",
     "message.nexus.nexus_under_attack": "Le Nexus est attaqué!",
+
+    "patchouli.nexus_manual.title": "Nexus Manual",
+    "patchouli.nexus_manual.intro": "This manual shows you everything you can do and set with the $(l)Nexus$() mod! $(br2)$(br2)$(7)by XxRexRaptorxX$()",
 
     "block.nexus.nexus_red": "§cNexus",
     "block.nexus.nexus_blue": "§9Nexus",
@@ -33,6 +38,8 @@
     "block.nexus.nexus_white": "§fNexus",
     "block.nexus.nexus_black": "§8Nexus",
     "block.nexus.supply_crate": "Supply Crate",
+    "block.nexus.security_wall": "Security Wall",
+    "block.nexus.security_barrier": "Security Barrier",
 
     "item.nexus.repair_kit": "Kit de réparation",
     "item.nexus.nexus_tracker": "Nexus Tracker",

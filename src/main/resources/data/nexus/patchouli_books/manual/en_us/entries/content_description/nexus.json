@@ -1,0 +1,23 @@
+{
+  "name": "Nexus",
+  "icon": "nexus:nexus_blue",
+  "category": "nexus:content_description",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "nexus:nexus_black",
+      "text": "This block is the core feature of the mod, each team gets a different color and tries to destroy the other nexus blocks. $(br2)$(n)Features:$()$(li)3 destruction phases $(li)Marks all attacking players through walls (configurable) $(li)Spreads an effect when right-clicked (configurable)"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "nexus:textures/pictures/destruction_phase_1.png",
+        "nexus:textures/pictures/destruction_phase_2.png",
+        "nexus:textures/pictures/destruction_phase_3.png"
+      ],
+      "text": "The destruction phases",
+      "border": true
+    }
+  ]
+}

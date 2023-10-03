@@ -1,0 +1,16 @@
+{
+  "name": "Suggestions",
+  "icon": "minecraft:crafting_table",
+  "category": "nexus:gamemode_configuration",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "I'll list a few suggestions on how you can expand your experience here: $(br)$(li)$(l:https://www.curseforge.com/minecraft/mc-mods/multi-mine)MultiMine$() (I highly recommend that you install this mod because it makes it possible to break a Nexus with several people at the same time!) $(br)$(li)Weapon mods (like $(l:https://www.curseforge.com/minecraft/mc-mods/age-of-weapons)Age of Weapons$() (To bring even more variety to the fights! [Small note: AoW adds its own nexus blocks, but these have a lot fewer features])"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(br)$(li)$(l:https://www.curseforge.com/minecraft/mc-mods/ftb-chunks-forge)FTB Chunks$() (Allows the team leaders or admins to claim the chunks of the nexus bases to prevent blocks from being built or mined there. But remember that the nexus still has to be free!) $(br)$(li)$(l:https://www.curseforge.com/minecraft/mc-mods/corpse)Corpse$() (Leaves the players' corpses with their loot lying on the ground instead of just dropping the items) $(br)$(li)$(l:https://www.curseforge.com/minecraft/mc-mods/jei)JEI$() (The most popular recipe viewer mod)"
+    }
+  ]
+}

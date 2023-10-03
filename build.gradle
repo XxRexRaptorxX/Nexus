@@ -49,7 +49,11 @@ minecraft {
             // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             property 'forge.logging.console.level', 'debug'
 
-            
+            // Patchouli mixin fix
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+
+
             mods {
                 "${mod_id}"{
                     source sourceSets.main
@@ -111,14 +115,14 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
-        // location of the maven that hosts JEI files
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
+        // location of the maven that hosts JEI files since January 2023
+        name = "Jared's maven"
+        url = "https://maven.blamejared.com/"
     }
+
     maven {
-        // location of a maven mirror for JEI files, as a fallback
-        name = "ModMaven"
-        url = "https://modmaven.k-4u.nl"
+        // patchouli
+        url 'https://maven.blamejared.com'
     }
 
     maven {
@@ -135,13 +139,14 @@ dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
     //JEI
-    //compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
-    //compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
-    // at runtime, use the full JEI
-    //runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-common:${jei_version}")
-    //runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
-    //JADE
-    //runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
+    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
+    //Patchouli
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${mc_version}-${patchouli_version}-FORGE:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${mc_version}-${patchouli_version}-FORGE")
+    //JEED
+    runtimeOnly fg.deobf("curse.maven:jeed-532286:${jeed_version}")
 
 }
 

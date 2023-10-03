@@ -7,7 +7,7 @@
     "message.nexus.gamemode_line_1": "Wie man den Spielmodus vorbereitet:",
     "message.nexus.gamemode_line_2": "> Setze einen Nexus in jede Team Basis.",
     "message.nexus.gamemode_line_3": "> Erstelle die Teams: /team add <team> [anzeigeName]",
-    "message.nexus.gamemode_line_4": "> Weise dem Team eine Farbe zu: /team modify <team> color [farbe]",
+    "message.nexus.gamemode_line_4": "> Weise den Teams eine Farbe zu: /team modify <team> color [farbe]",
     "message.nexus.gamemode_line_5": "> Weise allen Spielern ein Team zu: /team join <team> [spielerName]",
     "message.nexus.gamemode_line_6": "> Spiele! Das Ziel des Spielmodus ist es den gegnerischen Nexus zu zerstören.",
     "message.nexus.nexus_repair": "Nexus wurde repariert.",
@@ -15,14 +15,19 @@
     "message.nexus.blocked_position": "Der Nexus blockiert dich hier Blöcke zu platzieren...",
     "message.nexus.function_disabled": "Diese Funktion wurde deaktiviert.",
     "message.nexus.tracker.desc": "Rechtsklick um einen Nexus zu orten.",
-    "message.nexus.tracking": "Nexus in Reichweite:",
+    "message.nexus.tracking": "Nexus Blöcke in Reichweite:",
+    "message.nexus.tracking_failed": "Keine Nexus Blöcke in Reichweite",
     "message.nexus.tracker_distance": " Blöcke weit weg",
+    "message.nexus.unbreakable": "unzerstörbar",
 
     "message.nexus.nexus_level_1": "Nexus zu 25% zerstört!",
     "message.nexus.nexus_level_2": "Nexus zu 50% zerstört!",
     "message.nexus.nexus_level_3": "Nexus zu 75% zerstört!",
     "message.nexus.nexus_destruction": "hat den Nexus zerstrört!",
     "message.nexus.nexus_under_attack": "Nexus wird angegriffen!",
+
+    "patchouli.nexus_manual.title": "Nexus Anleitung",
+    "patchouli.nexus_manual.intro": "Diese Anleitung zeigt dir alles was du mit der $(l)Nexus$() Mod machen und einstellen kannst! $(br2)$(br2)$(7)von XxRexRaptorxX$()",
 
     "block.nexus.nexus_red": "§cNexus",
     "block.nexus.nexus_blue": "§9Nexus",
@@ -31,6 +36,8 @@
     "block.nexus.nexus_white": "§fNexus",
     "block.nexus.nexus_black": "§8Nexus",
     "block.nexus.supply_crate": "Versorgungskiste",
+    "block.nexus.security_wall": "Sicherheitsmauer",
+    "block.nexus.security_wall": "Sicherheitsbarriere",
 
     "item.nexus.repair_kit": "Reparatur Kit",
     "item.nexus.nexus_tracker": "Nexus Tracker",

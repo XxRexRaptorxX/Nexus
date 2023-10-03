@@ -5,16 +5,15 @@ issueTrackerURL="https://www.curseforge.com/minecraft/mc-mods/nexus-battle-mode/
 
 [[mods]]
 modId="nexus"
-version="1.5.1"
-displayName="Nexus"
+version="1.7.1"
+displayName="Nexus (Tower Defense Battle Mode)"
 itemIcon="nexus:nexus_blue"
 updateJSONURL="https://raw.githubusercontent.com/XxRexRaptorxX/Update-Checker/main/Nexus.json"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/nexus-battle-mode"
 logoFile="logo.png"
 #credits=""
 authors="XxRexRaptorxX (RexRaptor)"
-description='''
-This mod adds a "Nexus" block which allows you to play a team based tower defense game mode!'''
+description='''This mod adds a "Nexus" block which allows you to play a team based tower defense game mode!'''
 
 [[dependencies.nexus]]
     modId="forge"
@@ -34,5 +33,12 @@ This mod adds a "Nexus" block which allows you to play a team based tower defens
     modId="multimine"
     mandatory=false
     versionRange="[1.19.4,1.20)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.nexus]]
+    modId="patchouli"
+    mandatory=false
+    versionRange="[1.19,)"
     ordering="NONE"
     side="BOTH"

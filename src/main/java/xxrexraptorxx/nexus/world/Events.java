@@ -99,7 +99,7 @@ public class Events {
                         world.playSound((Player) null, pos, SoundEvents.ILLUSIONER_MIRROR_MOVE, SoundSource.BLOCKS, 0.5F, world.random.nextFloat() * 0.15F + 0.8F);
 
                         AreaEffectCloud cloud = new AreaEffectCloud(world, pos.getX(), pos.getY() + 0.2F, pos.getZ());
-                        cloud.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 500));
+                        cloud.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 500));
                         cloud.setDuration(100);
                         cloud.setRadius(8);
                         cloud.setFixedColor(0x616161);
@@ -185,7 +185,8 @@ public class Events {
         BlockPos pos = event.getPos();
         Item item = event.getItemStack().getItem();
 
-        if (Config.NEXUS_TRACKING.get() && ForgeRegistries.ITEMS.getKey(item).toString().contains(References.MODID + ":nexus")) {  //test if placed block is a nexus
+        if (Config.NEXUS_TRACKING.get() && ForgeRegistries.ITEMS.getKey(item).toString().contains(References.MODID + ":nexus") &&
+                !ForgeRegistries.ITEMS.getKey(item).toString().contains(References.MODID + ":nexus_tracker")) {  //test if placed block is a nexus
 
             String nexusColor = (item).toString().substring(6).toUpperCase();
             String scoreboardName = nexusColor + "_NEXUS";
@@ -211,7 +212,7 @@ public class Events {
     @SubscribeEvent
     public static void SupporterRewards(PlayerEvent.PlayerLoggedInEvent event) {
         Player player = event.getEntity();
-        Level world = player.getLevel();
+        Level level = player.getLevel();
 
         if (Config.PATREON_REWARDS.get()) {
 
@@ -237,7 +238,7 @@ public class Events {
                             ownerNBT.putString("SkullOwner", player.getName().getString());
                             reward.setTag(ownerNBT);
 
-                            player.getLevel().playSound((Player) null, player.blockPosition(), SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 0.5F, world.random.nextFloat() * 0.15F + 0.8F);
+                            level.playSound((Player) null, player.blockPosition(), SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 0.5F, level.random.nextFloat() * 0.15F + 0.8F);
                             player.addItem(reward);
                             player.addItem(certificate);
                         }
@@ -261,6 +262,7 @@ public class Events {
             }
         }
     }
+
 
     /**
      * Tests if a player is a supporter

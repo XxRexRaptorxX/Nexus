@@ -1,0 +1,19 @@
+{
+  "name": "Nexus Tracker",
+  "icon": "nexus:nexus_tracker",
+  "category": "nexus:content_description",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "nexus:nexus_tracker",
+      "text": "This item can be used to track the distance to all $(item)Nexus$() blocks. $(br)(does not work inter-dimensionally) $(br)After each tracking there is a small cooldown. $(br2)The function can be switched off in the $(l:gamemode_configuration/server_config_options)config file$() and the crafting recipes can be changed via datapack."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "nexus:nexus_tracker",
+      "recipe2": "nexus:transmitter",
+      "title": " "
+    }
+  ]
+}

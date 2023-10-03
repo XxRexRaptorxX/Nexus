@@ -1,0 +1,6 @@
+{
+  "name": "Gamemode Configuration",
+  "description": "Here you will find a simple description of how to configure the game mode.",
+  "icon": "minecraft:command_block",
+  "sortnum": 1
+}
