@@ -14,7 +14,7 @@ This mod is a **enhanced** standalone version of the "Nexus" block from [Age of 
 
 I suggest you to use [MultiMine](https://www.curseforge.com/minecraft/mc-mods/multi-mine) for more teamplay with this mod.
 
- -----
+-----
 
 ### Features:
 
@@ -29,10 +29,23 @@ I suggest you to use [MultiMine](https://www.curseforge.com/minecraft/mc-mods/mu
 - Version-checker
 - Custom block models, animated textures & particles
 
+----
+
+## 🗃️ Dependencies
+
+- **Patchouli** *(optional)*
+    - [CurseForge][cf_patchouli] | [Modrinth][mr_patchouli]
+- **Multi Mine** *(optional)*
+  - [CurseForge][cf_multimine]
+
+----
+
 ## 🗒️ License
 
 All rights reserved.
 
 [cf_mod]: https://www.curseforge.com/minecraft/mc-mods/nexus-battle-mode
-
 [mr_mod]: https://modrinth.com/mod/nexus
+[cf_patchouli]: https://www.curseforge.com/minecraft/mc-mods/patchouli
+[mr_patchouli]: https://modrinth.com/mods/patchouli
+[cf_multimine]: https://www.curseforge.com/minecraft/mc-mods/multi-mine
