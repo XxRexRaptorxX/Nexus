@@ -283,7 +283,7 @@ public class NexusBlock extends Block {
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (random.nextDouble() < 0.15D) {
-			level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ILLUSIONER_CAST_SPELL, SoundSource.BLOCKS, 0.8F, 1.0F, false);
+			level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ILLUSIONER_PREPARE_BLINDNESS, SoundSource.BLOCKS, 0.8F, 1.0F, false);
 		}
 
 		for (int i = 0; i < 3; ++i) {
