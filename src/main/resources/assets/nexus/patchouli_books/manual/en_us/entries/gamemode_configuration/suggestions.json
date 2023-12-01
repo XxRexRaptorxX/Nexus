@@ -6,11 +6,69 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "I'll list a few suggestions on how you can expand your experience here: $(br)$(li)$(l:https://www.curseforge.com/minecraft/mc-mods/multi-mine)MultiMine$() (I highly recommend that you install this mod because it makes it possible to break a Nexus with several people at the same time!) $(br)$(li)Weapon mods (like $(l:https://www.curseforge.com/minecraft/mc-mods/age-of-weapons)Age of Weapons$() (To bring even more variety to the fights! [Small note: AoW adds its own nexus blocks, but these have a lot fewer features])"
+      "text": "I'll list a few suggestions on how you can expand your experience here: $(br)$(li)$(l:https://www.curseforge.com/minecraft/mc-mods/multi-mine)MultiMine$() (I highly recommend that you install this mod because it makes it possible to break a Nexus with several people at the same time!)"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "nexus:textures/pictures/multi_mine.png"
+      ],
+      "border": true
     },
     {
       "type": "patchouli:text",
-      "text": "$(br)$(li)$(l:https://www.curseforge.com/minecraft/mc-mods/ftb-chunks-forge)FTB Chunks$() (Allows the team leaders or admins to claim the chunks of the nexus bases to prevent blocks from being built or mined there. But remember that the nexus still has to be free!) $(br)$(li)$(l:https://www.curseforge.com/minecraft/mc-mods/corpse)Corpse$() (Leaves the players' corpses with their loot lying on the ground instead of just dropping the items) $(br)$(li)$(l:https://www.curseforge.com/minecraft/mc-mods/jei)JEI$() (The most popular recipe viewer mod)"
+      "text": "$(li)Weapon mods $(br)(like $(l:https://www.curseforge.com/minecraft/mc-mods/age-of-weapons)Age of Weapons$() (To bring even more variety to the fights!)"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "nexus:textures/pictures/age_of_weapons.png"
+      ],
+      "border": true
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(li)$(l:https://www.curseforge.com/minecraft/mc-mods/supplementaries)Supplementaries$() (With this mod you can create search- or overview-maps for your players, when you right-click with a map on a Nexus or Supply Crate)"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "nexus:textures/pictures/supplementaries.png"
+      ],
+      "border": true
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(li)$(l:https://www.curseforge.com/minecraft/mc-mods/ftb-chunks-forge)FTB Chunks$() (Allows the team leaders or admins to claim the chunks of the nexus bases to prevent blocks from being built or mined there. But remember that the nexus still has to be free!)"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "nexus:textures/pictures/ftb_chunks.png"
+      ],
+      "border": true
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(li)$(l:https://www.curseforge.com/minecraft/mc-mods/corpse)Corpse$() (Leaves the players' corpses with their loot lying on the ground instead of just dropping the items)"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "nexus:textures/pictures/corpse.png"
+      ],
+      "border": true
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(li)$(l:https://www.curseforge.com/minecraft/mc-mods/jei)JEI$() (The most popular recipe viewer mod)"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "nexus:textures/pictures/jei.png"
+      ],
+      "border": true
     }
   ]
 }
