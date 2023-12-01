@@ -1,0 +1,32 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "jeed"
+    }
+  ],
+  "type": "jeed:effect_provider",
+  "effect":{
+    "id": "minecraft:glowing"
+  },
+  "providers": [
+    {
+      "item": "nexus:nexus_green"
+    },
+    {
+      "item": "nexus:nexus_blue"
+    },
+    {
+      "item": "nexus:nexus_red"
+    },
+    {
+      "item": "nexus:nexus_yellow"
+    },
+    {
+      "item": "nexus:nexus_black"
+    },
+    {
+      "item": "nexus:nexus_white"
+    }
+  ]
+}
