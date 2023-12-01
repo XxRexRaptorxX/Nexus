@@ -1,0 +1,7 @@
+{
+  "target_block": {
+    "block": "nexus:supply_crate",
+    "predicate_type": "minecraft:block_match"
+  },
+  "map_color": "0xf7b538"
+}

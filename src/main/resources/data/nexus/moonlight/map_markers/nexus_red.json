@@ -1,0 +1,7 @@
+{
+  "target_block": {
+    "block": "nexus:nexus_red",
+    "predicate_type": "minecraft:block_match"
+  },
+  "map_color": "0xff0000"
+}
