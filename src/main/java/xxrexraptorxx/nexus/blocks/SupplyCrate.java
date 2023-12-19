@@ -2,6 +2,7 @@ package xxrexraptorxx.nexus.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -15,12 +16,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraftforge.registries.ForgeRegistries;
 import xxrexraptorxx.nexus.main.Nexus;
 import xxrexraptorxx.nexus.utils.Config;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -54,7 +53,7 @@ public class SupplyCrate extends FallingBlock {
 
 						//process the entry and drop the item
 						ItemEntity drop = new ItemEntity(level, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D,
-								new ItemStack(ForgeRegistries.ITEMS.getValue(
+								new ItemStack(BuiltInRegistries.ITEM.get(
 										//                                          get the mod prefix              |        get the item registry name      |         get the item amount
 										new ResourceLocation(item.substring(item.indexOf('*') + 1, item.indexOf(':')), item.substring(item.indexOf(':') + 1))), Integer.parseInt(item.substring(0, item.indexOf('*')))));
 						level.addFreshEntity(drop);

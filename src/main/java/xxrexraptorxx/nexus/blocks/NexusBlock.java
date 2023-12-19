@@ -7,6 +7,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.PlayerChatMessage;
@@ -43,7 +44,6 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 import xxrexraptorxx.nexus.main.Nexus;
 import xxrexraptorxx.nexus.utils.Config;
@@ -102,7 +102,7 @@ public class NexusBlock extends Block {
 	@Override
 	public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
 		Random random = new Random();
-		String nexusColor = ForgeRegistries.BLOCKS.getKey(this).toString().substring(12);
+		String nexusColor = BuiltInRegistries.BLOCK.getKey(this).toString().substring(12);
 		ItemStack stack = player.getUseItem();
 
 		if (!level.isClientSide) {
@@ -156,7 +156,7 @@ public class NexusBlock extends Block {
 						for (String item : Config.NEXUS_REWARDS.get()) {
 							try {
 								ItemEntity drop = new ItemEntity(level, (double)pos.getX() + 0.5D, (double)pos.getY() + 1.5D, (double)pos.getZ() + 0.5D,
-										new ItemStack(ForgeRegistries.ITEMS.getValue(
+										new ItemStack(BuiltInRegistries.ITEM.get(
 												//                                          get the mod prefix              |        get the item registry name      |         get the item amount
 												new ResourceLocation(item.substring(item.indexOf('*') + 1, item.indexOf(':')), item.substring(item.indexOf(':') + 1))), Integer.parseInt(item.substring(0, item.indexOf('*')))));
 								level.addFreshEntity(drop);
@@ -183,7 +183,7 @@ public class NexusBlock extends Block {
 	 * @param positive = true means repairing & false means damaging
 	 */
 	public static void nexusLevelChange(Boolean positive, Level level, BlockState state, BlockPos pos, ItemStack stack, Player player) {
-		String nexusColor = ForgeRegistries.BLOCKS.getKey(state.getBlock()).toString().substring(12);
+		String nexusColor = BuiltInRegistries.BLOCK.getKey(state.getBlock()).toString().substring(12);
 		Random random = new Random();
 
 		if(!positive) {			/** Damage Nexus **/
@@ -337,7 +337,7 @@ public class NexusBlock extends Block {
 		return this.defaultBlockState()
 				.setValue(DESTRUCTION_LEVEL, 0)
 				.setValue(HALF, DoubleBlockHalf.LOWER)
-				.setValue(COLOR, NexusColors.valueOf(ForgeRegistries.BLOCKS.getKey(this).toString().substring(12).toUpperCase()));
+				.setValue(COLOR, NexusColors.valueOf(BuiltInRegistries.BLOCK.getKey(this).toString().substring(12).toUpperCase()));
 	}
 
 	/** Double Block stuff **/

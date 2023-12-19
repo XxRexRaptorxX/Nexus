@@ -4,6 +4,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
@@ -24,18 +25,17 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.scores.criteria.ObjectiveCriteria;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.VersionChecker;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.VersionChecker;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.TickEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import xxrexraptorxx.nexus.blocks.NexusBlock;
-import xxrexraptorxx.nexus.registries.ModItems;
 import xxrexraptorxx.nexus.main.Nexus;
 import xxrexraptorxx.nexus.main.References;
+import xxrexraptorxx.nexus.registries.ModItems;
 import xxrexraptorxx.nexus.utils.Config;
 
 import java.net.MalformedURLException;
@@ -87,7 +87,7 @@ public class Events {
         Player player = event.getEntity();
 
         if (!world.isClientSide) {
-            if (ForgeRegistries.BLOCKS.getKey(block).toString().contains(References.MODID + ":nexus")) {
+            if (BuiltInRegistries.BLOCK.getKey(block).toString().contains(References.MODID + ":nexus")) {
 
                 if (item == ModItems.REPAIR_KIT.get()) {
                     NexusBlock.nexusLevelChange(true, world, state, pos, stack, player);
@@ -123,9 +123,9 @@ public class Events {
 
         if(!level.isClientSide && Config.NEXUS_UNDER_ATTACK_MESSAGE.get() && !player.isCreative()) {
 
-            if (ForgeRegistries.BLOCKS.getKey(block).toString().contains(References.MODID + ":nexus")) {
+            if (BuiltInRegistries.BLOCK.getKey(block).toString().contains(References.MODID + ":nexus")) {
 
-                String nexusColor = ForgeRegistries.BLOCKS.getKey(block).toString().substring(12);
+                String nexusColor = BuiltInRegistries.BLOCK.getKey(block).toString().substring(12);
                 level.getServer().getPlayerList().broadcastSystemMessage(Component.translatable("message.nexus.nexus_under_attack").withStyle(ChatFormatting.getByName(nexusColor)), true);
             }
         }
@@ -142,8 +142,8 @@ public class Events {
         //safety tests
         if (!world.isClientSide) {
             if (event.getItemStack().getItem() != Items.AIR && Config.NEXUS_SAFE_ZONE.get() != 0) {
-                for (Block blocks : ForgeRegistries.BLOCKS) {                               //test if the held item is a block
-                    if (ForgeRegistries.ITEMS.getKey(event.getItemStack().getItem()) == ForgeRegistries.BLOCKS.getKey(blocks)) {
+                for (Block blocks : BuiltInRegistries.BLOCK) {                               //test if the held item is a block
+                    if (BuiltInRegistries.ITEM.getKey(event.getItemStack().getItem()) == BuiltInRegistries.BLOCK.getKey(blocks)) {
 
 
                         //sets the start position
@@ -160,7 +160,7 @@ public class Events {
                                     BlockPos block = new BlockPos(posX + x, posY + y, posZ + z);
 
                                     //tests if current block is a nexus
-                                    if (ForgeRegistries.BLOCKS.getKey(world.getBlockState(block).getBlock()).toString().contains(References.MODID + ":nexus") && block.getY() < pos.getY() + 2) {
+                                    if (BuiltInRegistries.BLOCK.getKey(world.getBlockState(block).getBlock()).toString().contains(References.MODID + ":nexus") && block.getY() < pos.getY() + 2) {
                                         world.playSound(player, pos, SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 0.5F, world.random.nextFloat() * 0.15F + 0.F);
                                         Minecraft.getInstance().player.displayClientMessage(Component.translatable("message.nexus.blocked_position").withStyle(ChatFormatting.RED), true);
 
@@ -185,10 +185,10 @@ public class Events {
         BlockPos pos = event.getPos();
         Item item = event.getItemStack().getItem();
 
-        if (Config.NEXUS_TRACKING.get() && ForgeRegistries.ITEMS.getKey(item).toString().contains(References.MODID + ":nexus") &&
-                !ForgeRegistries.ITEMS.getKey(item).toString().contains(References.MODID + ":nexus_tracker")) {  //test if placed block is a nexus
+        if (Config.NEXUS_TRACKING.get() && BuiltInRegistries.ITEM.getKey(item).toString().contains(References.MODID + ":nexus") &&
+                !BuiltInRegistries.ITEM.getKey(item).toString().contains(References.MODID + ":nexus_tracker")) {  //test if placed block is a nexus
 
-            String nexusColor = (item).toString().substring(6).toUpperCase();
+            String nexusColor = (item).toString().substring(12).toUpperCase();
             String scoreboardName = nexusColor + "_NEXUS";
 
             //counter++;        > unused

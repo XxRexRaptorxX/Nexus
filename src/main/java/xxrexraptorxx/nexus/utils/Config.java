@@ -1,17 +1,15 @@
 package xxrexraptorxx.nexus.utils;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Mod.EventBusSubscriber
 public class Config {
 
     public static final String CATEGORY_GENERAL = "general";
@@ -20,28 +18,28 @@ public class Config {
     public static final String CATEGORY_SUPPLY_CRATE_PROPERTIES = "supply_crate_properties";
     public static final String CATEGORY_BARRIER_PROPERTIES = "barrier_properties";
 
-    public static ForgeConfigSpec SERVER_CONFIG;
-    public static ForgeConfigSpec CLIENT_CONFIG;
+    public static ModConfigSpec SERVER_CONFIG;
+    public static ModConfigSpec CLIENT_CONFIG;
 
-    public static ForgeConfigSpec.BooleanValue UPDATE_CHECKER;
-    public static ForgeConfigSpec.BooleanValue BARRIER_DAMAGE;
-    public static ForgeConfigSpec.BooleanValue NEXUS_EFFECT_WHEN_RIGHT_CLICKED;
-    public static ForgeConfigSpec.BooleanValue GLOWING_EFFECT_FROM_NEXUS;
-    public static ForgeConfigSpec.BooleanValue NEXUS_UNDER_ATTACK_MESSAGE;
-    public static ForgeConfigSpec.BooleanValue SPECTATOR_MODE_AFTER_LOST_NEXUS;
-    public static ForgeConfigSpec.BooleanValue NEXUS_REPAIRING;
-    public static ForgeConfigSpec.BooleanValue NEXUS_TRACKING;
-    public static ForgeConfigSpec.IntValue TRACKING_COOLDOWN;
-    public static ForgeConfigSpec.IntValue NEXUS_XP_AMOUNT;
-    public static ForgeConfigSpec.IntValue REPAIR_COOLDOWN;
-    public static ForgeConfigSpec.IntValue NEXUS_XP_STAGE_AMOUNT;
-    public static ForgeConfigSpec.IntValue NEXUS_HARDNESS;
-    public static ForgeConfigSpec.IntValue NEXUS_SAFE_ZONE;
-    public static ForgeConfigSpec.ConfigValue<List<String>> NEXUS_REWARDS;
-    public static ForgeConfigSpec.ConfigValue<List<String>> SUPPLY_CRATE_LOOT;
-    public static ForgeConfigSpec.IntValue SUPPLY_CRATE_LOOT_AMOUNT;
-    public static ForgeConfigSpec.IntValue SUPPLY_CRATE_XP_AMOUNT;
-    public static ForgeConfigSpec.BooleanValue PATREON_REWARDS;
+    public static ModConfigSpec.BooleanValue UPDATE_CHECKER;
+    public static ModConfigSpec.BooleanValue BARRIER_DAMAGE;
+    public static ModConfigSpec.BooleanValue NEXUS_EFFECT_WHEN_RIGHT_CLICKED;
+    public static ModConfigSpec.BooleanValue GLOWING_EFFECT_FROM_NEXUS;
+    public static ModConfigSpec.BooleanValue NEXUS_UNDER_ATTACK_MESSAGE;
+    public static ModConfigSpec.BooleanValue SPECTATOR_MODE_AFTER_LOST_NEXUS;
+    public static ModConfigSpec.BooleanValue NEXUS_REPAIRING;
+    public static ModConfigSpec.BooleanValue NEXUS_TRACKING;
+    public static ModConfigSpec.IntValue TRACKING_COOLDOWN;
+    public static ModConfigSpec.IntValue NEXUS_XP_AMOUNT;
+    public static ModConfigSpec.IntValue REPAIR_COOLDOWN;
+    public static ModConfigSpec.IntValue NEXUS_XP_STAGE_AMOUNT;
+    public static ModConfigSpec.IntValue NEXUS_HARDNESS;
+    public static ModConfigSpec.IntValue NEXUS_SAFE_ZONE;
+    public static ModConfigSpec.ConfigValue<List<String>> NEXUS_REWARDS;
+    public static ModConfigSpec.ConfigValue<List<String>> SUPPLY_CRATE_LOOT;
+    public static ModConfigSpec.IntValue SUPPLY_CRATE_LOOT_AMOUNT;
+    public static ModConfigSpec.IntValue SUPPLY_CRATE_XP_AMOUNT;
+    public static ModConfigSpec.BooleanValue PATREON_REWARDS;
 
 
     public static void init() {
@@ -54,7 +52,7 @@ public class Config {
 
 
     public static void initClient() {
-        ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+        ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
 
         builder.comment("General").push(CATEGORY_GENERAL);
         UPDATE_CHECKER = builder.comment("Activate the Update-Checker").define("update-checker", true);
@@ -65,7 +63,7 @@ public class Config {
 
 
     public static void initServer() {
-        ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+        ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
 
         builder.comment("General").push(CATEGORY_GENERAL);
         PATREON_REWARDS = builder.comment("Enables ingame rewards on first spawn for Patreons").define("patreon_rewards", true);
@@ -77,7 +75,7 @@ public class Config {
         NEXUS_SAFE_ZONE = builder.comment("The radius of the zone around a Nexus where no block can be placed [0 = disabled] (large values cost performance)").defineInRange("nexus_safe_zone", 6, 0, 15);
         //NEXUS_HARDNESS = builder.comment("How hard the Nexus is").defineInRange("nexus_hardness", 100, 10, 1000);
         NEXUS_REWARDS = builder.comment("A list with all the rewards that drop when a Nexus is destroyed [amount*modid:item]").define("nexus_rewards", new ArrayList<>(Arrays.asList(
-                "1*" + ForgeRegistries.ITEMS.getKey(Items.NETHER_STAR).toString()
+                "1*" + BuiltInRegistries.ITEM.getKey(Items.NETHER_STAR).toString()
         )));
         NEXUS_REPAIRING = builder.comment("Should the nexus be repairable?").define("nexus_repairing", true);
         REPAIR_COOLDOWN = builder.comment("How long should the Cooldown be after repair?").defineInRange("repair_cooldown", 1500, 0, 100000);
@@ -98,32 +96,32 @@ public class Config {
 
         builder.comment("Supply Crate Properties").push(CATEGORY_SUPPLY_CRATE_PROPERTIES);
         SUPPLY_CRATE_LOOT = builder.comment("A list with all the loot that can drop when a Supply Crate is destroyed [amount*modid:item]").define("supply_crate_loot", new ArrayList<>(Arrays.asList(
-                "1*" + ForgeRegistries.ITEMS.getKey(Items.IRON_SWORD).toString(),
-                "1*" + ForgeRegistries.ITEMS.getKey(Items.DIAMOND_SWORD).toString(),
-                "1*" + ForgeRegistries.ITEMS.getKey(Items.TRIDENT).toString(),
-                "1*" + ForgeRegistries.ITEMS.getKey(Items.DIAMOND_HELMET).toString(),
-                "1*" + ForgeRegistries.ITEMS.getKey(Items.DIAMOND_CHESTPLATE).toString(),
-                "1*" + ForgeRegistries.ITEMS.getKey(Items.DIAMOND_LEGGINGS).toString(),
-                "1*" + ForgeRegistries.ITEMS.getKey(Items.DIAMOND_BOOTS).toString(),
-                "1*" + ForgeRegistries.ITEMS.getKey(Items.IRON_HELMET).toString(),
-                "1*" + ForgeRegistries.ITEMS.getKey(Items.IRON_CHESTPLATE).toString(),
-                "1*" + ForgeRegistries.ITEMS.getKey(Items.IRON_LEGGINGS).toString(),
-                "1*" + ForgeRegistries.ITEMS.getKey(Items.IRON_BOOTS).toString(),
-                "1*" + ForgeRegistries.ITEMS.getKey(Items.CROSSBOW).toString(),
-                "3*" + ForgeRegistries.ITEMS.getKey(Items.GOLDEN_APPLE).toString(),
-                "1*" + ForgeRegistries.ITEMS.getKey(Items.ENCHANTED_GOLDEN_APPLE).toString(),
-                "15*" + ForgeRegistries.ITEMS.getKey(Items.BREAD).toString(),
-                "5*" + ForgeRegistries.ITEMS.getKey(Items.TNT).toString(),
-                "5*" + ForgeRegistries.ITEMS.getKey(Items.ENDER_PEARL).toString(),
-                "10*" + ForgeRegistries.ITEMS.getKey(Items.IRON_INGOT).toString(),
-                "10*" + ForgeRegistries.ITEMS.getKey(Items.GOLD_INGOT).toString(),
-                "3*" + ForgeRegistries.ITEMS.getKey(Items.DIAMOND).toString(),
-                "4*" + ForgeRegistries.ITEMS.getKey(Items.EXPERIENCE_BOTTLE).toString(),
-                "1*" + ForgeRegistries.ITEMS.getKey(Items.DIAMOND_AXE).toString(),
-                "1*" + ForgeRegistries.ITEMS.getKey(Items.DIAMOND_PICKAXE).toString(),
-                "1*" + ForgeRegistries.ITEMS.getKey(Items.IRON_AXE).toString(),
-                "1*" + ForgeRegistries.ITEMS.getKey(Items.IRON_PICKAXE).toString(),
-                "1*" + ForgeRegistries.ITEMS.getKey(Items.SHIELD).toString()
+                "1*" + BuiltInRegistries.ITEM.getKey(Items.IRON_SWORD).toString(),
+                "1*" + BuiltInRegistries.ITEM.getKey(Items.DIAMOND_SWORD).toString(),
+                "1*" + BuiltInRegistries.ITEM.getKey(Items.TRIDENT).toString(),
+                "1*" + BuiltInRegistries.ITEM.getKey(Items.DIAMOND_HELMET).toString(),
+                "1*" + BuiltInRegistries.ITEM.getKey(Items.DIAMOND_CHESTPLATE).toString(),
+                "1*" + BuiltInRegistries.ITEM.getKey(Items.DIAMOND_LEGGINGS).toString(),
+                "1*" + BuiltInRegistries.ITEM.getKey(Items.DIAMOND_BOOTS).toString(),
+                "1*" + BuiltInRegistries.ITEM.getKey(Items.IRON_HELMET).toString(),
+                "1*" + BuiltInRegistries.ITEM.getKey(Items.IRON_CHESTPLATE).toString(),
+                "1*" + BuiltInRegistries.ITEM.getKey(Items.IRON_LEGGINGS).toString(),
+                "1*" + BuiltInRegistries.ITEM.getKey(Items.IRON_BOOTS).toString(),
+                "1*" + BuiltInRegistries.ITEM.getKey(Items.CROSSBOW).toString(),
+                "3*" + BuiltInRegistries.ITEM.getKey(Items.GOLDEN_APPLE).toString(),
+                "1*" + BuiltInRegistries.ITEM.getKey(Items.ENCHANTED_GOLDEN_APPLE).toString(),
+                "15*" + BuiltInRegistries.ITEM.getKey(Items.BREAD).toString(),
+                "5*" + BuiltInRegistries.ITEM.getKey(Items.TNT).toString(),
+                "5*" + BuiltInRegistries.ITEM.getKey(Items.ENDER_PEARL).toString(),
+                "10*" + BuiltInRegistries.ITEM.getKey(Items.IRON_INGOT).toString(),
+                "10*" + BuiltInRegistries.ITEM.getKey(Items.GOLD_INGOT).toString(),
+                "3*" + BuiltInRegistries.ITEM.getKey(Items.DIAMOND).toString(),
+                "4*" + BuiltInRegistries.ITEM.getKey(Items.EXPERIENCE_BOTTLE).toString(),
+                "1*" + BuiltInRegistries.ITEM.getKey(Items.DIAMOND_AXE).toString(),
+                "1*" + BuiltInRegistries.ITEM.getKey(Items.DIAMOND_PICKAXE).toString(),
+                "1*" + BuiltInRegistries.ITEM.getKey(Items.IRON_AXE).toString(),
+                "1*" + BuiltInRegistries.ITEM.getKey(Items.IRON_PICKAXE).toString(),
+                "1*" + BuiltInRegistries.ITEM.getKey(Items.SHIELD).toString()
 
         )));
         SUPPLY_CRATE_LOOT_AMOUNT = builder.comment("How many different items should be dropped from the list? [0 = no drops]").defineInRange("supply_crate_loot_amount", 3, 0, 10);

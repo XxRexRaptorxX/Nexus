@@ -1,17 +1,17 @@
 package xxrexraptorxx.nexus.main;
 
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.neoforge.common.NeoForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import xxrexraptorxx.nexus.network.ModPackets;
+import xxrexraptorxx.nexus.registries.CreativeModeTabs;
 import xxrexraptorxx.nexus.registries.ModBlocks;
 import xxrexraptorxx.nexus.registries.ModItems;
 import xxrexraptorxx.nexus.utils.Config;
-import xxrexraptorxx.nexus.registries.CreativeModeTabs;
 
 /**
  * @author XxRexRaptorxX (RexRaptor)
@@ -24,7 +24,7 @@ public class Nexus {
 
 
     public Nexus() {
-        IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+        IEventBus forgeBus = NeoForge.EVENT_BUS;
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         Config.init();
@@ -33,7 +33,6 @@ public class Nexus {
         CreativeModeTabs.init();
 
         modBus.addListener(this::commonSetup);
-        MinecraftForge.EVENT_BUS.register(this);
     }
 
 

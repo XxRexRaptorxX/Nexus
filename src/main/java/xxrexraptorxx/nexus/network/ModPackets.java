@@ -2,10 +2,10 @@ package xxrexraptorxx.nexus.network;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.neoforged.neoforge.network.NetworkRegistry;
+import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.PlayNetworkDirection;
+import net.neoforged.neoforge.network.simple.SimpleChannel;
 import xxrexraptorxx.nexus.main.References;
 import xxrexraptorxx.nexus.network.packets.MessageC2SPacket;
 
@@ -29,7 +29,7 @@ public class ModPackets {
 
         INSTANCE = net;
 
-        net.messageBuilder(MessageC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+        net.messageBuilder(MessageC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER)
                 .decoder(MessageC2SPacket::new)
                 .encoder(MessageC2SPacket::toBytes)
                 .consumerMainThread(MessageC2SPacket::handle)
