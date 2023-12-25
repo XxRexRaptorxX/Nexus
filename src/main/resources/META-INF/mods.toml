@@ -20,6 +20,7 @@ description='''This mod adds a "Nexus" block which allows you to play a team bas
 [[dependencies.${mod_id}]]
     modId="neoforge"
     mandatory=true
+    type="required"
     versionRange="${forge_version_range}"
     ordering="NONE"
     side="BOTH"
@@ -27,6 +28,7 @@ description='''This mod adds a "Nexus" block which allows you to play a team bas
 [[dependencies.${mod_id}]]
     modId="minecraft"
     mandatory=true
+    type="required"
     versionRange="${mc_version_range}"
     ordering="NONE"
     side="BOTH"
@@ -34,6 +36,8 @@ description='''This mod adds a "Nexus" block which allows you to play a team bas
 [[dependencies.${mod_id}]]
     modId="multimine"
     mandatory=false
+    type="optional"
+    reason="Makes it possible to break a Nexus and other blocks with several people at the same time! Encourages team play!"
     versionRange="[1.20,)"
     ordering="NONE"
     side="BOTH"
@@ -41,6 +45,8 @@ description='''This mod adds a "Nexus" block which allows you to play a team bas
 [[dependencies.${mod_id}]]
     modId="patchouli"
     mandatory=false
+    type="optional"
+    reason="Is needed for the in-game description book, because the mod is quite complex."
     versionRange="[1.20,)"
     ordering="NONE"
     side="BOTH"
