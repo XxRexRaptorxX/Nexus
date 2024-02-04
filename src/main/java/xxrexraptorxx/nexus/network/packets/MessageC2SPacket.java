@@ -35,7 +35,13 @@ public class MessageC2SPacket {
             ServerScoreboard scoreboard = (ServerScoreboard) level.getServer().getScoreboard();
 
             if(!level.isClientSide) {
-                player.displayClientMessage(Component.translatable("message.nexus.tracking"), false);
+                if (scoreboard.getObjectiveNames().contains("RED_NEXUS") || scoreboard.getObjectiveNames().contains("BLUE_NEXUS") || scoreboard.getObjectiveNames().contains("GREEN_NEXUS") ||
+                        scoreboard.getObjectiveNames().contains("YELLOW_NEXUS") || scoreboard.getObjectiveNames().contains("BLACK_NEXUS") || scoreboard.getObjectiveNames().contains("WHITE_NEXUS")) {
+                    player.displayClientMessage(Component.translatable("message.nexus.tracking").withStyle(ChatFormatting.GRAY), false);
+
+                } else {
+                    player.displayClientMessage(Component.translatable("message.nexus.tracking_failed").withStyle(ChatFormatting.GRAY), false);
+                }
 
                 if (scoreboard.getObjectiveNames().contains("RED_NEXUS")) {
                     player.displayClientMessage(Component.literal("Nexus ").append(Component.literal(String.valueOf(
