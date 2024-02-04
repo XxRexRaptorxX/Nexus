@@ -4,38 +4,57 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.ServerScoreboard;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.neoforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import org.jetbrains.annotations.NotNull;
 import xxrexraptorxx.nexus.items.NexusTracker;
+import xxrexraptorxx.nexus.main.References;
 
-public class MessageC2SPacket {
+public record MessageC2SPacket() implements CustomPacketPayload {
+    public static final ResourceLocation ID = new ResourceLocation(References.MODID, "nexus_coords_sync");
 
-    public MessageC2SPacket() {
+
+    public MessageC2SPacket(FriendlyByteBuf buffer) {
+        this();
     }
 
 
-    public MessageC2SPacket(FriendlyByteBuf buf) {
-    }
+    @Override
+    public void write(final FriendlyByteBuf buffer) { }
 
 
-    public void toBytes(FriendlyByteBuf buf) {
+    @Override
+    @NotNull
+    public ResourceLocation id() {
+        return ID;
     }
 
 
     //Nexus Tracker function
-    public boolean handle(NetworkEvent.Context context) {
-        context.enqueueWork(() -> {
+    public static void handle(final MessageC2SPacket data, final PlayPayloadContext context) {
+        context.workHandler().execute(() -> {
+            if(context.level().isEmpty())
+                return;
+
 
             //Serverside
-            ServerPlayer player = context.getSender();
+            ServerPlayer player = (ServerPlayer) context.player().get();
             ServerLevel level = player.serverLevel();
             BlockPos playerPos = player.getOnPos();
             ServerScoreboard scoreboard = (ServerScoreboard) level.getServer().getScoreboard();
 
             if(!level.isClientSide) {
-                player.displayClientMessage(Component.translatable("message.nexus.tracking"), false);
+                if (scoreboard.getObjectiveNames().contains("RED_NEXUS") || scoreboard.getObjectiveNames().contains("BLUE_NEXUS") || scoreboard.getObjectiveNames().contains("GREEN_NEXUS") ||
+                        scoreboard.getObjectiveNames().contains("YELLOW_NEXUS") || scoreboard.getObjectiveNames().contains("BLACK_NEXUS") || scoreboard.getObjectiveNames().contains("WHITE_NEXUS")) {
+                    player.displayClientMessage(Component.translatable("message.nexus.tracking").withStyle(ChatFormatting.GRAY), false);
+
+                } else {
+                    player.displayClientMessage(Component.translatable("message.nexus.tracking_failed").withStyle(ChatFormatting.GRAY), false);
+                }
 
                 if (scoreboard.getObjectiveNames().contains("RED_NEXUS")) {
                     player.displayClientMessage(Component.literal("Nexus ").append(Component.literal(String.valueOf(
@@ -69,8 +88,6 @@ public class MessageC2SPacket {
                 }
             }
         });
-
-        return true;
     }
 
 }
