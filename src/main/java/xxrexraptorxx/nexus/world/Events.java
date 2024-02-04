@@ -201,7 +201,7 @@ public class Events {
             //add the coords in an objective
             world.getScoreboard().addObjective(scoreboardName, ObjectiveCriteria.DUMMY, Component.literal(
                     pos.toShortString().replace("[", "").replace("]", "")),
-                    ObjectiveCriteria.RenderType.INTEGER);
+                    ObjectiveCriteria.RenderType.INTEGER, false, null);
         }
     }
 

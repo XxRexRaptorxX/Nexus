@@ -2,8 +2,6 @@ package xxrexraptorxx.nexus.main;
 
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.neoforge.common.NeoForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,22 +21,14 @@ public class Nexus {
     public static final Logger LOGGER = LogManager.getLogger();
 
 
-    public Nexus() {
-        IEventBus forgeBus = NeoForge.EVENT_BUS;
-        IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public Nexus(IEventBus eventBus) {
 
         Config.init();
-        ModBlocks.init();
-        ModItems.init();
-        CreativeModeTabs.init();
+        ModBlocks.init(eventBus);
+        ModItems.init(eventBus);
+        CreativeModeTabs.init(eventBus);
 
-        modBus.addListener(this::commonSetup);
+        eventBus.addListener(ModPackets::register);
     }
 
-
-    private void commonSetup(final FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            ModPackets.register();
-        });
-    }
 }

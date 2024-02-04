@@ -1,5 +1,6 @@
 package xxrexraptorxx.nexus.blocks;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -70,4 +71,8 @@ public class SupplyCrate extends FallingBlock {
 	}
 
 
+	@Override
+	protected MapCodec<? extends FallingBlock> codec() {
+		return null;
+	}
 }
