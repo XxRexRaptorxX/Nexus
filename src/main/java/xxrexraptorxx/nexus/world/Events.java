@@ -33,9 +33,9 @@ import net.minecraftforge.fml.VersionChecker;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import xxrexraptorxx.nexus.blocks.NexusBlock;
-import xxrexraptorxx.nexus.registries.ModItems;
 import xxrexraptorxx.nexus.main.Nexus;
 import xxrexraptorxx.nexus.main.References;
+import xxrexraptorxx.nexus.registries.ModItems;
 import xxrexraptorxx.nexus.utils.Config;
 
 import java.net.MalformedURLException;
@@ -201,7 +201,7 @@ public class Events {
             //add the coords in an objective
             world.getScoreboard().addObjective(scoreboardName, ObjectiveCriteria.DUMMY, Component.literal(
                     pos.toShortString().replace("[", "").replace("]", "")),
-                    ObjectiveCriteria.RenderType.INTEGER);
+                    ObjectiveCriteria.RenderType.INTEGER, false, null);
         }
     }
 

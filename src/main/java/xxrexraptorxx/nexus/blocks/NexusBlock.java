@@ -32,6 +32,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
@@ -343,14 +344,13 @@ public class NexusBlock extends Block {
 	/** Double Block stuff **/
 
 	@Override
-	public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
 		if (!level.isClientSide && player.isCreative()) {
 			preventCreativeDropFromBottomPart(level, pos, state, player);
 		}
 
-		super.playerWillDestroy(level, pos, state, player);
+		super.playerDestroy(level, player, pos, state, blockEntity, tool);
 	}
-
 
 	// => from DoublePlantBlock
 	protected static void preventCreativeDropFromBottomPart(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
