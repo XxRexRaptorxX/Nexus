@@ -33,6 +33,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
@@ -283,7 +284,7 @@ public class NexusBlock extends Block {
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (random.nextDouble() < 0.10D) {
-			level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ILLUSIONER_PREPARE_BLINDNESS, SoundSource.BLOCKS, 0.8F, 1.0F, false);
+			level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ILLUSIONER_PREPARE_BLINDNESS, SoundSource.BLOCKS, 0.1F, level.random.nextFloat() * 0.15F + 0.8F, false);
 		}
 
 		for (int i = 0; i < 3; ++i) {
@@ -343,14 +344,13 @@ public class NexusBlock extends Block {
 	/** Double Block stuff **/
 
 	@Override
-	public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
 		if (!level.isClientSide && player.isCreative()) {
 			preventCreativeDropFromBottomPart(level, pos, state, player);
 		}
 
-		super.playerWillDestroy(level, pos, state, player);
+		super.playerDestroy(level, player, pos, state, blockEntity, stack);
 	}
-
 
 	// => from DoublePlantBlock
 	protected static void preventCreativeDropFromBottomPart(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
