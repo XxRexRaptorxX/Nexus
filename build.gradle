@@ -55,6 +55,10 @@ minecraft {
         client {
             workingDirectory project.file('run')
 
+            //Mixin fix
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+
             // Recommended logging data for a userdev environment
             // The markers can be added/remove as needed separated by commas.
             // "SCAN": For mods scan.
@@ -153,6 +157,10 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+
+    maven {
+        url "https://maven.firstdarkdev.xyz/snapshots"
+    }
 }
 
 dependencies {
@@ -164,16 +172,17 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
-    //Patchouli
-    //compileOnly fg.deobf("vazkii.patchouli:Patchouli:${mc_version}-${patchouli_version}-FORGE:api")
-    //runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${mc_version}-${patchouli_version}-FORGE")
-    ////JEED
+    //JEED
     //runtimeOnly fg.deobf("curse.maven:jeed-532286:${jeed_version}")
     ////Moonlight Lib
     //runtimeOnly fg.deobf("curse.maven:moonlight-499980:${moonlight_version}")
     ////Supplementaries
     //runtimeOnly fg.deobf("curse.maven:supplementaries-412082:${supplementaries_version}")
-
+    //Patchouli
+    //compileOnly fg.deobf("vazkii.patchouli:Patchouli:${mc_version}-${patchouli_version}-FORGE:api")
+    //runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${mc_version}-${patchouli_version}-FORGE")
+    //SHIMMER
+    //runtimeOnly fg.deobf("curse.maven:shimmer-627824:${shimmer_version}")
 }
 
 // MixinGradle Settings
@@ -249,16 +258,6 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
 
-
-// Merge the resources and classes into the same directory.
-// This is done because java expects modules to be in a single directory.
-// And if we have it in multiple we have to do performance intensive hacks like having the UnionFileSystem
-// This will eventually be migrated to ForgeGradle so modders don't need to manually do it. But that is later.
-sourceSets.each {
-    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
-    it.output.resourcesDir = dir
-    it.java.destinationDirectory = dir
-}
 
 
 //Dummy task to fix post sync error caused by NeoGradle
