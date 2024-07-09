@@ -10,10 +10,10 @@
     
   "key": {
     "X": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "#": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     },
     "O": {
       "item": "nexus:transmitter"
@@ -24,6 +24,6 @@
   },
   
   "result": {
-    "item": "nexus:nexus_tracker"
+    "id": "nexus:nexus_tracker"
   }
 }

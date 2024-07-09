@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "equipment",
+  "category": "misc",
   "pattern": [
   
     "X#X",
@@ -10,17 +10,17 @@
     
   "key": {
     "X": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:dusts/redstone"
     },
     "O": {
-      "item": "minecraft:nether_star"
+      "item": "minecraft:sculk_sensor"
     },
     "#": {
-      "tag": "forge:gems/diamond"
+      "item": "minecraft:echo_shard"
     }
   },
   
   "result": {
-    "item": "nexus:repair_kit"
+    "id": "nexus:transmitter"
   }
 }

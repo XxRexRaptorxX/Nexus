@@ -38,7 +38,7 @@ description='''This mod adds a "Nexus" block which allows you to play a team bas
     mandatory=false
     type="optional"
     reason="Makes it possible to break a Nexus and other blocks with several people at the same time! Encourages team play!"
-    versionRange="[1.20,)"
+    versionRange="[1.21,)"
     ordering="NONE"
     side="BOTH"
 
@@ -47,7 +47,7 @@ description='''This mod adds a "Nexus" block which allows you to play a team bas
     mandatory=false
     type="optional"
     reason="Is needed for the in-game description book, because the mod is quite complex."
-    versionRange="[1.20,)"
+    versionRange="[1.21,)"
     ordering="NONE"
     side="BOTH"
 

@@ -21,10 +21,14 @@ import xxrexraptorxx.nexus.main.Nexus;
 import xxrexraptorxx.nexus.utils.Config;
 
 import javax.annotation.Nullable;
+import java.util.Properties;
 import java.util.Random;
 
 
 public class SupplyCrate extends FallingBlock {
+
+	//public static final MapCodec<SupplyCrate> CODEC = simpleCodec(SupplyCrate::new);
+
 
 	public SupplyCrate() {
 		super(Properties.of()
@@ -34,7 +38,8 @@ public class SupplyCrate extends FallingBlock {
 				.mapColor(MapColor.WOOD)
 				.instrument(NoteBlockInstrument.BASS)
 		);
-	}
+    }
+
 
 	@Override
 	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
@@ -56,7 +61,7 @@ public class SupplyCrate extends FallingBlock {
 						ItemEntity drop = new ItemEntity(level, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D,
 								new ItemStack(BuiltInRegistries.ITEM.get(
 										//                                          get the mod prefix              |        get the item registry name      |         get the item amount
-										new ResourceLocation(item.substring(item.indexOf('*') + 1, item.indexOf(':')), item.substring(item.indexOf(':') + 1))), Integer.parseInt(item.substring(0, item.indexOf('*')))));
+										ResourceLocation.fromNamespaceAndPath(item.substring(item.indexOf('*') + 1, item.indexOf(':')), item.substring(item.indexOf(':') + 1))), Integer.parseInt(item.substring(0, item.indexOf('*')))));
 						level.addFreshEntity(drop);
 					}
 				} catch (Exception e) {

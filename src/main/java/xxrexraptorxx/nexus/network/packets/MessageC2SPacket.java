@@ -3,19 +3,21 @@ package xxrexraptorxx.nexus.network.packets;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.ServerScoreboard;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 import xxrexraptorxx.nexus.items.NexusTracker;
 import xxrexraptorxx.nexus.main.References;
 
 public record MessageC2SPacket() implements CustomPacketPayload {
-    public static final ResourceLocation ID = new ResourceLocation(References.MODID, "nexus_coords_sync");
+    public static final Type<MessageC2SPacket> ID = new Type<>(ResourceLocation.fromNamespaceAndPath(References.MODID, "nexus_coords_sync"));
 
 
     public MessageC2SPacket(FriendlyByteBuf buffer) {
@@ -23,27 +25,27 @@ public record MessageC2SPacket() implements CustomPacketPayload {
     }
 
 
-    @Override
     public void write(final FriendlyByteBuf buffer) { }
 
 
     @Override
     @NotNull
-    public ResourceLocation id() {
+    public Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 
 
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageC2SPacket> STREAM_CODEC = StreamCodec.ofMember(
+            MessageC2SPacket::write, MessageC2SPacket::new);
+
+
     //Nexus Tracker function
-    public static void handle(final MessageC2SPacket data, final PlayPayloadContext context) {
-        context.workHandler().execute(() -> {
-            if(context.level().isEmpty())
+    public static void handle(final MessageC2SPacket data, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            if(!(context.player().level() instanceof ServerLevel level) || !(context.player() instanceof ServerPlayer player))
                 return;
 
-
             //Serverside
-            ServerPlayer player = (ServerPlayer) context.player().get();
-            ServerLevel level = player.serverLevel();
             BlockPos playerPos = player.getOnPos();
             ServerScoreboard scoreboard = (ServerScoreboard) level.getServer().getScoreboard();
 
@@ -89,5 +91,6 @@ public record MessageC2SPacket() implements CustomPacketPayload {
             }
         });
     }
+
 
 }

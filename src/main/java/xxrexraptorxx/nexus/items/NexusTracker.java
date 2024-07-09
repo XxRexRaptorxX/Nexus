@@ -14,7 +14,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 import xxrexraptorxx.nexus.network.ModPackets;
 import xxrexraptorxx.nexus.network.packets.MessageC2SPacket;
 import xxrexraptorxx.nexus.utils.Config;
@@ -34,7 +33,7 @@ public class NexusTracker extends Item {
 
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
         list.add(Component.translatable("message.nexus.tracker.desc").withStyle(ChatFormatting.GRAY));
 
         if (!Config.NEXUS_TRACKING.get()) {

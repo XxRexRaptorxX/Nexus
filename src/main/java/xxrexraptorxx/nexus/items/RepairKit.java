@@ -22,7 +22,7 @@ public class RepairKit extends Item {
 
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
         list.add(Component.translatable("message.nexus.repair_kit.desc").withStyle(ChatFormatting.GOLD));
 
         if (!Config.NEXUS_REPAIRING.get()) {

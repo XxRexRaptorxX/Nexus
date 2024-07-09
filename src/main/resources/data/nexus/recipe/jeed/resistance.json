@@ -1,14 +1,13 @@
 {
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:mod_loaded",
+      "type": "neoforge:mod_loaded",
       "modid": "jeed"
     }
   ],
   "type": "jeed:effect_provider",
-  "effect":{
-    "id": "minecraft:glowing"
-  },
+  "effect": "minecraft:resistance",
+
   "providers": [
     {
       "item": "nexus:nexus_green"

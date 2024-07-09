@@ -1,6 +1,7 @@
 package xxrexraptorxx.nexus.main;
 
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.NeoForge;
 import org.apache.logging.log4j.LogManager;
@@ -21,9 +22,9 @@ public class Nexus {
     public static final Logger LOGGER = LogManager.getLogger();
 
 
-    public Nexus(IEventBus eventBus) {
+    public Nexus(IEventBus eventBus, ModContainer container) {
 
-        Config.init();
+        Config.init(container);
         ModBlocks.init(eventBus);
         ModItems.init(eventBus);
         CreativeModeTabs.init(eventBus);
