@@ -173,6 +173,8 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:moonlight-499980:${moonlight_version}")
     //Supplementaries
     runtimeOnly fg.deobf("curse.maven:supplementaries-412082:${supplementaries_version}")
+    //Shimmer
+    runtimeOnly fg.deobf("curse.maven:supplementaries-627824:${shimmer_version}")
 
 }
 
@@ -217,7 +219,7 @@ jar {
         attributes([
                 "Specification-Title"     : mod_id,
                 "Specification-Vendor"    : mod_authors,
-                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Specification-Version"   : project.version,
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : mod_authors,
@@ -247,4 +249,8 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+//Dummy task to fix post sync error caused by NeoGradle
+tasks.register("idePostSync") {
 }
