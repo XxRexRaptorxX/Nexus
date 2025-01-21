@@ -25,9 +25,7 @@
     { "block": "nexus:nexus_yellow", "color": "#yellow", "radius": 8 },
     { "block": "nexus:nexus_white", "color": "#white", "radius": 8 },
     { "block": "nexus:nexus_black", "color": "#black", "radius": 8 },
-
     { "block": "nexus:supply_crate", "color": "#yellow", "radius": 5 },
     { "block": "nexus:security_barrier", "color": "#light_blue", "radius": 2 }
   ]
-
 }
