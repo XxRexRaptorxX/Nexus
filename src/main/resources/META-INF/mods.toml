@@ -45,3 +45,9 @@ description='''This mod adds a "Nexus" block which allows you to play a team bas
     ordering="NONE"
     side="BOTH"
 
+[[dependencies.${mod_id}]]
+    modId="shimmer"
+    mandatory=false
+    versionRange="[0.2.0,)"
+    ordering="NONE"
+    side="BOTH"
