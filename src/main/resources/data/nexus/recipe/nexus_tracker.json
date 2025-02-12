@@ -9,18 +9,10 @@
   ],
     
   "key": {
-    "X": {
-      "tag": "c:ingots/iron"
-    },
-    "#": {
-      "tag": "c:ingots/copper"
-    },
-    "O": {
-      "item": "nexus:transmitter"
-    },
-    "I": {
-      "item": "minecraft:lightning_rod"
-    }
+    "X": "#c:ingots/iron",
+    "#": "#c:ingots/copper",
+    "O": "nexus:transmitter",
+    "I": "minecraft:lightning_rod"
   },
   
   "result": {

@@ -9,15 +9,9 @@
   ],
     
   "key": {
-    "X": {
-      "tag": "c:dusts/redstone"
-    },
-    "O": {
-      "item": "minecraft:sculk_sensor"
-    },
-    "#": {
-      "item": "minecraft:echo_shard"
-    }
+    "X": "#c:dusts/redstone",
+    "O": "minecraft:sculk_sensor",
+    "#": "minecraft:echo_shard"
   },
   
   "result": {

@@ -9,15 +9,9 @@
   ],
     
   "key": {
-    "X": {
-      "tag": "c:ingots/iron"
-    },
-    "O": {
-      "item": "minecraft:nether_star"
-    },
-    "#": {
-      "tag": "c:gems/diamond"
-    }
+    "X": "#c:ingots/iron",
+    "O": "minecraft:nether_star",
+    "#": "#c:gems/diamond"
   },
   
   "result": {

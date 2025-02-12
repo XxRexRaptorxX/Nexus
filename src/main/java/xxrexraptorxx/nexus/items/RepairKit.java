@@ -6,16 +6,15 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
+import xxrexraptorxx.nexus.main.References;
 import xxrexraptorxx.nexus.utils.Config;
 
 import java.util.List;
 
 public class RepairKit extends Item {
 
-    public RepairKit() {
-        super(new Properties()
+    public RepairKit(Item.Properties properties) {
+        super(properties
                 .rarity(Rarity.UNCOMMON)
         );
     }
@@ -23,16 +22,16 @@ public class RepairKit extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
-        list.add(Component.translatable("message.nexus.repair_kit.desc").withStyle(ChatFormatting.GOLD));
+        list.add(Component.translatable("message." + References.MODID + ".repair_kit.desc").withStyle(ChatFormatting.GOLD));
 
         if (!Config.NEXUS_REPAIRING.get()) {
-            list.add(Component.translatable("message.nexus.function_disabled").withStyle(ChatFormatting.RED));
+            list.add(Component.translatable("message." + References.MODID + ".function_disabled").withStyle(ChatFormatting.RED));
         }
     }
 
 
     @Override
-    public boolean isFoil(ItemStack pStack) {
+    public boolean isFoil(ItemStack stack) {
         return true;
     }
 }
