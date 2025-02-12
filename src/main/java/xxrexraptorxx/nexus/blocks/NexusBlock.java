@@ -31,21 +31,22 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import xxrexraptorxx.nexus.main.Nexus;
+import xxrexraptorxx.nexus.main.References;
 import xxrexraptorxx.nexus.utils.Config;
 import xxrexraptorxx.nexus.utils.NexusColors;
 
@@ -63,32 +64,23 @@ public class NexusBlock extends Block {
 	protected static final VoxelShape CUSTOM_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 32.0D, 16.0D);
 
 
-	public NexusBlock() {
-		super(Properties.of()
-				.strength(100.0F, 5000.0F)
-				.sound(SoundType.METAL)
-				.mapColor(MapColor.DIAMOND)
-				.lightLevel(value -> 10)
-				.noOcclusion()
-				.requiresCorrectToolForDrops()
-				.instrument(NoteBlockInstrument.DRAGON)
-				.pushReaction(PushReaction.BLOCK)
-		);
+	public NexusBlock(Properties properties) {
+		super(properties);
 	}
 
 
 	@Override
 	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> list, TooltipFlag flag) {
 		if(!Screen.hasShiftDown()) {
-			list.add(Component.translatable("message.nexus.nexus.desc").withStyle(ChatFormatting.GOLD));
-			list.add(Component.translatable("message.nexus.hold_shift.desc").withStyle(ChatFormatting.GREEN));
+			list.add(Component.translatable("message." + References.MODID + ".nexus.desc").withStyle(ChatFormatting.GOLD));
+			list.add(Component.translatable("message." + References.MODID + ".hold_shift.desc").withStyle(ChatFormatting.GREEN));
 		} else {
-			list.add(Component.translatable("message.nexus.gamemode_line_1").withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.UNDERLINE));
-			list.add(Component.translatable("message.nexus.gamemode_line_2").withStyle(ChatFormatting.GRAY));
-			list.add(Component.translatable("message.nexus.gamemode_line_3").withStyle(ChatFormatting.GRAY));
-			list.add(Component.translatable("message.nexus.gamemode_line_4").withStyle(ChatFormatting.GRAY));
-			list.add(Component.translatable("message.nexus.gamemode_line_5").withStyle(ChatFormatting.GRAY));
-			list.add(Component.translatable("message.nexus.gamemode_line_6").withStyle(ChatFormatting.GRAY));
+			list.add(Component.translatable("message." + References.MODID + ".gamemode_line_1").withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.UNDERLINE));
+			list.add(Component.translatable("message." + References.MODID + ".gamemode_line_2").withStyle(ChatFormatting.GRAY));
+			list.add(Component.translatable("message." + References.MODID + ".gamemode_line_3").withStyle(ChatFormatting.GRAY));
+			list.add(Component.translatable("message." + References.MODID + ".gamemode_line_4").withStyle(ChatFormatting.GRAY));
+			list.add(Component.translatable("message." + References.MODID + ".gamemode_line_5").withStyle(ChatFormatting.GRAY));
+			list.add(Component.translatable("message." + References.MODID + ".gamemode_line_6").withStyle(ChatFormatting.GRAY));
 		}
 	}
 
@@ -156,7 +148,7 @@ public class NexusBlock extends Block {
 						for (String item : Config.NEXUS_REWARDS.get()) {
 							try {
 								ItemEntity drop = new ItemEntity(level, (double)pos.getX() + 0.5D, (double)pos.getY() + 1.5D, (double)pos.getZ() + 0.5D,
-										new ItemStack(BuiltInRegistries.ITEM.get(
+										new ItemStack(BuiltInRegistries.ITEM.getValue(
 												//                                          get the mod prefix              |        get the item registry name      |         get the item amount
 												ResourceLocation.fromNamespaceAndPath(item.substring(item.indexOf('*') + 1, item.indexOf(':')), item.substring(item.indexOf(':') + 1))), Integer.parseInt(item.substring(0, item.indexOf('*')))));
 								level.addFreshEntity(drop);
@@ -201,7 +193,7 @@ public class NexusBlock extends Block {
 
 		} else {                /** Repair Nexus **/
 			if (!Config.NEXUS_REPAIRING.get() || state.getValue(DESTRUCTION_LEVEL) == 0) { //test if repairing is on or nexus is fully repaired
-				player.sendSystemMessage(Component.translatable("message.nexus.not_repair").withStyle(ChatFormatting.getByName(nexusColor)));
+				player.displayClientMessage(Component.translatable("message.nexus.not_repair").withStyle(ChatFormatting.getByName(nexusColor)), true);
 
 			} else {
 				changeNexusBlockstates(level, pos, state, true, false);
@@ -209,7 +201,7 @@ public class NexusBlock extends Block {
 				level.getServer().getPlayerList().broadcastSystemMessage(Component.translatable("message.nexus.nexus_repair").withStyle(ChatFormatting.getByName(nexusColor)), true);
 
 				player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-				player.getCooldowns().addCooldown(stack.getItem(), Config.REPAIR_COOLDOWN.get());
+				player.getCooldowns().addCooldown(stack, Config.REPAIR_COOLDOWN.get());
 				stack.shrink(1);
 			}
 		}

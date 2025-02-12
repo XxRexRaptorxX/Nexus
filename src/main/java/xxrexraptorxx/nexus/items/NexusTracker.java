@@ -31,7 +31,6 @@ public class NexusTracker extends Item {
                 .rarity(Rarity.UNCOMMON)
                 .stacksTo(1)
                 .durability(10)
-                .enchantable(0)
         );
     }
 

@@ -1,10 +1,18 @@
 package xxrexraptorxx.nexus.registries;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import xxrexraptorxx.nexus.blocks.NexusBlock;
 import xxrexraptorxx.nexus.blocks.SecurityBarrier;
@@ -12,43 +20,126 @@ import xxrexraptorxx.nexus.blocks.SecurityWall;
 import xxrexraptorxx.nexus.blocks.SupplyCrate;
 import xxrexraptorxx.nexus.main.References;
 
+import java.util.function.Function;
+
 public class ModBlocks {
 
-    private static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(References.MODID);
-    private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(References.MODID);
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(References.MODID);
 
 
     public static void init(IEventBus eventBus) {
         BLOCKS.register(eventBus);
-        ITEMS.register(eventBus);
     }
 
 
-    public static final DeferredBlock<NexusBlock> NEXUS_RED = BLOCKS.register("nexus_red", NexusBlock::new);
-    public static final DeferredItem<Item> NEXUS_RED_BLOCKITEM = ITEMS.register("nexus_red", () -> new BlockItem(NEXUS_RED.get(), new Item.Properties()));
+    public static final DeferredBlock<NexusBlock> NEXUS_RED = registerBlock("nexus_red", properties -> new NexusBlock(properties
+            .strength(100.0F, 5000.0F)
+            .sound(SoundType.METAL)
+            .mapColor(MapColor.DIAMOND)
+            .lightLevel(value -> 10)
+            .noOcclusion()
+            .requiresCorrectToolForDrops()
+            .instrument(NoteBlockInstrument.DRAGON)
+            .pushReaction(PushReaction.BLOCK)
+    ));
 
-    public static final DeferredBlock<NexusBlock> NEXUS_BLUE     = BLOCKS.register("nexus_blue", NexusBlock::new);
-    public static final DeferredItem<Item> NEXUS_BLUE_BLOCKITEM = ITEMS.register("nexus_blue", () -> new BlockItem(NEXUS_BLUE.get(), new Item.Properties()));
+    public static final DeferredBlock<NexusBlock> NEXUS_BLUE = registerBlock("nexus_blue", properties -> new NexusBlock(properties
+            .strength(100.0F, 5000.0F)
+            .sound(SoundType.METAL)
+            .mapColor(MapColor.DIAMOND)
+            .lightLevel(value -> 10)
+            .noOcclusion()
+            .requiresCorrectToolForDrops()
+            .instrument(NoteBlockInstrument.DRAGON)
+            .pushReaction(PushReaction.BLOCK)
+    ));
 
-    public static final DeferredBlock<NexusBlock> NEXUS_GREEN = BLOCKS.register("nexus_green", NexusBlock::new);
-    public static final DeferredItem<Item> NEXUS_GREEN_BLOCKITEM = ITEMS.register("nexus_green", () -> new BlockItem(NEXUS_GREEN.get(), new Item.Properties()));
+    public static final DeferredBlock<NexusBlock> NEXUS_GREEN = registerBlock("nexus_green", properties -> new NexusBlock(properties
+            .strength(100.0F, 5000.0F)
+            .sound(SoundType.METAL)
+            .mapColor(MapColor.DIAMOND)
+            .lightLevel(value -> 10)
+            .noOcclusion()
+            .requiresCorrectToolForDrops()
+            .instrument(NoteBlockInstrument.DRAGON)
+            .pushReaction(PushReaction.BLOCK)
+    ));
 
-    public static final DeferredBlock<NexusBlock> NEXUS_YELLOW = BLOCKS.register("nexus_yellow", NexusBlock::new);
-    public static final DeferredItem<Item> NEXUS_YELLOW_BLOCKITEM = ITEMS.register("nexus_yellow", () -> new BlockItem(NEXUS_YELLOW.get(), new Item.Properties()));
+    public static final DeferredBlock<NexusBlock> NEXUS_YELLOW = registerBlock("nexus_yellow", properties -> new NexusBlock(properties
+            .strength(100.0F, 5000.0F)
+            .sound(SoundType.METAL)
+            .mapColor(MapColor.DIAMOND)
+            .lightLevel(value -> 10)
+            .noOcclusion()
+            .requiresCorrectToolForDrops()
+            .instrument(NoteBlockInstrument.DRAGON)
+            .pushReaction(PushReaction.BLOCK)
+    ));
 
-    public static final DeferredBlock<NexusBlock> NEXUS_WHITE = BLOCKS.register("nexus_white", NexusBlock::new);
-    public static final DeferredItem<Item> NEXUS_WHITE_BLOCKITEM = ITEMS.register("nexus_white", () -> new BlockItem(NEXUS_WHITE.get(), new Item.Properties()));
+    public static final DeferredBlock<NexusBlock> NEXUS_WHITE = registerBlock("nexus_white", properties -> new NexusBlock(properties
+            .strength(100.0F, 5000.0F)
+            .sound(SoundType.METAL)
+            .mapColor(MapColor.DIAMOND)
+            .lightLevel(value -> 10)
+            .noOcclusion()
+            .requiresCorrectToolForDrops()
+            .instrument(NoteBlockInstrument.DRAGON)
+            .pushReaction(PushReaction.BLOCK)
+    ));
 
-    public static final DeferredBlock<NexusBlock> NEXUS_BLACK = BLOCKS.register("nexus_black", NexusBlock::new);
-    public static final DeferredItem<Item> NEXUS_BLACK_BLOCKITEM = ITEMS.register("nexus_black", () -> new BlockItem(NEXUS_BLACK.get(), new Item.Properties()));
+    public static final DeferredBlock<NexusBlock> NEXUS_BLACK = registerBlock("nexus_black", properties -> new NexusBlock(properties
+            .strength(100.0F, 5000.0F)
+            .sound(SoundType.METAL)
+            .mapColor(MapColor.DIAMOND)
+            .lightLevel(value -> 10)
+            .noOcclusion()
+            .requiresCorrectToolForDrops()
+            .instrument(NoteBlockInstrument.DRAGON)
+            .pushReaction(PushReaction.BLOCK)
+    ));
 
-    public static final DeferredBlock<SupplyCrate> SUPPLY_CRATE = BLOCKS.register("supply_crate", SupplyCrate::new);
-    public static final DeferredItem<Item> SUPPLY_CRATE_BLOCKITEM = ITEMS.register("supply_crate", () -> new BlockItem(SUPPLY_CRATE.get(), new Item.Properties()));
+    public static final DeferredBlock<SupplyCrate> SUPPLY_CRATE = registerBlock("supply_crate", properties -> new SupplyCrate(properties
+            .strength(0.1F, 0.0F)
+            .sound(SoundType.WOOD)
+            .lightLevel(value -> 6)
+            .mapColor(MapColor.WOOD)
+            .instrument(NoteBlockInstrument.BASS)
+    ));
 
-    public static final DeferredBlock<SecurityWall> SECURTIY_WALL = BLOCKS.register("security_wall", SecurityWall::new);
-    public static final DeferredItem<Item> SECURITY_WALL_BLOCKITEM = ITEMS.register("security_wall", () -> new BlockItem(SECURTIY_WALL.get(), new Item.Properties()));
+    public static final DeferredBlock<SecurityWall> SECURTIY_WALL = registerBlock("security_wall", properties -> new SecurityWall(properties
+            .strength(-1.0F, 3600000.0F)
+            .sound(SoundType.METAL)
+            .mapColor(MapColor.COLOR_LIGHT_GRAY)
+            .requiresCorrectToolForDrops()
+            .instrument(NoteBlockInstrument.BELL)
+            .pushReaction(PushReaction.BLOCK)
+            .noLootTable()
+    ));
 
-    public static final DeferredBlock<SecurityBarrier> SECURTIY_BARRIER = BLOCKS.register("security_barrier", SecurityBarrier::new);
-    public static final DeferredItem<Item> SECURITY_BARRIER_BLOCKITEM = ITEMS.register("security_barrier", () -> new BlockItem(SECURTIY_BARRIER.get(), new Item.Properties()));
+    public static final DeferredBlock<SecurityBarrier> SECURTIY_BARRIER = registerBlock("security_barrier", properties -> new SecurityBarrier(properties
+            .strength(-1.0F, 3600000.0F)
+            .mapColor(MapColor.COLOR_LIGHT_BLUE)
+            .requiresCorrectToolForDrops()
+            .instrument(NoteBlockInstrument.BASS)
+            .pushReaction(PushReaction.BLOCK)
+            .noLootTable()
+            .lightLevel(value -> 6)
+            .noOcclusion()
+    ));
+
+
+    public static <T extends Block> DeferredBlock<T> registerBlock(String name, Function<BlockBehaviour.Properties, T> blockCreator) {
+        DeferredBlock<T> toReturn = BLOCKS.register(name, () -> blockCreator.apply(BlockBehaviour.Properties.of().setId(blockId(name))));
+        registerBlockItems(name, toReturn);
+        return toReturn;
+    }
+
+    public static <T extends Block> void registerBlockItems(String name, DeferredBlock<T> block) {
+        ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().setId(ModItems.itemId(name)).useBlockDescriptionPrefix()));
+    }
+
+    public static ResourceKey<Block> blockId(String name) {
+        return ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(References.MODID, name));
+    }
 
 }

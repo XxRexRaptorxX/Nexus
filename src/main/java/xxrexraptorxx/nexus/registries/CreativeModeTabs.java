@@ -17,7 +17,7 @@ public class CreativeModeTabs {
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN_TAB = CREATIVE_MODE_TABS.register(References.MODID, () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup." + References.MODID + "_tab"))
-            .icon(() -> ModBlocks.NEXUS_GREEN_BLOCKITEM.get().getDefaultInstance())
+            .icon(() -> ModBlocks.NEXUS_GREEN.get().asItem().getDefaultInstance())
             .displayItems((params, output) -> {
                 output.accept(ModBlocks.NEXUS_RED.get());
                 output.accept(ModBlocks.NEXUS_BLUE.get());

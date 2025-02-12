@@ -138,7 +138,9 @@ dependencies {
     //JADE
     runtimeOnly("curse.maven:jade-324717:${jade_version}")
     //JEED
-    //runtimeOnly("curse.maven:jeed-532286:${jade_version}")
+    //runtimeOnly("curse.maven:jeed-532286:${jeed_version}")
+    //Shimmer
+    //runtimeOnly("curse.maven:shimmer-627824:${shimmer_version}")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

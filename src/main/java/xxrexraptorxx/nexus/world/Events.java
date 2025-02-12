@@ -268,7 +268,7 @@ public class Events {
             if (BuiltInRegistries.BLOCK.getKey(block).toString().contains(References.MODID + ":nexus")) {
 
                 String nexusColor = BuiltInRegistries.BLOCK.getKey(block).toString().substring(12);
-                level.getServer().getPlayerList().broadcastSystemMessage(Component.translatable("message.nexus.nexus_under_attack").withStyle(ChatFormatting.getByName(nexusColor)), true);
+                level.getServer().getPlayerList().broadcastSystemMessage(Component.translatable("message." + References.MODID + ".nexus_under_attack").withStyle(ChatFormatting.getByName(nexusColor)), true);
             }
         }
     }
@@ -304,7 +304,7 @@ public class Events {
                                     //tests if current block is a nexus
                                     if (BuiltInRegistries.BLOCK.getKey(world.getBlockState(block).getBlock()).toString().contains(References.MODID + ":nexus") && block.getY() < pos.getY() + 2) {
                                         world.playSound(player, pos, SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 0.5F, world.random.nextFloat() * 0.15F + 0.F);
-                                        Minecraft.getInstance().player.displayClientMessage(Component.translatable("message.nexus.blocked_position").withStyle(ChatFormatting.RED), true);
+                                        Minecraft.getInstance().player.displayClientMessage(Component.translatable("message." + References.MODID + ".blocked_position").withStyle(ChatFormatting.RED), true);
 
                                         event.setCanceled(true);
                                     }
