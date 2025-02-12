@@ -3,7 +3,6 @@ package xxrexraptorxx.nexus.utils;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Items;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
@@ -122,7 +121,8 @@ public class Config {
                 "1*" + BuiltInRegistries.ITEM.getKey(Items.DIAMOND_PICKAXE).toString(),
                 "1*" + BuiltInRegistries.ITEM.getKey(Items.IRON_AXE).toString(),
                 "1*" + BuiltInRegistries.ITEM.getKey(Items.IRON_PICKAXE).toString(),
-                "1*" + BuiltInRegistries.ITEM.getKey(Items.SHIELD).toString()
+                "1*" + BuiltInRegistries.ITEM.getKey(Items.SHIELD).toString(),
+                "10*" + BuiltInRegistries.ITEM.getKey(Items.WIND_CHARGE).toString()
 
         )));
         SUPPLY_CRATE_LOOT_AMOUNT = builder.comment("How many different items should be dropped from the list? [0 = no drops]").defineInRange("supply_crate_loot_amount", 3, 0, 10);
