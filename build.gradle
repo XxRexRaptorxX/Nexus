@@ -139,6 +139,8 @@ dependencies {
     runtimeOnly("curse.maven:jade-324717:${jade_version}")
     //JEED
     //runtimeOnly("curse.maven:jeed-532286:${jeed_version}")
+    //Patchouli
+    //runtimeOnly("curse.maven:patchouli-306770:${patchouli_version}")
     //Shimmer
     //runtimeOnly("curse.maven:shimmer-627824:${shimmer_version}")
 }
