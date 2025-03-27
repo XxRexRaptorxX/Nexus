@@ -6,10 +6,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import xxrexraptorxx.nexus.main.References;
 import xxrexraptorxx.nexus.utils.Config;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class RepairKit extends Item {
 
@@ -21,11 +22,11 @@ public class RepairKit extends Item {
 
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
-        list.add(Component.translatable("message." + References.MODID + ".repair_kit.desc").withStyle(ChatFormatting.GOLD));
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> list, TooltipFlag flag) {
+        list.accept(Component.translatable("message." + References.MODID + ".repair_kit.desc").withStyle(ChatFormatting.GOLD));
 
         if (!Config.NEXUS_REPAIRING.get()) {
-            list.add(Component.translatable("message." + References.MODID + ".function_disabled").withStyle(ChatFormatting.RED));
+            list.accept(Component.translatable("message." + References.MODID + ".function_disabled").withStyle(ChatFormatting.RED));
         }
     }
 

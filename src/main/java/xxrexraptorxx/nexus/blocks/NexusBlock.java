@@ -6,6 +6,7 @@ import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.ChatType;
@@ -27,6 +28,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipProvider;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
@@ -52,9 +54,10 @@ import xxrexraptorxx.nexus.utils.NexusColors;
 
 import java.util.List;
 import java.util.Random;
+import java.util.function.Consumer;
 
 
-public class NexusBlock extends Block {
+public class NexusBlock extends Block implements TooltipProvider {
 
 	public static final Integer MAX_DESTRUCTION_LEVEL = 3; 		//one level higher destroys the block
 	public static final IntegerProperty DESTRUCTION_LEVEL = IntegerProperty.create("level", 0, MAX_DESTRUCTION_LEVEL + 1);
@@ -70,17 +73,17 @@ public class NexusBlock extends Block {
 
 
 	@Override
-	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> list, TooltipFlag flag) {
+	public void addToTooltip(Item.TooltipContext tooltipContext, Consumer<Component> list, TooltipFlag tooltipFlag, DataComponentGetter dataComponentGetter) {
 		if(!Screen.hasShiftDown()) {
-			list.add(Component.translatable("message." + References.MODID + ".nexus.desc").withStyle(ChatFormatting.GOLD));
-			list.add(Component.translatable("message." + References.MODID + ".hold_shift.desc").withStyle(ChatFormatting.GREEN));
+			list.accept(Component.translatable("message." + References.MODID + ".nexus.desc").withStyle(ChatFormatting.GOLD));
+			list.accept(Component.translatable("message." + References.MODID + ".hold_shift.desc").withStyle(ChatFormatting.GREEN));
 		} else {
-			list.add(Component.translatable("message." + References.MODID + ".gamemode_line_1").withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.UNDERLINE));
-			list.add(Component.translatable("message." + References.MODID + ".gamemode_line_2").withStyle(ChatFormatting.GRAY));
-			list.add(Component.translatable("message." + References.MODID + ".gamemode_line_3").withStyle(ChatFormatting.GRAY));
-			list.add(Component.translatable("message." + References.MODID + ".gamemode_line_4").withStyle(ChatFormatting.GRAY));
-			list.add(Component.translatable("message." + References.MODID + ".gamemode_line_5").withStyle(ChatFormatting.GRAY));
-			list.add(Component.translatable("message." + References.MODID + ".gamemode_line_6").withStyle(ChatFormatting.GRAY));
+			list.accept(Component.translatable("message." + References.MODID + ".gamemode_line_1").withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.UNDERLINE));
+			list.accept(Component.translatable("message." + References.MODID + ".gamemode_line_2").withStyle(ChatFormatting.GRAY));
+			list.accept(Component.translatable("message." + References.MODID + ".gamemode_line_3").withStyle(ChatFormatting.GRAY));
+			list.accept(Component.translatable("message." + References.MODID + ".gamemode_line_4").withStyle(ChatFormatting.GRAY));
+			list.accept(Component.translatable("message." + References.MODID + ".gamemode_line_5").withStyle(ChatFormatting.GRAY));
+			list.accept(Component.translatable("message." + References.MODID + ".gamemode_line_6").withStyle(ChatFormatting.GRAY));
 		}
 	}
 
@@ -370,4 +373,5 @@ public class NexusBlock extends Block {
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
 		level.setBlock(pos.above(), state.setValue(HALF, DoubleBlockHalf.UPPER), 3);
 	}
+
 }

@@ -1,17 +1,18 @@
 package xxrexraptorxx.nexus.blocks;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipProvider;
 import net.minecraft.world.level.block.Block;
 import xxrexraptorxx.nexus.main.References;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 
-public class SecurityWall extends Block {
+public class SecurityWall extends Block implements TooltipProvider {
 
 	public SecurityWall(Properties properties) {
 		super(properties);
@@ -19,8 +20,8 @@ public class SecurityWall extends Block {
 
 
 	@Override
-	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> list, TooltipFlag flag) {
-		list.add(Component.translatable("message." + References.MODID + ".unbreakable").withStyle(ChatFormatting.GRAY));
+	public void addToTooltip(Item.TooltipContext tooltipContext, Consumer<Component> list, TooltipFlag tooltipFlag, DataComponentGetter dataComponentGetter) {
+		list.accept(Component.translatable("message." + References.MODID + ".unbreakable").withStyle(ChatFormatting.GRAY));
 	}
 
 }

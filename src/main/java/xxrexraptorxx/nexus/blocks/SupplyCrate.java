@@ -10,10 +10,12 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.MapColor;
 import xxrexraptorxx.nexus.main.Nexus;
 import xxrexraptorxx.nexus.utils.Config;
 
@@ -39,7 +41,7 @@ public class SupplyCrate extends FallingBlock {
 		popExperience(level.getServer().getLevel(player.level().dimension()), pos, Config.SUPPLY_CRATE_XP_AMOUNT.get());
 
 			//test if config list is not empty & loot amount is not deactivated
-			if (Config.SUPPLY_CRATE_LOOT.get().size() > 0 && Config.SUPPLY_CRATE_LOOT_AMOUNT.get() > 0) {
+			if (!Config.SUPPLY_CRATE_LOOT.get().isEmpty() && Config.SUPPLY_CRATE_LOOT_AMOUNT.get() > 0) {
 
 				try {
 					//itemstack amount
@@ -69,5 +71,11 @@ public class SupplyCrate extends FallingBlock {
 	@Override
 	protected MapCodec<? extends FallingBlock> codec() {
 		return CODEC;
+	}
+
+
+	@Override
+	public int getDustColor(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
+		return defaultMapColor().calculateARGBColor(MapColor.Brightness.NORMAL);
 	}
 }
