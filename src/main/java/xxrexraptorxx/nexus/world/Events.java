@@ -3,6 +3,7 @@ package xxrexraptorxx.nexus.world;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
@@ -12,10 +13,12 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AreaEffectCloud;
@@ -36,11 +39,13 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.VersionChecker;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import xxrexraptorxx.nexus.blocks.NexusBlock;
 import xxrexraptorxx.nexus.main.Nexus;
 import xxrexraptorxx.nexus.main.References;
+import xxrexraptorxx.nexus.registries.ModBlocks;
 import xxrexraptorxx.nexus.registries.ModItems;
 import xxrexraptorxx.nexus.utils.Config;
 
@@ -55,7 +60,9 @@ import java.util.concurrent.CompletableFuture;
 public class Events {
 
 
-    /** Update Checker **/
+    /**
+     * Update Checker
+     **/
     private static boolean hasShownUp = false;
 
     @SubscribeEvent
@@ -129,7 +136,7 @@ public class Events {
     /**
      * Checks if the player is in the supporter list from the given URI.
      *
-     * @param uri URI to a file containing supporter names
+     * @param uri    URI to a file containing supporter names
      * @param player The in-game player
      * @return true if the player is a supporter, otherwise false
      */
@@ -183,7 +190,9 @@ public class Events {
     }
 
 
-    /** Distributes effects when activated **/
+    /**
+     * Distributes effects when activated
+     **/
     @SubscribeEvent
     public static void NexusEffectEvent(PlayerInteractEvent.RightClickBlock event) {
         BlockPos pos = event.getPos();
@@ -221,7 +230,9 @@ public class Events {
     }
 
 
-    /** Under attack message **/
+    /**
+     * Under attack message
+     **/
     @SubscribeEvent
     public static void NexusHarvestEvent(PlayerInteractEvent.LeftClickBlock event) {
         BlockPos pos = event.getPos();
@@ -229,7 +240,7 @@ public class Events {
         Player player = event.getEntity();
         Block block = level.getBlockState(pos).getBlock();
 
-        if(!level.isClientSide && Config.NEXUS_UNDER_ATTACK_MESSAGE.get() && !player.isCreative()) {
+        if (!level.isClientSide && Config.NEXUS_UNDER_ATTACK_MESSAGE.get() && !player.isCreative()) {
 
             if (BuiltInRegistries.BLOCK.getKey(block).toString().contains(References.MODID + ":nexus")) {
 
@@ -240,7 +251,9 @@ public class Events {
     }
 
 
-    /** Destroys all blocks is the Safe-Zone of a Nexus **/
+    /**
+     * Destroys all blocks is the Safe-Zone of a Nexus
+     **/
     @SubscribeEvent
     public static void BlockPlaceEvent(PlayerInteractEvent.RightClickBlock event) {
         Level world = event.getLevel();
@@ -286,7 +299,9 @@ public class Events {
 
     //private static int counter = 0;
 
-    /** Stores the coordinates of a Nexus in the world as scoreboard objectives **/
+    /**
+     * Stores the coordinates of a Nexus in the world as scoreboard objectives
+     **/
     @SubscribeEvent
     public static void NexusPlaceEvent(PlayerInteractEvent.RightClickBlock event) {
         Level world = event.getLevel();
@@ -308,8 +323,38 @@ public class Events {
 
             //add the coords in an objective
             world.getScoreboard().addObjective(scoreboardName, ObjectiveCriteria.DUMMY, Component.literal(
-                    pos.toShortString().replace("[", "").replace("]", "")),
+                            pos.toShortString().replace("[", "").replace("]", "")),
                     ObjectiveCriteria.RenderType.INTEGER, false, null);
+        }
+    }
+
+
+    @SubscribeEvent
+    public static void addingToolTips(ItemTooltipEvent event) {
+        ItemStack stack = event.getItemStack();
+        Item item = stack.getItem();
+        List<Component> list = event.getToolTip();
+
+        //Nexus
+        if (stack.is(ItemTags.create(ResourceLocation.fromNamespaceAndPath(References.MODID, "nexus")))) {
+            if (!Screen.hasShiftDown()) {
+                list.add(Component.translatable("message." + References.MODID + ".nexus.desc").withStyle(ChatFormatting.GOLD));
+                list.add(Component.translatable("message." + References.MODID + ".hold_shift.desc").withStyle(ChatFormatting.GREEN));
+            } else {
+                list.add(Component.translatable("message." + References.MODID + ".gamemode_line_1").withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.UNDERLINE));
+                list.add(Component.translatable("message." + References.MODID + ".gamemode_line_2").withStyle(ChatFormatting.GRAY));
+                list.add(Component.translatable("message." + References.MODID + ".gamemode_line_3").withStyle(ChatFormatting.GRAY));
+                list.add(Component.translatable("message." + References.MODID + ".gamemode_line_4").withStyle(ChatFormatting.GRAY));
+                list.add(Component.translatable("message." + References.MODID + ".gamemode_line_5").withStyle(ChatFormatting.GRAY));
+                list.add(Component.translatable("message." + References.MODID + ".gamemode_line_6").withStyle(ChatFormatting.GRAY));
+            }
+
+        //Security Barrier/Wall
+        } else if (BuiltInRegistries.BLOCK.getKey(ModBlocks.SECURTIY_BARRIER.get()).getPath().equals(BuiltInRegistries.ITEM.getKey(item).getPath()) || BuiltInRegistries.BLOCK.getKey(ModBlocks.SECURTIY_WALL.get()).getPath().equals(BuiltInRegistries.ITEM.getKey(item).getPath())) {
+            list.add(Component.translatable("message." + References.MODID + ".unbreakable").withStyle(ChatFormatting.GRAY));
+
+        } else {
+            //
         }
     }
 
