@@ -238,6 +238,7 @@ modrinth {
         optional.project "moremcmeta-emissive-forge"
         optional.project "continuity"
         optional.project "shimmer!"
+        optional.project "multi-mine"
         optional.project "supplementaries"
     }
 }
