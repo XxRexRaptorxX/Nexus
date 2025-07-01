@@ -16,7 +16,6 @@ authors="${mod_authors}"
 description='''This mod adds a "Nexus" block which allows you to play a team based tower defense game mode!'''
 
 
-
 [[dependencies.${mod_id}]]
     modId="neoforge"
     mandatory=true
