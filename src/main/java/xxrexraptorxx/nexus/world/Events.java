@@ -95,7 +95,7 @@ public class Events {
 
                 String nexusColor = BuiltInRegistries.BLOCK.getKey(block).toString().substring(12);
                 level.getServer().getPlayerList()
-                        .broadcastSystemMessage(FormattingHelper.setMessageComponent(References.MODID, ".nexus_under_attack", ChatFormatting.getByName(nexusColor)), true);
+                        .broadcastSystemMessage(FormattingHelper.setMessageComponent(References.MODID, "nexus_under_attack", ChatFormatting.getByName(nexusColor)), true);
             }
         }
     }
@@ -135,7 +135,7 @@ public class Events {
                                             && block.getY() < pos.getY() + 2) {
                                         world.playSound(player, pos, SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 0.5F, world.random.nextFloat() * 0.15F + 0.F);
                                         Minecraft.getInstance().player
-                                                .displayClientMessage(FormattingHelper.setMessageComponent(References.MODID, ".blocked_position", ChatFormatting.RED), true);
+                                                .displayClientMessage(FormattingHelper.setMessageComponent(References.MODID, "blocked_position", ChatFormatting.RED), true);
 
                                         event.setCanceled(true);
                                     }
@@ -190,23 +190,23 @@ public class Events {
         // Nexus
         if (stack.is(ItemTags.create(ResourceLocation.fromNamespaceAndPath(References.MODID, "nexus")))) {
             if (!InputConstants.isKeyDown(Minecraft.getInstance().getWindow(), GLFW.GLFW_KEY_LEFT_SHIFT)) {
-                list.add(FormattingHelper.setMessageComponent(References.MODID, ".nexus.desc", ChatFormatting.GOLD));
-                list.add(FormattingHelper.setMessageComponent(References.MODID, ".hold_shift.desc", ChatFormatting.GREEN));
+                list.add(FormattingHelper.setMessageComponent(References.MODID, "nexus.desc", ChatFormatting.GOLD));
+                list.add(FormattingHelper.setMessageComponent(References.MODID, "hold_shift.desc", ChatFormatting.GREEN));
 
             } else {
-                list.add(FormattingHelper.setMessageComponent(References.MODID, ".gamemode_line_1", ChatFormatting.GOLD).withStyle(ChatFormatting.UNDERLINE));
-                list.add(FormattingHelper.setMessageComponent(References.MODID, ".gamemode_line_2", ChatFormatting.GRAY));
-                list.add(FormattingHelper.setMessageComponent(References.MODID, ".gamemode_line_3", ChatFormatting.GRAY));
-                list.add(FormattingHelper.setMessageComponent(References.MODID, ".gamemode_line_4", ChatFormatting.GRAY));
-                list.add(FormattingHelper.setMessageComponent(References.MODID, ".gamemode_line_5", ChatFormatting.GRAY));
-                list.add(FormattingHelper.setMessageComponent(References.MODID, ".gamemode_line_6", ChatFormatting.GRAY));
+                list.add(FormattingHelper.setMessageComponent(References.MODID, "gamemode_line_1", ChatFormatting.GOLD).withStyle(ChatFormatting.UNDERLINE));
+                list.add(FormattingHelper.setMessageComponent(References.MODID, "gamemode_line_2", ChatFormatting.GRAY));
+                list.add(FormattingHelper.setMessageComponent(References.MODID, "gamemode_line_3", ChatFormatting.GRAY));
+                list.add(FormattingHelper.setMessageComponent(References.MODID, "gamemode_line_4", ChatFormatting.GRAY));
+                list.add(FormattingHelper.setMessageComponent(References.MODID, "gamemode_line_5", ChatFormatting.GRAY));
+                list.add(FormattingHelper.setMessageComponent(References.MODID, "gamemode_line_6", ChatFormatting.GRAY));
             }
 
             // Security Barrier/Wall
         } else
             if (BuiltInRegistries.BLOCK.getKey(ModBlocks.SECURTIY_BARRIER.get()).getPath().equals(BuiltInRegistries.ITEM.getKey(item).getPath())
                     || BuiltInRegistries.BLOCK.getKey(ModBlocks.SECURTIY_WALL.get()).getPath().equals(BuiltInRegistries.ITEM.getKey(item).getPath())) {
-                        list.add(FormattingHelper.setMessageComponent(References.MODID, ".unbreakable", ChatFormatting.GRAY));
+                        list.add(FormattingHelper.setMessageComponent(References.MODID, "unbreakable", ChatFormatting.GRAY));
 
                     } else {
                         //

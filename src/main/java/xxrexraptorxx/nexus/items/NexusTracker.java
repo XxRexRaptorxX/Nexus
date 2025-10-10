@@ -35,10 +35,10 @@ public class NexusTracker extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> list, TooltipFlag flag) {
-        list.accept(FormattingHelper.setMessageComponent(References.MODID, ".tracker.desc", ChatFormatting.GRAY));
+        list.accept(FormattingHelper.setMessageComponent(References.MODID, "tracker.desc", ChatFormatting.GRAY));
 
         if (!Config.NEXUS_TRACKING.get()) {
-            list.accept(FormattingHelper.setMessageComponent(References.MODID, ".function_disabled", ChatFormatting.RED));
+            list.accept(FormattingHelper.setMessageComponent(References.MODID, "function_disabled", ChatFormatting.RED));
         }
     }
 

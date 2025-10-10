@@ -30,16 +30,16 @@ public class Nexus {
 
         eventBus.addListener(ModPackets::register);
 
-        //ConfigHelper.registerConfigs(container, References.MODID, true, Config.SERVER_CONFIG, Config.CLIENT_CONFIG); TODO!
+        // ConfigHelper.registerConfigs(container, References.MODID, true, Config.SERVER_CONFIG, Config.CLIENT_CONFIG); TODO!
         ModRegistry.register(References.MODID, References.NAME, References.URL);
     }
 
 
-    //@Mod(value = References.MODID, dist = Dist.CLIENT)
-    //public static class BlockDetectiveClient {
+    // @Mod(value = References.MODID, dist = Dist.CLIENT)
+    // public static class BlockDetectiveClient {
     //
-    //    public BlockDetectiveClient(ModContainer container) {
-    //        ConfigHelper.registerIngameConfig(container);
-    //    }
-    //}
+    // public BlockDetectiveClient(ModContainer container) {
+    // ConfigHelper.registerIngameConfig(container);
+    // }
+    // }
 }
