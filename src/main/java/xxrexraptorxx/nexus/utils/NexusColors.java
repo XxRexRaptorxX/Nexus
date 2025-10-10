@@ -18,9 +18,11 @@ public enum NexusColors implements StringRepresentable {
         this.name = pName;
     }
 
+
     public String toString() {
         return this.name;
     }
+
 
     public String getSerializedName() {
         return this.name;

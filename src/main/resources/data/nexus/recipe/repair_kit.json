@@ -2,18 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "pattern": [
-  
     "X#X",
     "#O#",
-    "X#X" 
+    "X#X"
   ],
-    
   "key": {
     "X": "#c:ingots/iron",
     "O": "minecraft:nether_star",
     "#": "#c:gems/diamond"
   },
-  
   "result": {
     "id": "nexus:repair_kit"
   }

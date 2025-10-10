@@ -1,7 +1,7 @@
 {
-	"parent": "minecraft:block/cube_all",
-	"render_type": "translucent",
-	"textures": {
-		"all": "nexus:block/security_barrier"
-	}
+  "parent": "minecraft:block/cube_all",
+  "render_type": "translucent",
+  "textures": {
+    "all": "nexus:block/security_barrier"
+  }
 }

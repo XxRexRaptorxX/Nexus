@@ -2,19 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "pattern": [
-  
     "#I#",
     "XOX",
     "XXX"
   ],
-    
   "key": {
     "X": "#c:ingots/iron",
     "#": "#c:ingots/copper",
     "O": "nexus:transmitter",
     "I": "minecraft:lightning_rod"
   },
-  
   "result": {
     "id": "nexus:nexus_tracker"
   }

@@ -25,57 +25,59 @@ import java.util.Random;
 
 public class SupplyCrate extends FallingBlock {
 
-	public static final MapCodec<SupplyCrate> CODEC = simpleCodec(SupplyCrate::new);
+    public static final MapCodec<SupplyCrate> CODEC = simpleCodec(SupplyCrate::new);
 
 
-	public SupplyCrate(Properties properties) {
-		super(properties);
-	};
+    public SupplyCrate(Properties properties) {
+        super(properties);
+    };
 
 
-	@Override
-	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
-		Random random = new Random();
+    @Override
+    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
+        Random random = new Random();
 
-		if (!level.isClientSide) {
-		popExperience(level.getServer().getLevel(player.level().dimension()), pos, Config.SUPPLY_CRATE_XP_AMOUNT.get());
+        if (!level.isClientSide()) {
+            popExperience(level.getServer().getLevel(player.level().dimension()), pos, Config.SUPPLY_CRATE_XP_AMOUNT.get());
 
-			//test if config list is not empty & loot amount is not deactivated
-			if (!Config.SUPPLY_CRATE_LOOT.get().isEmpty() && Config.SUPPLY_CRATE_LOOT_AMOUNT.get() > 0) {
+            // test if config list is not empty & loot amount is not deactivated
+            if (!Config.SUPPLY_CRATE_LOOT.get().isEmpty() && Config.SUPPLY_CRATE_LOOT_AMOUNT.get() > 0) {
 
-				try {
-					//itemstack amount
-					for (int i = 0; i < Config.SUPPLY_CRATE_LOOT_AMOUNT.get(); i++) {
-						//get random loot entry from config list
-						String item = Config.SUPPLY_CRATE_LOOT.get().get(random.nextInt(Config.SUPPLY_CRATE_LOOT.get().size()));
+                try {
+                    // itemstack amount
+                    for (int i = 0; i < Config.SUPPLY_CRATE_LOOT_AMOUNT.get(); i++) {
+                        // get random loot entry from config list
+                        String item = Config.SUPPLY_CRATE_LOOT.get().get(random.nextInt(Config.SUPPLY_CRATE_LOOT.get().size()));
 
-						//process the entry and drop the item
-						ItemEntity drop = new ItemEntity(level, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D,
-								new ItemStack(BuiltInRegistries.ITEM.getValue(
-										//                                          get the mod prefix              |        get the item registry name      |         get the item amount
-										ResourceLocation.fromNamespaceAndPath(item.substring(item.indexOf('*') + 1, item.indexOf(':')), item.substring(item.indexOf(':') + 1))), Integer.parseInt(item.substring(0, item.indexOf('*')))));
-						level.addFreshEntity(drop);
-					}
-				} catch (Exception e) {
-					Nexus.LOGGER.error("Invalid item entry in the Nexus Mod 'supply_crate_loot' config option!");
-				}
+                        // process the entry and drop the item
+                        ItemEntity drop = new ItemEntity(level, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D,
+                                new ItemStack(BuiltInRegistries.ITEM.getValue(
+                                        // get the mod prefix | get the item registry name | get the item amount
+                                        ResourceLocation.fromNamespaceAndPath(item.substring(item.indexOf('*') + 1, item.indexOf(':')), item.substring(item.indexOf(':') + 1))),
+                                        Integer.parseInt(item.substring(0, item.indexOf('*')))));
+                        level.addFreshEntity(drop);
+                    }
+                } catch (Exception e) {
+                    Nexus.LOGGER.error("Invalid item entry in the Nexus Mod 'supply_crate_loot' config option!");
+                }
 
-			}
-		}
+            }
+        }
 
-		level.playSound((Player) null, player.getX(), player.getY(), player.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 0.2F, 0.5F / (random.nextFloat() * 0.4F));
-		level.addParticle(ParticleTypes.SMOKE, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
-	}
-
-
-	@Override
-	protected MapCodec<? extends FallingBlock> codec() {
-		return CODEC;
-	}
+        level.playSound((Player) null, player.getX(), player.getY(), player.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 0.2F,
+                0.5F / (random.nextFloat() * 0.4F));
+        level.addParticle(ParticleTypes.SMOKE, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
+    }
 
 
-	@Override
-	public int getDustColor(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
-		return defaultMapColor().calculateARGBColor(MapColor.Brightness.NORMAL);
-	}
+    @Override
+    protected MapCodec<? extends FallingBlock> codec() {
+        return CODEC;
+    }
+
+
+    @Override
+    public int getDustColor(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
+        return defaultMapColor().calculateARGBColor(MapColor.Brightness.NORMAL);
+    }
 }

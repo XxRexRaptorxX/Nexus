@@ -1,9 +1,9 @@
 package xxrexraptorxx.nexus.world;
 
 import com.mojang.authlib.GameProfile;
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
@@ -42,6 +42,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import org.lwjgl.glfw.GLFW;
 import xxrexraptorxx.nexus.blocks.NexusBlock;
 import xxrexraptorxx.nexus.main.Nexus;
 import xxrexraptorxx.nexus.main.References;
@@ -56,7 +57,7 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-@EventBusSubscriber(modid = References.MODID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = References.MODID)
 public class Events {
 
 
@@ -82,7 +83,9 @@ public class Events {
                         MutableComponent url = Component.literal(ChatFormatting.GREEN + "Click here to update!")
                                 .withStyle(style -> style.withClickEvent(new ClickEvent.OpenUrl(URI.create(References.URL))));
 
-                        player.displayClientMessage(Component.literal(ChatFormatting.BLUE + "A newer version of " + ChatFormatting.YELLOW + References.NAME + ChatFormatting.BLUE + " is available!"), false);
+                        player.displayClientMessage(
+                                Component.literal(ChatFormatting.BLUE + "A newer version of " + ChatFormatting.YELLOW + References.NAME + ChatFormatting.BLUE + " is available!"),
+                                false);
                         player.displayClientMessage(url, false);
 
                         hasShownUp = true;
@@ -136,7 +139,7 @@ public class Events {
     /**
      * Checks if the player is in the supporter list from the given URI.
      *
-     * @param uri    URI to a file containing supporter names
+     * @param uri URI to a file containing supporter names
      * @param player The in-game player
      * @return true if the player is a supporter, otherwise false
      */
@@ -203,7 +206,7 @@ public class Events {
         Item item = stack.getItem();
         Player player = event.getEntity();
 
-        if (!world.isClientSide) {
+        if (!world.isClientSide()) {
             if (BuiltInRegistries.BLOCK.getKey(block).toString().contains(References.MODID + ":nexus")) {
 
                 if (item == ModItems.REPAIR_KIT.get()) {
@@ -211,7 +214,7 @@ public class Events {
 
                 } else {
 
-                    //Area effect
+                    // Area effect
                     if (Config.NEXUS_EFFECT_WHEN_RIGHT_CLICKED.get()) {
                         world.playSound((Player) null, pos, SoundEvents.ILLUSIONER_MIRROR_MOVE, SoundSource.BLOCKS, 0.5F, world.random.nextFloat() * 0.15F + 0.8F);
 
@@ -219,9 +222,9 @@ public class Events {
                         cloud.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 500));
                         cloud.setDuration(100);
                         cloud.setRadius(8);
-                        //cloud.setFixedColor(0x616161);
+                        // cloud.setFixedColor(0x616161);
                         cloud.setWaitTime(10);
-                        cloud.setParticle(ParticleTypes.GLOW);
+                        cloud.setCustomParticle(ParticleTypes.GLOW);
                         world.addFreshEntity(cloud);
                     }
                 }
@@ -240,12 +243,13 @@ public class Events {
         Player player = event.getEntity();
         Block block = level.getBlockState(pos).getBlock();
 
-        if (!level.isClientSide && Config.NEXUS_UNDER_ATTACK_MESSAGE.get() && !player.isCreative()) {
+        if (!level.isClientSide() && Config.NEXUS_UNDER_ATTACK_MESSAGE.get() && !player.isCreative()) {
 
             if (BuiltInRegistries.BLOCK.getKey(block).toString().contains(References.MODID + ":nexus")) {
 
                 String nexusColor = BuiltInRegistries.BLOCK.getKey(block).toString().substring(12);
-                level.getServer().getPlayerList().broadcastSystemMessage(Component.translatable("message." + References.MODID + ".nexus_under_attack").withStyle(ChatFormatting.getByName(nexusColor)), true);
+                level.getServer().getPlayerList().broadcastSystemMessage(
+                        Component.translatable("message." + References.MODID + ".nexus_under_attack").withStyle(ChatFormatting.getByName(nexusColor)), true);
             }
         }
     }
@@ -260,19 +264,19 @@ public class Events {
         BlockPos pos = event.getPos();
         Player player = event.getEntity();
 
-        //safety tests
-        if (!world.isClientSide) {
+        // safety tests
+        if (!world.isClientSide()) {
             if (event.getItemStack().getItem() != Items.AIR && Config.NEXUS_SAFE_ZONE.get() != 0) {
-                for (Block blocks : BuiltInRegistries.BLOCK) {                               //test if the held item is a block
+                for (Block blocks : BuiltInRegistries.BLOCK) { // test if the held item is a block
                     if (BuiltInRegistries.ITEM.getKey(event.getItemStack().getItem()) == BuiltInRegistries.BLOCK.getKey(blocks)) {
 
 
-                        //sets the start position
+                        // sets the start position
                         int posX = pos.getX();
                         int posY = pos.getY();
                         int posZ = pos.getZ();
 
-                        //changes the tested position
+                        // changes the tested position
                         for (int x = -Config.NEXUS_SAFE_ZONE.get(); x <= Config.NEXUS_SAFE_ZONE.get(); x++) {
 
                             for (int y = -Config.NEXUS_SAFE_ZONE.get(); y <= Config.NEXUS_SAFE_ZONE.get(); y++) {
@@ -280,10 +284,12 @@ public class Events {
                                 for (int z = -Config.NEXUS_SAFE_ZONE.get(); z <= Config.NEXUS_SAFE_ZONE.get(); z++) {
                                     BlockPos block = new BlockPos(posX + x, posY + y, posZ + z);
 
-                                    //tests if current block is a nexus
-                                    if (BuiltInRegistries.BLOCK.getKey(world.getBlockState(block).getBlock()).toString().contains(References.MODID + ":nexus") && block.getY() < pos.getY() + 2) {
+                                    // tests if current block is a nexus
+                                    if (BuiltInRegistries.BLOCK.getKey(world.getBlockState(block).getBlock()).toString().contains(References.MODID + ":nexus")
+                                            && block.getY() < pos.getY() + 2) {
                                         world.playSound(player, pos, SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 0.5F, world.random.nextFloat() * 0.15F + 0.F);
-                                        Minecraft.getInstance().player.displayClientMessage(Component.translatable("message." + References.MODID + ".blocked_position").withStyle(ChatFormatting.RED), true);
+                                        Minecraft.getInstance().player.displayClientMessage(
+                                                Component.translatable("message." + References.MODID + ".blocked_position").withStyle(ChatFormatting.RED), true);
 
                                         event.setCanceled(true);
                                     }
@@ -297,7 +303,8 @@ public class Events {
     }
 
 
-    //private static int counter = 0;
+    // private static int counter = 0;
+
 
     /**
      * Stores the coordinates of a Nexus in the world as scoreboard objectives
@@ -308,22 +315,21 @@ public class Events {
         BlockPos pos = event.getPos();
         Item item = event.getItemStack().getItem();
 
-        if (Config.NEXUS_TRACKING.get() && BuiltInRegistries.ITEM.getKey(item).toString().contains(References.MODID + ":nexus") &&
-                !BuiltInRegistries.ITEM.getKey(item).toString().contains(References.MODID + ":nexus_tracker")) {  //test if placed block is a nexus
+        if (Config.NEXUS_TRACKING.get() && BuiltInRegistries.ITEM.getKey(item).toString().contains(References.MODID + ":nexus")
+                && !BuiltInRegistries.ITEM.getKey(item).toString().contains(References.MODID + ":nexus_tracker")) { // test if placed block is a nexus
 
             String nexusColor = (item).toString().substring(12).toUpperCase();
             String scoreboardName = nexusColor + "_NEXUS";
 
-            //counter++;        > unused
-            //String scoreboardName = counter + "_NEXUS_" + nexusColor; //dynamicaly generates a unique scoreboard name
+            // counter++; > unused
+            // String scoreboardName = counter + "_NEXUS_" + nexusColor; //dynamicaly generates a unique scoreboard name
 
-            if (world.getScoreboard().getObjectiveNames().contains(scoreboardName)) { //remove the scoreboard of the nexus color that already exists to avoid errors
+            if (world.getScoreboard().getObjectiveNames().contains(scoreboardName)) { // remove the scoreboard of the nexus color that already exists to avoid errors
                 world.getScoreboard().removeObjective(world.getScoreboard().getObjective(scoreboardName));
             }
 
-            //add the coords in an objective
-            world.getScoreboard().addObjective(scoreboardName, ObjectiveCriteria.DUMMY, Component.literal(
-                            pos.toShortString().replace("[", "").replace("]", "")),
+            // add the coords in an objective
+            world.getScoreboard().addObjective(scoreboardName, ObjectiveCriteria.DUMMY, Component.literal(pos.toShortString().replace("[", "").replace("]", "")),
                     ObjectiveCriteria.RenderType.INTEGER, false, null);
         }
     }
@@ -335,9 +341,9 @@ public class Events {
         Item item = stack.getItem();
         List<Component> list = event.getToolTip();
 
-        //Nexus
+        // Nexus
         if (stack.is(ItemTags.create(ResourceLocation.fromNamespaceAndPath(References.MODID, "nexus")))) {
-            if (!Screen.hasShiftDown()) {
+            if (!InputConstants.isKeyDown(Minecraft.getInstance().getWindow(), GLFW.GLFW_KEY_LEFT_SHIFT)) {
                 list.add(Component.translatable("message." + References.MODID + ".nexus.desc").withStyle(ChatFormatting.GOLD));
                 list.add(Component.translatable("message." + References.MODID + ".hold_shift.desc").withStyle(ChatFormatting.GREEN));
             } else {
@@ -349,13 +355,15 @@ public class Events {
                 list.add(Component.translatable("message." + References.MODID + ".gamemode_line_6").withStyle(ChatFormatting.GRAY));
             }
 
-        //Security Barrier/Wall
-        } else if (BuiltInRegistries.BLOCK.getKey(ModBlocks.SECURTIY_BARRIER.get()).getPath().equals(BuiltInRegistries.ITEM.getKey(item).getPath()) || BuiltInRegistries.BLOCK.getKey(ModBlocks.SECURTIY_WALL.get()).getPath().equals(BuiltInRegistries.ITEM.getKey(item).getPath())) {
-            list.add(Component.translatable("message." + References.MODID + ".unbreakable").withStyle(ChatFormatting.GRAY));
+            // Security Barrier/Wall
+        } else
+            if (BuiltInRegistries.BLOCK.getKey(ModBlocks.SECURTIY_BARRIER.get()).getPath().equals(BuiltInRegistries.ITEM.getKey(item).getPath())
+                    || BuiltInRegistries.BLOCK.getKey(ModBlocks.SECURTIY_WALL.get()).getPath().equals(BuiltInRegistries.ITEM.getKey(item).getPath())) {
+                        list.add(Component.translatable("message." + References.MODID + ".unbreakable").withStyle(ChatFormatting.GRAY));
 
-        } else {
-            //
-        }
+                    } else {
+                        //
+                    }
     }
 
 }

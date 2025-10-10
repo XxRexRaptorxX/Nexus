@@ -2,18 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-  
     "X#X",
     "#O#",
-    "X#X" 
+    "X#X"
   ],
-    
   "key": {
     "X": "#c:dusts/redstone",
     "O": "minecraft:sculk_sensor",
     "#": "minecraft:echo_shard"
   },
-  
   "result": {
     "id": "nexus:transmitter"
   }

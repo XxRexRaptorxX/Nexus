@@ -25,7 +25,8 @@ public record MessageC2SPacket() implements CustomPacketPayload {
     }
 
 
-    public void write(final FriendlyByteBuf buffer) { }
+    public void write(final FriendlyByteBuf buffer) {
+    }
 
 
     @Override
@@ -35,23 +36,22 @@ public record MessageC2SPacket() implements CustomPacketPayload {
     }
 
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, MessageC2SPacket> STREAM_CODEC = StreamCodec.ofMember(
-            MessageC2SPacket::write, MessageC2SPacket::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageC2SPacket> STREAM_CODEC = StreamCodec.ofMember(MessageC2SPacket::write, MessageC2SPacket::new);
 
 
-    //Nexus Tracker function
+    // Nexus Tracker function
     public static void handle(final MessageC2SPacket data, IPayloadContext context) {
         context.enqueueWork(() -> {
-            if(!(context.player().level() instanceof ServerLevel level) || !(context.player() instanceof ServerPlayer player))
-                return;
+            if (!(context.player().level() instanceof ServerLevel level) || !(context.player() instanceof ServerPlayer player)) return;
 
-            //Serverside
+            // Serverside
             BlockPos playerPos = player.getOnPos();
             ServerScoreboard scoreboard = (ServerScoreboard) level.getServer().getScoreboard();
 
-            if(!level.isClientSide) {
-                if (scoreboard.getObjectiveNames().contains("RED_NEXUS") || scoreboard.getObjectiveNames().contains("BLUE_NEXUS") || scoreboard.getObjectiveNames().contains("GREEN_NEXUS") ||
-                        scoreboard.getObjectiveNames().contains("YELLOW_NEXUS") || scoreboard.getObjectiveNames().contains("BLACK_NEXUS") || scoreboard.getObjectiveNames().contains("WHITE_NEXUS")) {
+            if (!level.isClientSide()) {
+                if (scoreboard.getObjectiveNames().contains("RED_NEXUS") || scoreboard.getObjectiveNames().contains("BLUE_NEXUS")
+                        || scoreboard.getObjectiveNames().contains("GREEN_NEXUS") || scoreboard.getObjectiveNames().contains("YELLOW_NEXUS")
+                        || scoreboard.getObjectiveNames().contains("BLACK_NEXUS") || scoreboard.getObjectiveNames().contains("WHITE_NEXUS")) {
                     player.displayClientMessage(Component.translatable("message.nexus.tracking").withStyle(ChatFormatting.GRAY), false);
 
                 } else {
@@ -59,33 +59,38 @@ public record MessageC2SPacket() implements CustomPacketPayload {
                 }
 
                 if (scoreboard.getObjectiveNames().contains("RED_NEXUS")) {
-                    player.displayClientMessage(Component.literal("Nexus ").append(Component.literal(String.valueOf(
-                                    NexusTracker.distance(playerPos, scoreboard.getObjective("RED_NEXUS").getFormattedDisplayName().getString()))))
+                    player.displayClientMessage(Component.literal("Nexus ")
+                            .append(Component.literal(String.valueOf(NexusTracker.distance(playerPos, scoreboard.getObjective("RED_NEXUS").getFormattedDisplayName().getString()))))
                             .append(Component.translatable("message.nexus.tracker_distance")).withStyle(ChatFormatting.RED), false);
                 }
                 if (scoreboard.getObjectiveNames().contains("BLUE_NEXUS")) {
-                    player.displayClientMessage(Component.literal("Nexus ").append(Component.literal(String.valueOf(
-                                    NexusTracker.distance(playerPos, scoreboard.getObjective("BLUE_NEXUS").getFormattedDisplayName().getString()))))
+                    player.displayClientMessage(Component.literal("Nexus ")
+                            .append(Component
+                                    .literal(String.valueOf(NexusTracker.distance(playerPos, scoreboard.getObjective("BLUE_NEXUS").getFormattedDisplayName().getString()))))
                             .append(Component.translatable("message.nexus.tracker_distance")).withStyle(ChatFormatting.BLUE), false);
                 }
                 if (scoreboard.getObjectiveNames().contains("GREEN_NEXUS")) {
-                    player.displayClientMessage(Component.literal("Nexus ").append(Component.literal(String.valueOf(
-                                    NexusTracker.distance(playerPos, scoreboard.getObjective("GREEN_NEXUS").getFormattedDisplayName().getString()))))
+                    player.displayClientMessage(Component.literal("Nexus ")
+                            .append(Component
+                                    .literal(String.valueOf(NexusTracker.distance(playerPos, scoreboard.getObjective("GREEN_NEXUS").getFormattedDisplayName().getString()))))
                             .append(Component.translatable("message.nexus.tracker_distance")).withStyle(ChatFormatting.GREEN), false);
                 }
                 if (scoreboard.getObjectiveNames().contains("YELLOW_NEXUS")) {
-                    player.displayClientMessage(Component.literal("Nexus ").append(Component.literal(String.valueOf(
-                                    NexusTracker.distance(playerPos, scoreboard.getObjective("YELLOW_NEXUS").getFormattedDisplayName().getString()))))
+                    player.displayClientMessage(Component.literal("Nexus ")
+                            .append(Component
+                                    .literal(String.valueOf(NexusTracker.distance(playerPos, scoreboard.getObjective("YELLOW_NEXUS").getFormattedDisplayName().getString()))))
                             .append(Component.translatable("message.nexus.tracker_distance")).withStyle(ChatFormatting.YELLOW), false);
                 }
                 if (scoreboard.getObjectiveNames().contains("BLACK_NEXUS")) {
-                    player.displayClientMessage(Component.literal("Nexus ").append(Component.literal(String.valueOf(
-                                    NexusTracker.distance(playerPos, scoreboard.getObjective("BLACK_NEXUS").getFormattedDisplayName().getString()))))
+                    player.displayClientMessage(Component.literal("Nexus ")
+                            .append(Component
+                                    .literal(String.valueOf(NexusTracker.distance(playerPos, scoreboard.getObjective("BLACK_NEXUS").getFormattedDisplayName().getString()))))
                             .append(Component.translatable("message.nexus.tracker_distance")).withStyle(ChatFormatting.DARK_GRAY), false);
                 }
                 if (scoreboard.getObjectiveNames().contains("WHITE_NEXUS")) {
-                    player.displayClientMessage(Component.literal("Nexus ").append(Component.literal(String.valueOf(
-                                    NexusTracker.distance(playerPos, scoreboard.getObjective("WHITE_NEXUS").getFormattedDisplayName().getString()))))
+                    player.displayClientMessage(Component.literal("Nexus ")
+                            .append(Component
+                                    .literal(String.valueOf(NexusTracker.distance(playerPos, scoreboard.getObjective("WHITE_NEXUS").getFormattedDisplayName().getString()))))
                             .append(Component.translatable("message.nexus.tracker_distance")).withStyle(ChatFormatting.WHITE), false);
                 }
             }

@@ -15,9 +15,7 @@ import java.util.function.Consumer;
 public class RepairKit extends Item {
 
     public RepairKit(Item.Properties properties) {
-        super(properties
-                .rarity(Rarity.UNCOMMON)
-        );
+        super(properties.rarity(Rarity.UNCOMMON));
     }
 
 

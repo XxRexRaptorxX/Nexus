@@ -7,7 +7,6 @@
   ],
   "type": "jeed:effect_provider",
   "effect": "minecraft:resistance",
-
   "providers": [
     {
       "item": "nexus:nexus_green"

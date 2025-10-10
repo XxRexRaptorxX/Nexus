@@ -28,11 +28,7 @@ import java.util.function.Consumer;
 public class NexusTracker extends Item {
 
     public NexusTracker(Item.Properties properties) {
-        super(properties
-                .rarity(Rarity.UNCOMMON)
-                .stacksTo(1)
-                .durability(10)
-        );
+        super(properties.rarity(Rarity.UNCOMMON).stacksTo(1).durability(10));
     }
 
 
@@ -50,29 +46,24 @@ public class NexusTracker extends Item {
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         Random random = new Random();
 
-            if (Config.NEXUS_TRACKING.get()) {
-                level.playSound((Player) null, player.position().x, player.position().y, player.position().z, SoundEvents.COMPARATOR_CLICK, SoundSource.PLAYERS, 1.0F, 2.0F / (random.nextFloat() * 0.4F + 0.8F));
+        if (Config.NEXUS_TRACKING.get()) {
+            level.playSound((Player) null, player.position().x, player.position().y, player.position().z, SoundEvents.COMPARATOR_CLICK, SoundSource.PLAYERS, 1.0F,
+                    2.0F / (random.nextFloat() * 0.4F + 0.8F));
 
-                if (level.isClientSide) {
-                    ModPackets.sendToServer(new MessageC2SPacket());
-                } else {
-                    player.awardStat(Stats.ITEM_USED.get(this));
-                }
-
-                if (player instanceof Player) {
-                    ((Player) player).getCooldowns().addCooldown(player.getUseItem(), Config.TRACKING_COOLDOWN.get());
-                }
-
-                return InteractionResult.SUCCESS;
+            if (level.isClientSide()) {
+                ModPackets.sendToAllPlayers(new MessageC2SPacket());
+            } else {
+                player.awardStat(Stats.ITEM_USED.get(this));
             }
 
-            return InteractionResult.FAIL;
-    }
+            if (player instanceof Player) {
+                ((Player) player).getCooldowns().addCooldown(player.getUseItem(), Config.TRACKING_COOLDOWN.get());
+            }
 
+            return InteractionResult.SUCCESS;
+        }
 
-    @Override
-    public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
-        return false;
+        return InteractionResult.FAIL;
     }
 
 
@@ -99,5 +90,3 @@ public class NexusTracker extends Item {
         return (int) Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) + Math.pow(z2 - z1, 2));
     }
 }
-
-
