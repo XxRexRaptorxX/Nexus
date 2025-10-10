@@ -17,6 +17,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
+import xxrexraptorxx.magmacore.utils.FormattingHelper;
 import xxrexraptorxx.nexus.main.References;
 import xxrexraptorxx.nexus.network.ModPackets;
 import xxrexraptorxx.nexus.network.packets.MessageC2SPacket;
@@ -34,10 +35,10 @@ public class NexusTracker extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> list, TooltipFlag flag) {
-        list.accept(Component.translatable("message." + References.MODID + ".tracker.desc").withStyle(ChatFormatting.GRAY));
+        list.accept(FormattingHelper.setMessageComponent(References.MODID, ".tracker.desc", ChatFormatting.GRAY));
 
         if (!Config.NEXUS_TRACKING.get()) {
-            list.accept(Component.translatable("message." + References.MODID + ".function_disabled").withStyle(ChatFormatting.RED));
+            list.accept(FormattingHelper.setMessageComponent(References.MODID, ".function_disabled", ChatFormatting.RED));
         }
     }
 

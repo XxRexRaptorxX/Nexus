@@ -12,9 +12,9 @@
 
 ## 📖 Description
 
-This mod is an **enhanced** standalone version of the "Nexus" block from [Age of Weapons](https://www.curseforge.com/minecraft/mc-mods/age-of-weapons), which allows you to play a team based tower defense game mode against other players!
+This mod is an **enhanced** standalone version of the "Nexus" block from [Age of Weapons](https://www.curseforge.com/minecraft/mc-mods/age-of-weapons), which allows you to play a team-based tower defense game mode against other players!
 
-I suggest you to use [MultiMine](https://www.curseforge.com/minecraft/mc-mods/multi-mine) for more team play with this mod.
+I suggest that you use [MultiMine](https://www.curseforge.com/minecraft/mc-mods/multi-mine) for more team play with this mod.
 
  -----
 
@@ -46,6 +46,12 @@ I suggest you to use [MultiMine](https://www.curseforge.com/minecraft/mc-mods/mu
 </p>
 
 ## 🗃️ Dependencies
+
+### Required:
+- **Magma Core**
+  - Provides basic code and features such as update-checker
+  - [CurseForge][cf_magmacore] | [Modrinth][mr_magmacore]
+
 
 ### Highly suggested:
 - **Multi-Mine**
@@ -118,6 +124,8 @@ I suggest you to use [MultiMine](https://www.curseforge.com/minecraft/mc-mods/mu
   <a href="https://bisecthosting.com/REXRAPTOR"><img src="https://github.com/XxRexRaptorxX/General/blob/main/BH_REX_Bisect.png?raw=true" alt="Bisect Hosting - 25% off with code: REXRAPTOR"/></a>
 </p>
 
+[cf_magmacore]: https://www.curseforge.com/minecraft/mc-mods/magma-core
+[mr_magmacore]: https://modrinth.com/mod/magma-core
 [cf_mm]: https://www.curseforge.com/minecraft/mc-mods/multi-mine
 [mr_mm]: https://modrinth.com/plugin/multi-mine
 [cf_patchouli]: https://www.curseforge.com/minecraft/mc-mods/patchouli

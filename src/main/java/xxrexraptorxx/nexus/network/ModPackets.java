@@ -22,6 +22,7 @@ public class ModPackets {
         registrar.playToServer(MessageC2SPacket.ID, MessageC2SPacket.STREAM_CODEC, MessageC2SPacket::handle);
     }
 
+
     public static void sendToPlayer(CustomPacketPayload message, ServerPlayer player) {
         PacketDistributor.sendToPlayer(player, message);
     }
