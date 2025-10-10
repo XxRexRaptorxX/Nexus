@@ -1,4 +1,8 @@
-# [v.4.0.0 for MC 1.21.10, 1.21.9](https://github.com/XxRexRaptorxX/Nexus/compare/v.4.0.0-dev1...v.4.0.0-dev2)
+# [v.4.0.0 for MC 1.21.10, 1.21.9](https://github.com/XxRexRaptorxX/Nexus/compare/v.4.0.0-dev1...v.4.0.0-dev3)
+
+## ✨ Features
+
+- MagmaCore implemented and used as base ([fa6fd8f](https://github.com/XxRexRaptorxX/Nexus/commit/fa6fd8f52985974b6bf8726ddc403f99fd3b4ebf))
 
 ## 🔨 Refactoring
 
