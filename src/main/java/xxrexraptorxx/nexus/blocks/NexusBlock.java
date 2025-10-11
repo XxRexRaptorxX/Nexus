@@ -42,7 +42,9 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import xxrexraptorxx.magmacore.utils.FormattingHelper;
 import xxrexraptorxx.nexus.main.Nexus;
+import xxrexraptorxx.nexus.main.References;
 import xxrexraptorxx.nexus.utils.Config;
 import xxrexraptorxx.nexus.utils.NexusColors;
 
@@ -103,19 +105,19 @@ public class NexusBlock extends Block {
 
                     if (player.getTeam() != null && player.getTeam().getColor() != null) { // fallback if the player has no team or team color
                         level.getServer().getPlayerList().broadcastSystemMessage(Component.literal(player.getDisplayName().getString() + " ").withStyle(player.getTeam().getColor())
-                                .append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))), true);
-                        level.getServer().getPlayerList().broadcastChatMessage(
-                                PlayerChatMessage.system(Component.literal(player.getDisplayName().getString() + " ").withStyle(player.getTeam().getColor())
-                                        .append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))).getString()),
-                                source, ChatType.bind(ChatType.CHAT, source));
+                                .append(FormattingHelper.setMessageComponent(References.MODID, "nexus_destruction", ChatFormatting.getByName(nexusColor))), true);
+                        level.getServer().getPlayerList()
+                                .broadcastChatMessage(PlayerChatMessage.system(Component.literal(player.getDisplayName().getString() + " ").withStyle(player.getTeam().getColor())
+                                        .append(FormattingHelper.setMessageComponent(References.MODID, "nexus_destruction", ChatFormatting.getByName(nexusColor))).getString()),
+                                        source, ChatType.bind(ChatType.CHAT, source));
 
                     } else {
                         level.getServer().getPlayerList().broadcastSystemMessage(Component.literal(player.getDisplayName().getString() + " ")
-                                .append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))), true);
-                        level.getServer().getPlayerList().broadcastChatMessage(
-                                PlayerChatMessage.system(Component.literal(player.getDisplayName().getString() + " ")
-                                        .append(Component.translatable("message.nexus.nexus_destruction").withStyle(ChatFormatting.getByName(nexusColor))).getString()),
-                                source, ChatType.bind(ChatType.CHAT, source));
+                                .append(FormattingHelper.setMessageComponent(References.MODID, "nexus_destruction", ChatFormatting.getByName(nexusColor))), true);
+                        level.getServer().getPlayerList()
+                                .broadcastChatMessage(PlayerChatMessage.system(Component.literal(player.getDisplayName().getString() + " ")
+                                        .append(FormattingHelper.setMessageComponent(References.MODID, "nexus_destruction", ChatFormatting.getByName(nexusColor))).getString()),
+                                        source, ChatType.bind(ChatType.CHAT, source));
                     }
 
                     // Gamemode change when lost
@@ -182,31 +184,32 @@ public class NexusBlock extends Block {
                 CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, Vec3.atCenterOf(pos), Vec2.ZERO, (ServerLevel) level, 2, "nexus",
                         Component.literal("Nexus").withStyle(ChatFormatting.getByName(nexusColor)), level.getServer(), player);
 
-                level.getServer().getPlayerList().broadcastSystemMessage(
-                        Component.translatable("message.nexus.nexus_level_" + (state.getValue(DESTRUCTION_LEVEL) + 1)).withStyle(ChatFormatting.getByName(nexusColor)), true); // if
-                                                                                                                                                                               // state
-                                                                                                                                                                               // is
-                                                                                                                                                                               // not
-                                                                                                                                                                               // max:
-                                                                                                                                                                               // send
-                                                                                                                                                                               // damage
-                                                                                                                                                                               // info
-                                                                                                                                                                               // text
-                level.getServer().getPlayerList().broadcastChatMessage(PlayerChatMessage.system(
-                        Component.translatable("message.nexus.nexus_level_" + (state.getValue(DESTRUCTION_LEVEL) + 1)).withStyle(ChatFormatting.getByName(nexusColor)).getString()),
+                level.getServer().getPlayerList().broadcastSystemMessage(FormattingHelper
+                        .setMessageComponent(References.MODID, "nexus_level_" + (state.getValue(DESTRUCTION_LEVEL) + 1)).withStyle(ChatFormatting.getByName(nexusColor)), true); // if
+                // state
+                // is
+                // not
+                // max:
+                // send
+                // damage
+                // info
+                // text
+                level.getServer().getPlayerList().broadcastChatMessage(
+                        PlayerChatMessage.system(FormattingHelper.setMessageComponent(References.MODID, "nexus_level_" + (state.getValue(DESTRUCTION_LEVEL) + 1))
+                                .withStyle(ChatFormatting.getByName(nexusColor)).getString()),
                         source, ChatType.bind(ChatType.CHAT, source));
             }
 
         } else {
             /** Repair Nexus **/
             if (!Config.getNexusRepairingEnabled() || state.getValue(DESTRUCTION_LEVEL) == 0) { // test if repairing is on or nexus is fully repaired
-                player.displayClientMessage(Component.translatable("message.nexus.not_repair").withStyle(ChatFormatting.getByName(nexusColor)), true);
+                player.displayClientMessage(FormattingHelper.setMessageComponent(References.MODID, "not_repair", ChatFormatting.getByName(nexusColor)), true);
 
             } else {
                 changeNexusBlockstates(level, pos, state, true, false);
                 level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-                level.getServer().getPlayerList().broadcastSystemMessage(Component.translatable("message.nexus.nexus_repair").withStyle(ChatFormatting.getByName(nexusColor)),
-                        true);
+                level.getServer().getPlayerList()
+                        .broadcastSystemMessage(FormattingHelper.setMessageComponent(References.MODID, "nexus_repair", ChatFormatting.getByName(nexusColor)), true);
 
                 player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
                 player.getCooldowns().addCooldown(stack, Config.getRepairCooldown());

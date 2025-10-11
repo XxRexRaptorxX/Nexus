@@ -7,6 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
+import xxrexraptorxx.magmacore.utils.FormattingHelper;
 import xxrexraptorxx.nexus.main.References;
 import xxrexraptorxx.nexus.utils.Config;
 
@@ -21,10 +22,10 @@ public class RepairKit extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> list, TooltipFlag flag) {
-        list.accept(Component.translatable("message." + References.MODID + ".repair_kit.desc").withStyle(ChatFormatting.GOLD));
+        list.accept(FormattingHelper.setMessageComponent(References.MODID, "repair_kit.desc").withStyle(ChatFormatting.GOLD));
 
         if (!Config.getNexusRepairingEnabled()) {
-            list.accept(Component.translatable("message." + References.MODID + ".function_disabled").withStyle(ChatFormatting.RED));
+            list.accept(FormattingHelper.setMessageComponent(References.MODID, "function_disabled").withStyle(ChatFormatting.RED));
         }
     }
 
