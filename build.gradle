@@ -237,7 +237,7 @@ afterEvaluate {
             // The type can either be `project` or `version`
             required.project "magma-core"
             optional.project "patchouli"
-            optional.project "moremcmeta-emissive-forge"
+            optional.project "moremcmeta-emissive"
             optional.project "continuity"
             optional.project "shimmer!"
             optional.project "multi-mine"

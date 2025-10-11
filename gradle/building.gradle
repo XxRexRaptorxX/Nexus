@@ -11,7 +11,7 @@ tasks.named('javadoc', Javadoc) {
 }
 
 tasks.named('jar').configure {
-    archiveBaseName.set(mod_name.replace(" ", ""))
+    archiveBaseName.set(mod_name.replace(" " , "").replace("(TowerDefenseBattleMode)", ""))
     archiveVersion.set("${minecraft_version}-(v.${mod_version}-${mod_loader})")
 }
 
