@@ -72,7 +72,7 @@ public class NexusBlock extends Block {
 
 
     @Override
-    public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
+    public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, ItemStack toolStack, boolean willHarvest, FluidState fluid) {
         Random random = new Random();
         String nexusColor = BuiltInRegistries.BLOCK.getKey(this).toString().substring(12);
         ItemStack stack = player.getUseItem();
