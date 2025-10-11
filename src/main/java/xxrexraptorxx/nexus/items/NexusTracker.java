@@ -37,7 +37,7 @@ public class NexusTracker extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> list, TooltipFlag flag) {
         list.accept(FormattingHelper.setMessageComponent(References.MODID, "tracker.desc", ChatFormatting.GRAY));
 
-        if (!Config.NEXUS_TRACKING.get()) {
+        if (!Config.getNexusTrackingEnabled()) {
             list.accept(FormattingHelper.setMessageComponent(References.MODID, "function_disabled", ChatFormatting.RED));
         }
     }
@@ -47,7 +47,7 @@ public class NexusTracker extends Item {
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         Random random = new Random();
 
-        if (Config.NEXUS_TRACKING.get()) {
+        if (Config.getNexusTrackingEnabled()) {
             level.playSound((Player) null, player.position().x, player.position().y, player.position().z, SoundEvents.COMPARATOR_CLICK, SoundSource.PLAYERS, 1.0F,
                     2.0F / (random.nextFloat() * 0.4F + 0.8F));
 
@@ -58,7 +58,7 @@ public class NexusTracker extends Item {
             }
 
             if (player instanceof Player) {
-                ((Player) player).getCooldowns().addCooldown(player.getUseItem(), Config.TRACKING_COOLDOWN.get());
+                ((Player) player).getCooldowns().addCooldown(player.getUseItem(), Config.getTrackingCooldown());
             }
 
             return InteractionResult.SUCCESS;

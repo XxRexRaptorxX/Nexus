@@ -23,7 +23,7 @@ public class RepairKit extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> list, TooltipFlag flag) {
         list.accept(Component.translatable("message." + References.MODID + ".repair_kit.desc").withStyle(ChatFormatting.GOLD));
 
-        if (!Config.NEXUS_REPAIRING.get()) {
+        if (!Config.getNexusRepairingEnabled()) {
             list.accept(Component.translatable("message." + References.MODID + ".function_disabled").withStyle(ChatFormatting.RED));
         }
     }

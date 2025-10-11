@@ -38,16 +38,16 @@ public class SupplyCrate extends FallingBlock {
         Random random = new Random();
 
         if (!level.isClientSide()) {
-            popExperience(level.getServer().getLevel(player.level().dimension()), pos, Config.SUPPLY_CRATE_XP_AMOUNT.get());
+            popExperience(level.getServer().getLevel(player.level().dimension()), pos, Config.getSupplyCrateXpAmount());
 
             // test if config list is not empty & loot amount is not deactivated
-            if (!Config.SUPPLY_CRATE_LOOT.get().isEmpty() && Config.SUPPLY_CRATE_LOOT_AMOUNT.get() > 0) {
+            if (!Config.getSupplyCrateLoot().isEmpty() && Config.getSupplyCrateLootAmount() > 0) {
 
                 try {
                     // itemstack amount
-                    for (int i = 0; i < Config.SUPPLY_CRATE_LOOT_AMOUNT.get(); i++) {
+                    for (int i = 0; i < Config.getSupplyCrateLootAmount(); i++) {
                         // get random loot entry from config list
-                        String item = Config.SUPPLY_CRATE_LOOT.get().get(random.nextInt(Config.SUPPLY_CRATE_LOOT.get().size()));
+                        String item = Config.getSupplyCrateLoot().get(random.nextInt(Config.getSupplyCrateLoot().size()));
 
                         // process the entry and drop the item
                         ItemEntity drop = new ItemEntity(level, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D,

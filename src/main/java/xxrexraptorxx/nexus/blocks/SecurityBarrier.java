@@ -32,7 +32,7 @@ public class SecurityBarrier extends HalfTransparentBlock {
 
     @Override
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entityIn, InsideBlockEffectApplier effectApplier, boolean p_451772_) {
-        if (!level.isClientSide() && Config.BARRIER_DAMAGE.get()) {
+        if (!level.isClientSide() && Config.getBarrierDamage()) {
             if (entityIn instanceof LivingEntity) {
                 LivingEntity entity = (LivingEntity) entityIn;
 

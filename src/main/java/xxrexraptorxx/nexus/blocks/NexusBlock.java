@@ -67,7 +67,7 @@ public class NexusBlock extends Block {
 
     @Override
     public int getExpDrop(BlockState state, LevelAccessor level, BlockPos pos, @Nullable BlockEntity blockEntity, @Nullable Entity breaker, ItemStack tool) {
-        return Config.NEXUS_XP_AMOUNT.get();
+        return Config.getNexusXpAmount();
     }
 
 
@@ -95,7 +95,7 @@ public class NexusBlock extends Block {
                             0.4F / (random.nextFloat() * 0.4F + 0.8F));
                     level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENDER_DRAGON_DEATH, SoundSource.BLOCKS, 0.5F,
                             0.4F / (random.nextFloat() * 0.4F + 0.8F));
-                    popExperience(level.getServer().getLevel(player.level().dimension()), pos, Config.NEXUS_XP_AMOUNT.get());
+                    popExperience(level.getServer().getLevel(player.level().dimension()), pos, Config.getNexusXpAmount());
                     player.awardStat(Stats.BLOCK_MINED.get(state.getBlock()));
 
                     CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, Vec3.atCenterOf(pos), Vec2.ZERO, (ServerLevel) level, 2, "nexus",
@@ -119,7 +119,7 @@ public class NexusBlock extends Block {
                     }
 
                     // Gamemode change when lost
-                    if (Config.SPECTATOR_MODE_AFTER_LOST_NEXUS.get()) {
+                    if (Config.getSpectatorModeAfterLostNexus()) {
                         try {
                             List<ServerPlayer> players = level.getServer().getPlayerList().getPlayers();
                             for (ServerPlayer serverPlayer : players) {
@@ -135,8 +135,8 @@ public class NexusBlock extends Block {
                     }
 
                     // Drops
-                    if (Config.NEXUS_REWARDS.get().size() > 0) {
-                        for (String item : Config.NEXUS_REWARDS.get()) {
+                    if (Config.getNexusRewards().size() > 0) {
+                        for (String item : Config.getNexusRewards()) {
                             try {
                                 ItemEntity drop = new ItemEntity(level, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D,
                                         new ItemStack(BuiltInRegistries.ITEM.getValue(
@@ -175,7 +175,7 @@ public class NexusBlock extends Block {
         if (!positive) { /** Damage Nexus **/
             changeNexusBlockstates(level, pos, state, false, false);
             level.playSound((Player) null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ANVIL_DESTROY, SoundSource.BLOCKS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-            state.getBlock().popExperience(level.getServer().getLevel(player.level().dimension()), pos, Config.NEXUS_XP_STAGE_AMOUNT.get());
+            state.getBlock().popExperience(level.getServer().getLevel(player.level().dimension()), pos, Config.getNexusXpPerStageAmount());
             player.awardStat(Stats.ITEM_BROKEN.get(state.getBlock().asItem()));
 
             if (state.getValue(DESTRUCTION_LEVEL) != MAX_DESTRUCTION_LEVEL) {
@@ -199,7 +199,7 @@ public class NexusBlock extends Block {
 
         } else {
             /** Repair Nexus **/
-            if (!Config.NEXUS_REPAIRING.get() || state.getValue(DESTRUCTION_LEVEL) == 0) { // test if repairing is on or nexus is fully repaired
+            if (!Config.getNexusRepairingEnabled() || state.getValue(DESTRUCTION_LEVEL) == 0) { // test if repairing is on or nexus is fully repaired
                 player.displayClientMessage(Component.translatable("message.nexus.not_repair").withStyle(ChatFormatting.getByName(nexusColor)), true);
 
             } else {
@@ -209,7 +209,7 @@ public class NexusBlock extends Block {
                         true);
 
                 player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-                player.getCooldowns().addCooldown(stack, Config.REPAIR_COOLDOWN.get());
+                player.getCooldowns().addCooldown(stack, Config.getRepairCooldown());
                 stack.shrink(1);
             }
         }
@@ -332,7 +332,7 @@ public class NexusBlock extends Block {
 
     @Override
     public float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
-        if (Config.GLOWING_EFFECT_FROM_NEXUS.get()) {
+        if (Config.getGlowingEffectFromNexus()) {
             player.addEffect(new MobEffectInstance(MobEffects.GLOWING, 30, 0, false, false, true));
         }
         return super.getDestroyProgress(state, player, level, pos);

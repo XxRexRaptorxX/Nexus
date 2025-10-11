@@ -61,7 +61,7 @@ public class Events {
                 } else {
 
                     // Area effect
-                    if (Config.NEXUS_EFFECT_WHEN_RIGHT_CLICKED.get()) {
+                    if (Config.getNexusEffectWhenRightClicked()) {
                         world.playSound((Player) null, pos, SoundEvents.ILLUSIONER_MIRROR_MOVE, SoundSource.BLOCKS, 0.5F, world.random.nextFloat() * 0.15F + 0.8F);
 
                         AreaEffectCloud cloud = new AreaEffectCloud(world, pos.getX(), pos.getY() + 0.2F, pos.getZ());
@@ -89,7 +89,7 @@ public class Events {
         Player player = event.getEntity();
         Block block = level.getBlockState(pos).getBlock();
 
-        if (!level.isClientSide() && Config.NEXUS_UNDER_ATTACK_MESSAGE.get() && !player.isCreative()) {
+        if (!level.isClientSide() && Config.getNexusUnderAttackMessage() && !player.isCreative()) {
 
             if (BuiltInRegistries.BLOCK.getKey(block).toString().contains(References.MODID + ":nexus")) {
 
@@ -112,7 +112,7 @@ public class Events {
 
         // safety tests
         if (!world.isClientSide()) {
-            if (event.getItemStack().getItem() != Items.AIR && Config.NEXUS_SAFE_ZONE.get() != 0) {
+            if (event.getItemStack().getItem() != Items.AIR && Config.getNexusSafeZone() != 0) {
                 for (Block blocks : BuiltInRegistries.BLOCK) { // test if the held item is a block
                     if (BuiltInRegistries.ITEM.getKey(event.getItemStack().getItem()) == BuiltInRegistries.BLOCK.getKey(blocks)) {
 
@@ -123,11 +123,11 @@ public class Events {
                         int posZ = pos.getZ();
 
                         // changes the tested position
-                        for (int x = -Config.NEXUS_SAFE_ZONE.get(); x <= Config.NEXUS_SAFE_ZONE.get(); x++) {
+                        for (int x = -Config.getNexusSafeZone(); x <= Config.getNexusSafeZone(); x++) {
 
-                            for (int y = -Config.NEXUS_SAFE_ZONE.get(); y <= Config.NEXUS_SAFE_ZONE.get(); y++) {
+                            for (int y = -Config.getNexusSafeZone(); y <= Config.getNexusSafeZone(); y++) {
 
-                                for (int z = -Config.NEXUS_SAFE_ZONE.get(); z <= Config.NEXUS_SAFE_ZONE.get(); z++) {
+                                for (int z = -Config.getNexusSafeZone(); z <= Config.getNexusSafeZone(); z++) {
                                     BlockPos block = new BlockPos(posX + x, posY + y, posZ + z);
 
                                     // tests if current block is a nexus
@@ -161,7 +161,7 @@ public class Events {
         BlockPos pos = event.getPos();
         Item item = event.getItemStack().getItem();
 
-        if (Config.NEXUS_TRACKING.get() && BuiltInRegistries.ITEM.getKey(item).toString().contains(References.MODID + ":nexus")
+        if (Config.getNexusTrackingEnabled() && BuiltInRegistries.ITEM.getKey(item).toString().contains(References.MODID + ":nexus")
                 && !BuiltInRegistries.ITEM.getKey(item).toString().contains(References.MODID + ":nexus_tracker")) { // test if placed block is a nexus
 
             String nexusColor = (item).toString().substring(12).toUpperCase();
