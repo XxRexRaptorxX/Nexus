@@ -14,7 +14,7 @@
 
 This mod is an **enhanced** standalone version of the "Nexus" block from [Age of Weapons](https://www.curseforge.com/minecraft/mc-mods/age-of-weapons), which allows you to play a team-based tower defense game mode against other players!
 
-I suggest that you use [MultiMine](https://www.curseforge.com/minecraft/mc-mods/multi-mine) for more team play with this mod.
+I suggest that you use [MultiMine][cf_mm] for more team play with this mod.
 
  -----
 
@@ -23,7 +23,7 @@ I suggest that you use [MultiMine](https://www.curseforge.com/minecraft/mc-mods/
 - Highly configurable
 - Ingame description (How to set up the gamemode)
 - Nexus blocks for up to 6 teams
-- [Patchouli](https://www.curseforge.com/minecraft/mc-mods/patchouli) manual
+- [Patchouli][cf_patchouli] & [GuideME][cf_guideMe] ingame manual
 - Option to put all players of a losing team in spectator mode
 - Option to mark all players attacking a Nexus through walls
 - Multiple destruction phases
@@ -48,10 +48,9 @@ I suggest that you use [MultiMine](https://www.curseforge.com/minecraft/mc-mods/
 ## 🗃️ Dependencies
 
 ### Required:
-- **Magma Core**
+- **Magma Core** *[≥ MC 1.21.5]*
   - Provides basic code and features such as update-checker
   - [CurseForge][cf_magmacore] | [Modrinth][mr_magmacore]
-
 
 ### Highly suggested:
 - **Multi-Mine**
@@ -59,19 +58,22 @@ I suggest that you use [MultiMine](https://www.curseforge.com/minecraft/mc-mods/
   - [CurseForge][cf_mm] | [Modrinth Alternative][mr_mm]
 
 ### Supported:
-- **Patchouli**
+- **GuideMe** *[≥ MC 1.21.5]*
+  - Provides an ingame manual
+  - [CurseForge][cf_guideMe] | [Modrinth][mr_guideMe]
+- **Patchouli** *[≥ MC 1.20]*
   - Provides an ingame manual
   - [CurseForge][cf_patchouli] | [Modrinth][mr_patchouli]
-- **MoreMcmeta Emissive Textures**
+- **MoreMcmeta Emissive Textures** *[≥ MC 1.20]*
   - Enables the emissive textures of the mod
   - [CurseForge][cf_mcmeta] | [Modrinth][mr_mcmeta]
-- **Continuity**
+- **Continuity** *[≥ MC 1.20]*
   - Enables the emissive textures of the mod
   - [CurseForge][cf_continuity] | [Modrinth][mr_continuity]
-- **Supplementaries**
+- **Supplementaries** *[≥ MC 1.20]*
   - Map marker implementation of the Nexus blocks
   - [CurseForge][cf_supplementaries] | [Modrinth][mr_supplementaries]
-- **Shimmer**
+- **Shimmer** *[≥ MC 1.20.3]*
   - Enables colored lightning
   - [CurseForge][cf_shimmer] | [Modrinth][mr_shimmer]
 
@@ -138,3 +140,5 @@ I suggest that you use [MultiMine](https://www.curseforge.com/minecraft/mc-mods/
 [mr_supplementaries]: https://modrinth.com/mod/supplementaries
 [cf_shimmer]: https://www.curseforge.com/minecraft/mc-mods/shimmer
 [mr_shimmer]: https://modrinth.com/mod/shimmer!
+[cf_guideME]: https://www.curseforge.com/minecraft/mc-mods/guideme
+[mr_guideME]: https://modrinth.com/mod/guideme

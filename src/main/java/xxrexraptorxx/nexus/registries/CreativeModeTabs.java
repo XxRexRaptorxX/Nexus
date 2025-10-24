@@ -1,9 +1,12 @@
 package xxrexraptorxx.nexus.registries;
 
+import guideme.Guides;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import xxrexraptorxx.nexus.main.References;
@@ -32,5 +35,10 @@ public class CreativeModeTabs {
                         output.accept(ModItems.NEXUS_TRACKER.get());
                         output.accept(ModItems.REPAIR_KIT.get());
                         output.accept(ModItems.TRANSMITTER.get());
+
+                        if (ModList.get().isLoaded("guideme")) {
+                            output.accept(Guides.createGuideItem(ResourceLocation.fromNamespaceAndPath(References.MODID, "manual")));
+                        }
+
                     }).build());
 }
